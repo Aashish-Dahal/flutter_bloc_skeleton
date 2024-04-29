@@ -1,24 +1,25 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthEvent extends Equatable {
+@immutable
+sealed class AuthEvent extends Equatable {
   const AuthEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class SignIn extends AuthEvent {
-  final User user;
-  const SignIn({required this.user});
+class AuthSignUp extends AuthEvent {
+  final JsonMap userMap;
+  const AuthSignUp({required this.userMap});
   @override
-  List<Object> get props => [user.email];
+  List<Object> get props => [userMap];
 }
 
-class SignOut extends AuthEvent {
-  final String message;
-  const SignOut({required this.message});
+class AuthSignIn extends AuthEvent {
+  final JsonMap userMap;
+  const AuthSignIn({required this.userMap});
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [userMap];
 }
 
-class CheckSignInStatus extends AuthEvent {}
+class Logout extends AuthEvent {}
