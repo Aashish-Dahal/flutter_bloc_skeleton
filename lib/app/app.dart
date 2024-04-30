@@ -1,32 +1,16 @@
 import 'package:easy_localization/easy_localization.dart'
-    show BuildContextEasyLocalizationExtension, StringTranslateExtension, tr;
+    show BuildContextEasyLocalizationExtension;
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart'
-    show
-        AppBar,
-        BuildContext,
-        Center,
-        MaterialApp,
-        Scaffold,
-        State,
-        StatefulWidget,
-        StatelessWidget,
-        Text,
-        TextStyle,
-        Widget;
+    show BuildContext, MaterialApp, StatelessWidget, Widget;
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocProvider, MultiBlocProvider;
-import 'package:flutter_bloc_skeleton/app/config/routes/app_routes.dart'
+
+import 'config/routes/app_routes.dart'
     show AppRouter;
-import 'package:flutter_bloc_skeleton/app/pages/auth/bloc/auth_bloc.dart'
-    show AuthBloc;
-import 'package:flutter_bloc_skeleton/app/services/auth/index.dart'
-    show AuthService;
-
-import 'config/theme/app_colors.dart' show AppColors;
 import 'config/theme/app_theme.dart' show AppTheme;
-
-final authBloc = AuthBloc(AuthService());
+import 'injector.dart';
+import 'pages/auth/bloc/auth_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -34,38 +18,15 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider.value(value: authBloc)],
+      providers: [BlocProvider.value(value: getIt<AuthBloc>())],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: kDebugMode,
-        routerConfig: AppRouter(authBloc).router,
+        routerConfig: AppRouter(getIt<AuthBloc>()).router,
         title: 'Flutter Bloc Skeleton',
         theme: AppTheme.light,
+        darkTheme: AppTheme.dark,
         localizationsDelegates: [...context.localizationDelegates],
         supportedLocales: context.supportedLocales,
-      ),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(tr("flutter bloc skeleton")),
-      ),
-      body: Center(
-        child: Text(
-          "flutter_bloc_skeleton".tr(),
-          style: TextStyle(color: AppColors.error),
-        ),
       ),
     );
   }
