@@ -1,33 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_skeleton/app/config/extension/extension.dart';
-import 'package:flutter_bloc_skeleton/app/config/routes/route_path.dart';
-import 'package:flutter_bloc_skeleton/app/pages/auth/bloc/auth_bloc.dart';
-import 'package:flutter_bloc_skeleton/app/pages/auth/view/login_page.dart';
-import 'package:flutter_bloc_skeleton/app/pages/auth/view/register_page.dart';
-import 'package:flutter_bloc_skeleton/app/pages/error/error_page.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app.dart';
+import '../../core/utils/extension/bloc_extension.dart';
+import '../../pages/auth/bloc/auth_bloc.dart';
+import '../../pages/index.dart';
+import '../firebase/index.dart';
+import 'route_path.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
-  static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   late final AuthBloc authBloc;
   GoRouter get router => _goRouter;
   AppRouter(this.authBloc);
 
-  late final GoRouter _goRouter = GoRouter(
+  late final _goRouter = GoRouter(
       initialLocation: AppPage.login.toPath,
       refreshListenable: authBloc.asListenable(),
-      navigatorKey: _rootNavigatorKey,
+      navigatorKey: rootNavigatorKey,
       routes: <GoRoute>[
         GoRoute(
           path: AppPage.home.toPath,
           name: AppPage.home.toName,
-          builder: (context, state) => const HomePage(),
+          redirect: (context, state) {
+            final state = authBloc.state;
+            if (state is Unauthenticated) {
+              return AppPage.login.toPath;
+            }
+            return null;
+          },
+          builder: (context, state) => HomePage(
+            user: firebaseAuth.currentUser,
+          ),
         ),
         GoRoute(
           path: AppPage.login.toPath,
           name: AppPage.login.toName,
+          redirect: (context, state) {
+            final state = authBloc.state;
+            if (state is Authenticated) {
+              return AppPage.home.toPath;
+            }
+            return null;
+          },
           builder: (context, state) => const LoginPage(),
         ),
         GoRoute(
@@ -36,12 +51,12 @@ class AppRouter {
           builder: (context, state) => const RegisterPage(),
         ),
       ],
-      errorBuilder: (context, state) => const ErrorPage(),
+      errorBuilder: (context, state) => const RouteNotFound(),
       redirect: (context, _) {
-        final state = authBloc.state;
-        if (state is Authenticated) {
+        final isLoggedIn = firebaseAuth.currentUser != null;
+        if (isLoggedIn) {
           return AppPage.home.toPath;
         }
         return null;
-      });
+      },);
 }
