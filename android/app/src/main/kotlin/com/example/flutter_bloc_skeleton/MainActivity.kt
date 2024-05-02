@@ -1,4 +1,4 @@
-package com.example.flutter_bloc_skeleton
+package flutter.bloc.skeleton
 
 import io.flutter.embedding.android.FlutterActivity
 
