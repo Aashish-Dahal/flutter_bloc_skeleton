@@ -1,18 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart'
-    show
-        AppBar,
-        BuildContext,
-        Column,
-        CrossAxisAlignment,
-        ElevatedButton,
-        MainAxisAlignment,
-        Scaffold,
-        StatelessWidget,
-        Text,
-        Widget;
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../core/common/bloc/pagination_bloc.dart';
+import '../../../injector.dart';
+import '../../../models/post/index.dart';
+import '../../../widgets/organisms/bloc_pagination_view.dart';
 import '../../auth/bloc/auth_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -24,24 +17,26 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Home Page"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-            "Welcome password To Flutter Bloc Skeleton Template ${user?.email}",
-            textAlign: TextAlign.center,
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(Logout());
+            },
+            icon: const Icon(Icons.logout_outlined),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                context.read<AuthBloc>().add(Logout());
-              },
-              child: const Text("Logout"),),
         ],
+      ),
+      body: BlocProvider<PaginationBloc>(
+        create: (context) => getIt<PaginationBloc>(),
+        child: BlocPaginationView<Posts>(
+          itemBuilder: (data) {
+            return ListTile(
+              leading: Text(data.id.toString()),
+              title: Text(data.title),
+              subtitle: Text(data.reaction.toString()),
+            );
+          },
+        ),
       ),
     );
   }
