@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'config/api/api.dart';
 import 'core/common/bloc/pagination_bloc.dart';
 import 'core/utils/bloc_observer.dart';
+import 'core/utils/enum/index.dart';
 import 'core/utils/path_provider/index.dart';
 import 'pages/auth/bloc/auth_bloc.dart';
 import 'services/index.dart';
@@ -35,9 +36,7 @@ Future<void> initDependencies() async {
 _initBlocInstance() {
   getIt.registerLazySingleton(() => AuthBloc(authService));
   getIt.registerLazySingleton(
-    () => PaginationBloc(newsService.getNews)
-      ..add(
-        const FetchPaginationData(),
-      ),
+    () => PaginationBloc(postService.getPost, type: PaginationType.cursor)
+      ..add(const CursorBasePagination()),
   );
 }
