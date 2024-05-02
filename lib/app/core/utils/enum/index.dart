@@ -4,4 +4,11 @@ enum Flavour {
   production;
 }
 
-enum PaginationStatus { initial, loaded, failure, loading, }
+enum PaginationStatus {
+  initial,
+  loaded,
+  failure,
+  loading,
+}
+
+enum PaginationType { cursor, page }
