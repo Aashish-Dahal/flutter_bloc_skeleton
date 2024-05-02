@@ -1,11 +1,11 @@
 import '../../core/utils/typedf/index.dart';
-import '../json_model/index.dart';
+import '../pagination/index.dart';
 
 List<Posts> _postsFromJson(List data) {
   return List<Posts>.from(data.map((res) => Posts.fromJson(res)));
 }
 
-class PostM extends JsonModel {
+class PostM extends PaginationModel {
   PostM({
     required super.count,
     required super.data,
