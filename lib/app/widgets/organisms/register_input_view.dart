@@ -17,7 +17,7 @@ class RegisterInputView extends StatelessWidget with AuthValidator {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InputField(
-            name: "name",
+            name: "full_name",
             hint: "Enter your full name",
             validator: fullNameValidator,
           ),
