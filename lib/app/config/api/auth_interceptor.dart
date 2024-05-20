@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import '../firebase/index.dart';
 
 class DioAuthInterceptor extends Interceptor {
@@ -10,11 +12,12 @@ class DioAuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     try {
-      String? token = await firebaseAuth.currentUser?.getIdToken(true);
-
-      if (token != null) {
-        options.headers
-            .addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
+      IdTokenResult? result =
+          await firebaseAuth.currentUser?.getIdTokenResult(true);
+      if (result?.token != null) {
+        options.headers.addAll(
+          {HttpHeaders.authorizationHeader: "Bearer ${result?.token}"},
+        );
       }
       handler.next(options);
     } catch (_) {
