@@ -20,6 +20,7 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [BlocProvider.value(value: getIt<AuthBloc>())],
       child: ScreenUtilInit(
+        minTextAdapt: true,
         designSize: const Size(360, 690),
         builder: (context, child) => MaterialApp.router(
           debugShowCheckedModeBanner: kDebugMode,
