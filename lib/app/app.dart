@@ -6,8 +6,7 @@ import 'package:flutter/material.dart'
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocProvider, MultiBlocProvider;
 
-import 'config/routes/app_routes.dart'
-    show AppRouter;
+import 'config/routes/app_routes.dart' show AppRouter;
 import 'config/theme/app_theme.dart' show AppTheme;
 import 'injector.dart';
 import 'pages/auth/bloc/auth_bloc.dart';

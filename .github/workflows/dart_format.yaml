@@ -10,7 +10,7 @@ on:
       - main
       - staging
       - production
-name: "Dart Format & build App"
+name: "Checking Formatting"
 jobs:
   build:
     name: Format & Build

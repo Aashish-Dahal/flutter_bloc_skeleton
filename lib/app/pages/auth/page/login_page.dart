@@ -39,9 +39,9 @@ class _LoginPageState extends State<LoginPage> with LoginViewModal {
               listener: onAuthStateListener,
               builder: (_, state) {
                 return ElevatedButton(
-                        onPressed: () => onSignInButtonPressed(context),
-                        child: const Text("Login"),)
-                    .withLoading(state is AuthLoading);
+                  onPressed: () => onSignInButtonPressed(context),
+                  child: const Text("Login"),
+                ).withLoading(state is AuthLoading);
               },
             ),
             const SizedBox(

@@ -20,19 +20,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
   _signUp(AuthSignUp event, Emitter<AuthState> emit) async {
     final res = await authService.signUp(event.userMap);
-    res.fold((l) => emit(AuthFailure(l.message!)),
-        (r) => emit(const AuthSuccess(signUpSuccess)),);
+    res.fold(
+      (l) => emit(AuthFailure(l.message!)),
+      (r) => emit(const AuthSuccess(signUpSuccess)),
+    );
   }
 
   _signIn(AuthSignIn event, Emitter<AuthState> emit) async {
     final res = await authService.signIn(event.userMap);
-    res.fold((l) => emit(AuthFailure(l.message!)),
-        (r) => emit(Authenticated(r.user!)),);
+    res.fold(
+      (l) => emit(AuthFailure(l.message!)),
+      (r) => emit(Authenticated(r.user!)),
+    );
   }
 
   _logout(Logout event, Emitter<AuthState> emit) async {
     final res = await authService.logout();
-    res.fold((l) => emit(AuthFailure(l.message!)),
-        (r) => emit(Unauthenticated(message: r)),);
+    res.fold(
+      (l) => emit(AuthFailure(l.message!)),
+      (r) => emit(Unauthenticated(message: r)),
+    );
   }
 }

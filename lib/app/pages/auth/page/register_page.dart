@@ -40,9 +40,9 @@ class _RegisterPageState extends State<RegisterPage> with RegisterViewModal {
               listener: onAuthStateListener,
               builder: (context, state) {
                 return ElevatedButton(
-                        onPressed: () => onSignUpButtonPressed(context),
-                        child: const Text("Register"),)
-                    .withLoading(state is AuthLoading);
+                  onPressed: () => onSignUpButtonPressed(context),
+                  child: const Text("Register"),
+                ).withLoading(state is AuthLoading);
               },
             ),
           ],

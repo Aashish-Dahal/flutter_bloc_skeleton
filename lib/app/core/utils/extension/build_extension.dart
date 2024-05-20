@@ -72,13 +72,17 @@ extension BuildContextExtension<T> on BuildContext {
   TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
 
   TextStyle? get dividerTextSmall => bodySmall?.copyWith(
-      letterSpacing: 0.5, fontWeight: FontWeight.w700, fontSize: 12.0,);
+        letterSpacing: 0.5,
+        fontWeight: FontWeight.w700,
+        fontSize: 12.0,
+      );
 
   TextStyle? get dividerTextLarge => bodySmall?.copyWith(
-      letterSpacing: 1.5,
-      fontWeight: FontWeight.w700,
-      fontSize: 13.0,
-      height: 1.23,);
+        letterSpacing: 1.5,
+        fontWeight: FontWeight.w700,
+        fontSize: 13.0,
+        height: 1.23,
+      );
 
   /*------------------ Theme colors --------------*/
 
@@ -120,7 +124,8 @@ extension BuildContextExtension<T> on BuildContext {
   }
 
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> showSnackBar(
-      String message,) {
+    String message,
+  ) {
     return ScaffoldMessenger.of(this).showSnackBar(
       SnackBar(
         content: Text(message),
