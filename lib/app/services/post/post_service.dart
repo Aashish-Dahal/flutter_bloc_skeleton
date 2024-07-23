@@ -16,7 +16,6 @@ class PostService extends PostInterface {
         "/posts",
         queryParameters: paginationParams.toCursorJson(),
       );
-
       return right(PostM.fromJson(res.data));
     } catch (e) {
       return left(Failure(message: e.toString()));

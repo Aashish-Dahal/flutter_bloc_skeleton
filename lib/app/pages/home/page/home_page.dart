@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
             return ListTile(
               leading: Text(data.id.toString()),
               title: Text(data.title),
-              subtitle: Text(data.reaction.toString()),
+              subtitle: Text(data.body),
             );
           },
         ),

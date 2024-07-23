@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:easy_localization/easy_localization.dart' show EasyLocalization;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,12 +23,9 @@ Future<void> initDependencies() async {
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
   InitDio()();
+  _initBlocInstance();
   preferences = await SharedPreferences.getInstance();
   Bloc.observer = SkeletonBlocObserver();
-  _initBlocInstance();
-  FlutterError.onError = (error) {
-    log(error.exceptionAsString(), stackTrace: error.stack);
-  };
 }
 
 _initBlocInstance() {

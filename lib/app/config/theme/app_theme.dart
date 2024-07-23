@@ -21,10 +21,10 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-          fixedSize: const MaterialStatePropertyAll(Size.fromHeight(45)),
-          foregroundColor: const MaterialStatePropertyAll(Colors.white),
-          backgroundColor: const MaterialStatePropertyAll(AppColors.primary),
-          shape: MaterialStatePropertyAll(
+          fixedSize: const WidgetStatePropertyAll(Size.fromHeight(45)),
+          foregroundColor: const WidgetStatePropertyAll(Colors.white),
+          backgroundColor: const WidgetStatePropertyAll(AppColors.primary),
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             ),
@@ -33,7 +33,7 @@ class AppTheme {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
-          shape: MaterialStatePropertyAll(
+          shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),
             ),

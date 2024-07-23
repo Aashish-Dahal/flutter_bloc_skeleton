@@ -25,23 +25,23 @@ class PostM extends PaginationModel {
 class Posts {
   final int id;
   final String title;
-  final int reaction;
+  final String body;
 
   const Posts({
     required this.id,
     required this.title,
-    required this.reaction,
+    required this.body,
   });
 
   factory Posts.fromJson(JsonMap json) => Posts(
         id: json['id'],
         title: json['title'],
-        reaction: json['reactions'],
+        body: json['body'],
       );
 
   JsonMap toJson() => {
         "id": id,
         "title": title,
-        "reactions": reaction,
+        "body": body,
       };
 }
