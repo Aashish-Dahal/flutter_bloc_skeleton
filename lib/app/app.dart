@@ -1,5 +1,4 @@
-import 'package:easy_localization/easy_localization.dart'
-    show BuildContextEasyLocalizationExtension;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart'
     show BuildContext, MaterialApp, Size, StatelessWidget, Widget;
