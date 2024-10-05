@@ -1,0 +1,71 @@
+#!/bin/sh
+# Stops the commit if there are any formatting, linting, or test issues
+
+set -e
+
+# ANSI color codes
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+# Function to check if commit message follows Conventional Commits format
+check_conventional_commit() {
+  commit_message=$(cat .git/COMMIT_EDITMSG)
+
+  
+  # Regex pattern to match Conventional Commit format
+  conventional_commit_regex="^(feat|fix|chore|docs|style|refactor|test|perf)(\([a-z]+\))?: .+$"
+  echo "Commit Message: '$commit_message'" # Debugging line
+
+  
+
+  if ! echo "$commit_message" | grep -Eq "$conventional_commit_regex"; then
+    echo  "${RED}Error: Commit message does not follow Conventional Commits format!${NC}"
+    echo  " "
+    echo  "${BLUE}Expected format: <type>(optional scope): <description>${NC}"
+    echo  " "
+    echo  "------------------------------------------"
+    echo  "${YELLOW}Conventional Commit Types:${NC}"
+    echo  "${YELLOW}  feat:${NC}     A new feature"
+    echo  "${YELLOW}  fix:${NC}      A bug fix"
+    echo  "${YELLOW}  chore:${NC}    Changes to the build process or auxiliary tools and libraries such as documentation generation"
+    echo  "${YELLOW}  docs:${NC}     Documentation-only changes"
+    echo  "${YELLOW}  style:${NC}    Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc.)"
+    echo  "${YELLOW}  refactor:${NC} A code change that neither fixes a bug nor adds a feature"
+    echo  "${YELLOW}  test:${NC}     Adding missing tests or correcting existing tests"
+    echo  "${YELLOW}  perf:${NC}     A code change that improves performance"
+    echo  "-------------------------------------------"
+    echo  " "
+    echo  "${BLUE}Example: feat(auth): add user authentication"
+    echo  " "
+
+    exit 1
+  fi
+}
+
+echo "${BLUE}Running Dart Format...${NC}"
+echo  " "
+dart format . --set-exit-if-changed lib/
+
+echo "${BLUE}Running Flutter Analyzer...${NC}"
+echo  " "
+flutter analyze
+
+echo "${BLUE}Running dart fix --apply...${NC}"
+echo  " "
+
+dart fix --apply
+
+# Check commit message for Conventional Commits format
+check_conventional_commit
+
+# Log the current commit message into a file
+echo "Commit Message: $(cat .git/COMMIT_EDITMSG)"
+
+echo "${GREEN}All checks passed.${NC}"
+
+echo "${GREEN}Thank you for your contribution.${NC}"
+
+
