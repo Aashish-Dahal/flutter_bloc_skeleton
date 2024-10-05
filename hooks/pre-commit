@@ -12,7 +12,7 @@ NC='\033[0m' # No Color
 
 # Function to check if commit message follows Conventional Commits format
 check_conventional_commit() {
-  commit_message=$(cat .git/COMMIT_EDITMSG)
+commit_message=$(git log -1 --pretty=%B)
 
   
   # Regex pattern to match Conventional Commit format
