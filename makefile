@@ -8,6 +8,14 @@ GOOGLE_SERVICE_ANDROID=$(ANDROID_DIR)/app/
 IOS_DIR=ios
 GOOGLE_SERVICE_INFO=GoogleService-Info.plist
 GOOGLE_SERVICE_IOS=$(IOS_DIR)/Runner/
+
+# Project Setup
+project-setup:
+	@make flutter-clean
+	@cp -r hooks/pre-commit .git/hooks/
+	@chmod +x .git/hooks/pre-commit   
+	@echo "$(GREEN)Pre commit hook setup successfully$(NC)"
+
 set-env-dev:
 	@cp -r env/dev/config.dart lib/
 	@cp -r env/dev/$(GOOGLE_SERVICE_JSON) $(GOOGLE_SERVICE_ANDROID)
