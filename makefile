@@ -12,7 +12,11 @@ GOOGLE_SERVICE_IOS=$(IOS_DIR)/Runner/
 # Project Setup
 project-setup:
 	@make flutter-clean
+	@cp -r hooks/prepare-commit-msg .git/hooks/
+	@cp -r hooks/commit-msg .git/hooks/
 	@cp -r hooks/pre-commit .git/hooks/
+	@chmod +x .git/hooks/prepare-commit-msg
+	@chmod +x .git/hooks/commit-msg
 	@chmod +x .git/hooks/pre-commit   
 	@echo "$(GREEN)Pre commit hook setup successfully$(NC)"
 
@@ -50,6 +54,7 @@ flutter-clean:
 	@flutter clean
 	@echo "$(GREEN) Fetching dependencies...$(NC)"
 	@flutter pub get
+
 flutter-fix:
 	@echo "$(GREEN) Running Flutter format...$(NC)"
 	@dart format .
