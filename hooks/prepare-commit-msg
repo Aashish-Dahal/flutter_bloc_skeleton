@@ -1,0 +1,12 @@
+#!/bin/sh
+# Prepare the commit message before the commit editor is launched
+
+# Get the commit message from the file
+commit_msg_file="$1"
+
+# Fetch the commit message if not a merge commit
+if [ -z "$2" ]; then
+    echo "Fetching the latest commit message..."
+    echo "Your commit message goes here." > "$commit_msg_file"
+fi
+
