@@ -30,7 +30,7 @@ jobs:
         run: echo "Running flutter setup..." && exit 0
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.24.1"
+          flutter-version: "3.24.2"
           channel: stable
       - run: echo "Completed flutter setup."
 
