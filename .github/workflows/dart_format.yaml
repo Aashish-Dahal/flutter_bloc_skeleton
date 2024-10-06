@@ -56,4 +56,4 @@ jobs:
         run: dart fix --apply
 
       - name: Flutter Build APK
-        run: flutter build apk --verbose
+        run: flutter build apk
