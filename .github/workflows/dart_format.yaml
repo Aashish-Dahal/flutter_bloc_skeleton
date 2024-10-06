@@ -44,6 +44,11 @@ jobs:
       - run: flutter pub get
       - run: echo "Completed flutter pub get."
 
+      - name: Flutter Pub Cache clean
+        run: echo "Running flutter pub cache clean..." && exit 0
+      - run: flutter pub cache clean
+      - run: echo "Completed flutter pub cache clean."
+
       - name: Flutter Analyze
         run: echo "Running flutter analyze..." && exit 0
       - run: flutter analyze --fatal-infos
@@ -61,7 +66,7 @@ jobs:
 
       - name: Flutter Build APK
         run: echo "Running flutter build apk..." && exit 0
-      - run: flutter build apk --split-per-abi
+      - run: flutter build apk
       - run: echo "Completed flutter build apk."
 
       # - name: Create a Release APK
