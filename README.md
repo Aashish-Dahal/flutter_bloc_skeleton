@@ -28,20 +28,20 @@ Make sure you have Flutter installed on your machine. If you haven't installed F
 1. Clone the repository to your local machine using the following command:
 
 ```
-   git clone https://github.com/Aashish-Dahal/flutter_bloc_skeleton
+git clone https://github.com/Aashish-Dahal/flutter_bloc_skeleton
 ```
 
 2. Change into the project directory using the following command:
 
 ```
-   cd flutter_bloc_skeleton
+cd flutter_bloc_skeleton
 ```
 
-3. Fetch the dependencies using the following command:
+3. Run this command to set up the project:
 
 ```
- flutter clean
- flutter pub get
+ make project-setup
+ make flutter-clean
 ```
 
 4. Run the project using the following command:
@@ -53,6 +53,13 @@ Make sure you have Flutter installed on your machine. If you haven't installed F
 This will launch the app on your connected device or emulator.
 
 ### Environments
+
+Place the env files like `config.dart, google-services.json, GoogleService.plist` inside respective `env/<dev|prod>`
+folder.
+
+And you can run `make set-env-dev | make set-env-prod` in terminal to set the required environment files.
+
+### Material Theme Setup
 
 Place the env files like `config.dart, google-services.json, GoogleService.plist` inside respective `env/<dev|prod>`
 folder.
