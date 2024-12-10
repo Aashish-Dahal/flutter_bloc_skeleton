@@ -61,10 +61,9 @@ And you can run `make set-env-dev | make set-env-prod` in terminal to set the re
 
 ### Material Theme Setup
 
-Place the env files like `config.dart, google-services.json, GoogleService.plist` inside respective `env/<dev|prod>`
-folder.
+Use this Material Design 3 Theme Generator website to design themes for both dark and light modes.
 
-And you can run `make set-env-dev | make set-env-prod` in terminal to set the required environment files.
+- [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
 
 ## Coding Guidelines
 
