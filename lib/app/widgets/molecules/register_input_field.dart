@@ -4,9 +4,10 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import '../../core/validators/auth_validator.dart';
 import '../atoms/input_field.dart';
 
-class LoginInputView extends StatelessWidget with AuthValidator {
+class RegisterInputField extends StatelessWidget with AuthValidator {
   final GlobalKey<FormBuilderState> formKey;
-  LoginInputView({super.key, required this.formKey});
+
+  RegisterInputField({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,14 @@ class LoginInputView extends StatelessWidget with AuthValidator {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          InputField(
+            name: "full_name",
+            hint: "Enter your full name",
+            validator: fullNameValidator,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
           InputField(
             name: "email",
             hint: "Enter email address",

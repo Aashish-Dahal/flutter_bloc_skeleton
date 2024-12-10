@@ -12,16 +12,6 @@ extension BreakWord on String {
   }
 }
 
-extension HexColorExtension on String {
-  Color toColor() {
-    String hexColorString = replaceAll("#", "");
-    if (hexColorString.length == 6) {
-      hexColorString = "FF$hexColorString";
-    }
-    return Color(int.parse(hexColorString, radix: 16));
-  }
-}
-
 extension ElevatedButtonLoadingExtension on ElevatedButton {
   ElevatedButton withLoading(bool loading) {
     return ElevatedButton(
