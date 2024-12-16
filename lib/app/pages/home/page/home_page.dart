@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../config/routes/route_path.dart';
 import '../../../core/common/bloc/pagination_bloc.dart';
 import '../../../injector.dart';
 import '../../../models/post/index.dart';
@@ -31,6 +33,9 @@ class HomePage extends StatelessWidget {
         child: BlocPaginationView<Posts>(
           itemBuilder: (data) {
             return ListTile(
+              onTap: () {
+                context.push(AppPage.detail.toPath, extra: data);
+              },
               leading: Text(data.id.toString()),
               title: Text(data.title),
               subtitle: Text(data.body),

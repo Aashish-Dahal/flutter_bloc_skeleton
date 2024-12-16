@@ -113,10 +113,4 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
       (r) => emit(PaginationSuccess(data: r.data)),
     );
   }
-
-  @override
-  Future<void> close() {
-    scrollController.dispose();
-    return super.close();
-  }
 }

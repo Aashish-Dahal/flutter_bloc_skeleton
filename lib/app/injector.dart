@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../firebase_options.dart';
 import 'config/api/api.dart';
 import 'core/common/bloc/pagination_bloc.dart';
 import 'core/utils/bloc_observer.dart';
@@ -19,7 +20,7 @@ final getIt = GetIt.instance;
 Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPathProvider.initPath();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
   InitDio()();

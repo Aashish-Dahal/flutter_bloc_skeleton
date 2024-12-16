@@ -6,7 +6,9 @@ class AppTheme {
   static ThemeData get light {
     return ThemeData(
       useMaterial3: true,
+      brightness: Brightness.light,
       primarySwatch: AppColors.primary,
+      colorScheme: ColorScheme.light(),
       textTheme: const TextTheme(
         displayLarge: TextStyle(fontWeight: FontWeight.bold),
       ),

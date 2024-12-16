@@ -1,4 +1,4 @@
-enum AppPage { home, login, register }
+enum AppPage { home, login, register, error, detail }
 
 extension AppPageExtension on AppPage {
   String get toPath {
@@ -7,6 +7,10 @@ extension AppPageExtension on AppPage {
         return '/login';
       case AppPage.register:
         return '/register';
+      case AppPage.detail:
+        return '/detail';
+      case AppPage.error:
+        return '/error';
       case AppPage.home:
         return '/';
       default:
@@ -20,8 +24,12 @@ extension AppPageExtension on AppPage {
         return "Login";
       case AppPage.register:
         return "Register";
+      case AppPage.detail:
+        return "Detail";
       case AppPage.home:
         return "Home";
+      case AppPage.error:
+        return "Error";
       default:
         return "Onboarding";
     }

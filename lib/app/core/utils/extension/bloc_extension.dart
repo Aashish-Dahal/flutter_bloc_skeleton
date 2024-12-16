@@ -23,3 +23,14 @@ extension BlocExtensions<T> on BlocBase<T> {
     return notifier;
   }
 }
+
+extension StreamExtensions<T> on Stream<T> {
+  Listenable asListenable() {
+    final notifier = ChangeNotifier();
+    listen((_) {
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+      notifier.notifyListeners();
+    });
+    return notifier;
+  }
+}
