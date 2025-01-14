@@ -46,18 +46,13 @@ class _LoginPageBodyState extends State<LoginPageBody> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
+        spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Welcome to Login Page"),
-          const SizedBox(
-            height: 20,
-          ),
           LoginInputField(
             formKey: formKey,
-          ),
-          const SizedBox(
-            height: 20,
           ),
           BlocConsumer<AuthBloc, AuthState>(
             listener: onAuthStateListener,
@@ -68,15 +63,9 @@ class _LoginPageBodyState extends State<LoginPageBody> {
               ).withLoading(state is AuthLoading);
             },
           ),
-          const SizedBox(
-            height: 20,
-          ),
           const Text(
             "Don't have an account?",
             textAlign: TextAlign.center,
-          ),
-          const SizedBox(
-            height: 20,
           ),
           OutlinedButton(
             onPressed: onRegisterButtonPressed,
