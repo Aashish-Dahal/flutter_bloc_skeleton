@@ -28,7 +28,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
 
   void onSignUpButtonPressed() {
     if (formKey.currentState!.saveAndValidate()) {
-      // context.read<AuthBloc>().add(AuthSignUp(userMap: formKey.formValue));
+      context.read<AuthBloc>().add(AuthSignUp(userMap: formKey.formValue));
     }
   }
 
@@ -55,7 +55,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
             listener: onAuthStateListener,
             builder: (context, state) {
               return ElevatedButton(
-                onPressed: () => onSignUpButtonPressed,
+                onPressed: onSignUpButtonPressed,
                 child: const Text("Register"),
               ).withLoading(state is AuthLoading);
             },

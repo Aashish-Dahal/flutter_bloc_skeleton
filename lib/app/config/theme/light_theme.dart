@@ -12,6 +12,7 @@ import 'package:flutter/material.dart'
         InputDecorationTheme,
         OutlineInputBorder,
         OutlinedButtonThemeData,
+        ProgressIndicatorThemeData,
         RoundedRectangleBorder,
         Size,
         TextStyle,
@@ -36,7 +37,7 @@ base class LightTheme extends Typography {
         primary: AppColors.white,
         onPrimary: AppColors.primary,
         secondary: AppColors.secondary,
-        onSecondary: AppColors.white,
+        onSecondary: AppColors.black,
         error: AppColors.error,
         onError: AppColors.error,
         surface: AppColors.white,
@@ -44,6 +45,9 @@ base class LightTheme extends Typography {
       ),
       textTheme: TextTheme(
         displayLarge: displayLarge,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: AppColors.black,
       ),
       appBarTheme: const AppBarTheme(
         iconTheme: IconThemeData(color: Colors.white),
@@ -81,6 +85,8 @@ base class LightTheme extends Typography {
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
+          foregroundColor: WidgetStatePropertyAll(Colors.black),
+          side: WidgetStatePropertyAll(BorderSide(color: AppColors.primary)),
           shape: WidgetStatePropertyAll(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(6),

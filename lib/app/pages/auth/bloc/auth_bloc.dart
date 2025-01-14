@@ -1,9 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils/strings/index.dart';
 import '../../../core/utils/typedf/index.dart';
-import '../../../models/user/index.dart';
 import '../../../services/auth/auth_service.dart';
 
 part 'auth_event.dart';
@@ -12,24 +13,32 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthService authService;
   AuthBloc(this.authService) : super(AuthInitial()) {
-    on<AuthStatus>(_getProfile);
+    on<AuthEvent>((_, emit) => emit(AuthLoading()));
+    on<AuthSignUp>(_signUp);
     on<AuthSignIn>(_signIn);
-    add(AuthStatus());
+    on<Logout>(_logout);
   }
-  _getProfile(AuthStatus event, Emitter<AuthState> emit) async {
-    final res = await authService.getProfile();
-    res.match(
+  _signUp(AuthSignUp event, Emitter<AuthState> emit) async {
+    final res = await authService.signUp(event.userMap);
+    res.fold(
       (l) => emit(AuthFailure(l.message)),
-      (r) => emit(Authenticated(r)),
+      (r) => emit(const AuthSuccess(signUpSuccess)),
     );
   }
 
   _signIn(AuthSignIn event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
     final res = await authService.signIn(event.userMap);
-    res.match(
+    res.fold(
       (l) => emit(AuthFailure(l.message)),
-      (r) => emit(Authenticated(r)),
+      (r) => emit(Authenticated(r.user!)),
+    );
+  }
+
+  _logout(Logout event, Emitter<AuthState> emit) async {
+    final res = await authService.logout();
+    res.fold(
+      (l) => emit(AuthFailure(l.message)),
+      (r) => emit(Unauthenticated(message: r)),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/utils/extension/bloc_extension.dart';
 import '../../pages/auth/bloc/auth_bloc.dart';
 import '../../pages/index.dart';
+import '../firebase/index.dart';
 import 'route_path.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -14,7 +15,7 @@ class AppRouter {
   AppRouter(this.authBloc);
 
   late final _goRouter = GoRouter(
-    initialLocation: authBloc.state is Authenticated
+    initialLocation: firebaseAuth.currentUser != null
         ? AppPage.home.toPath
         : AppPage.login.toPath,
     refreshListenable: authBloc.asListenable(),
@@ -52,7 +53,7 @@ class AppRouter {
     ],
     errorBuilder: (context, state) => const RouteNotFound(),
     redirect: (context, _) {
-      final isLoggedIn = authBloc.state is Authenticated;
+      final isLoggedIn = firebaseAuth.currentUser != null;
       if (isLoggedIn) {
         return AppPage.home.toPath;
       }
