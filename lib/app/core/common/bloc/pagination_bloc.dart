@@ -25,7 +25,6 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
     on<CursorBasePagination>(_cursorBasePagination);
     on<PageBasedLoadMore>(_onPageBasedLoadMore);
     on<CursorBasedLoadMore>(_onCursorBasedLoadMore);
-
     on<PaginationRefresh>(_onRefresh);
   }
   void _handleScroll() {
@@ -46,7 +45,7 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
   ) async {
     emit(const PaginationLoading());
     final res = await call(params);
-    res.fold(
+    res.match(
       (l) => emit(PaginationError(error: l.message)),
       (r) => emit(PaginationSuccess(data: r.data)),
     );
@@ -58,7 +57,7 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
   ) async {
     emit(const PaginationLoading());
     final res = await call(params);
-    res.fold(
+    res.match(
       (l) => emit(PaginationError(error: l.message)),
       (r) => emit(PaginationSuccess(data: r.data)),
     );
@@ -73,7 +72,7 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
     params.page++;
 
     final res = await call(params);
-    res.fold(
+    res.match(
       (l) => emit(PaginationError(error: l.message)),
       (r) {
         emit(PaginationSuccess(data: [...state.data, ...r.data]));
@@ -108,7 +107,7 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
   _onRefresh(PaginationRefresh event, Emitter<PaginationState> emit) async {
     emit(const PaginationLoading());
     final res = await call(params..page = 1);
-    res.fold(
+    res.match(
       (l) => emit(PaginationError(error: l.message)),
       (r) => emit(PaginationSuccess(data: r.data)),
     );

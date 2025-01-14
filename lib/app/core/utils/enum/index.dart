@@ -12,3 +12,5 @@ enum PaginationStatus {
 }
 
 enum PaginationType { cursor, page }
+
+enum SecureStorageKey { bearerToken, refreshToken }

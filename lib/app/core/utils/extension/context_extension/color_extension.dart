@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
 
 extension BuildContextExtension<T> on BuildContext {
-  Color get primaryColor => Theme.of(this).primaryColor;
+  ThemeData get themeData => Theme.of(this);
+  ColorScheme get colorScheme => themeData.colorScheme;
 
-  Color get primaryColorDark => Theme.of(this).primaryColorDark;
+  Color get primaryColor => themeData.primaryColor;
 
-  Color get primaryColorLight => Theme.of(this).primaryColorLight;
+  Color get primaryColorDark => themeData.primaryColorDark;
 
-  Color get primary => Theme.of(this).colorScheme.primary;
+  Color get primaryColorLight => themeData.primaryColorLight;
 
-  Color get onPrimary => Theme.of(this).colorScheme.onPrimary;
+  Color get cardColor => themeData.cardColor;
 
-  Color get secondary => Theme.of(this).colorScheme.secondary;
+  Color get primary => colorScheme.primary;
 
-  Color get onSecondary => Theme.of(this).colorScheme.onSecondary;
+  Color get onPrimary => colorScheme.onPrimary;
 
-  Color get cardColor => Theme.of(this).cardColor;
+  Color get secondary => colorScheme.secondary;
 
-  Color get errorColor => Theme.of(this).colorScheme.error;
+  Color get onSecondary => colorScheme.onSecondary;
 
-  Color get background => Theme.of(this).colorScheme.surface;
+  Color get errorColor => colorScheme.error;
+
+  Color get background => colorScheme.surface;
 }

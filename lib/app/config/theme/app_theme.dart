@@ -1,49 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show ThemeData;
+import 'package:flutter_bloc/flutter_bloc.dart' show Cubit;
 
-import 'app_colors.dart';
+import 'dark_theme.dart';
+import 'light_theme.dart';
 
-class AppTheme {
-  static ThemeData get light {
-    return ThemeData(
-      useMaterial3: true,
-      primarySwatch: AppColors.primary,
-      textTheme: const TextTheme(
-        displayLarge: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      appBarTheme: const AppBarTheme(
-        iconTheme: IconThemeData(color: Colors.white),
-        backgroundColor: AppColors.primary,
-        titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-      ),
-      inputDecorationTheme: const InputDecorationTheme(
-        border: OutlineInputBorder(),
-        isDense: true,
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          fixedSize: const WidgetStatePropertyAll(Size.fromHeight(45)),
-          foregroundColor: const WidgetStatePropertyAll(Colors.white),
-          backgroundColor: const WidgetStatePropertyAll(AppColors.primary),
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ),
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ButtonStyle(
-          shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+class AppTheme extends Cubit<ThemeData> {
+  AppTheme() : super(LightTheme.instance.light);
 
-  static ThemeData get dark {
-    return ThemeData(textTheme: const TextTheme());
+  void switchTheme([bool darkMode = false]) {
+    emit(darkMode ? DarkTheme.instance.dark : LightTheme.instance.light);
   }
 }

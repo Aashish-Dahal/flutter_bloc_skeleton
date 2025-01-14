@@ -5,6 +5,8 @@ class InputField extends FormBuilderTextField {
   final String? hint;
   InputField({super.key, required super.name, this.hint, super.validator})
       : super(
-          decoration: InputDecoration(hintText: hint),
+          decoration: InputDecoration(
+            hintText: hint,
+          ),
         );
 }

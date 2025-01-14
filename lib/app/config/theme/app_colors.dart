@@ -14,9 +14,10 @@ class AppColors {
     900: Color(0xFF0D47A1),
   });
   static const Color black = Color(0xFF333333);
-  static const Color greyDark = Color(0x00999999);
-  static const Color greyLight = Color(0x00f3f4f8);
-  static const Color secondary = Color(0x00097693);
-  static const Color warning = Color(0x00bd5d06);
-  static const Color error = Color(0x00a40e15);
+  static const Color greyDark = Color(0xFF999999);
+  static const Color greyLight = Color(0xFFf3f4f8);
+  static const Color secondary = Color(0xFF097693);
+  static const Color warning = Color(0xFFbd5d06);
+  static const Color error = Color(0xFFa40e15);
+  static const Color white = Color(0xffffffff);
 }

@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter/material.dart'
-    show BuildContext, MaterialApp, Size, StatelessWidget, Widget;
+    show BuildContext, MaterialApp, Size, StatelessWidget, ThemeData, Widget;
 import 'package:flutter_bloc/flutter_bloc.dart'
-    show BlocProvider, MultiBlocProvider;
+    show BlocBuilder, BlocProvider, MultiBlocProvider;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'config/routes/app_routes.dart' show AppRouter;
-import 'config/theme/app_theme.dart' show AppTheme;
+import 'config/theme/app_theme.dart';
 import 'injector.dart';
 import 'pages/auth/bloc/auth_bloc.dart';
 
@@ -17,18 +17,22 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider.value(value: getIt<AuthBloc>())],
+      providers: [
+        BlocProvider.value(value: getIt<AuthBloc>()),
+        BlocProvider.value(value: getIt<AppTheme>()),
+      ],
       child: ScreenUtilInit(
         minTextAdapt: true,
         designSize: const Size(360, 690),
-        builder: (context, child) => MaterialApp.router(
-          debugShowCheckedModeBanner: kDebugMode,
-          routerConfig: AppRouter(getIt<AuthBloc>()).router,
-          title: 'Flutter Bloc Skeleton',
-          theme: AppTheme.light,
-          darkTheme: AppTheme.dark,
-          localizationsDelegates: [...context.localizationDelegates],
-          supportedLocales: context.supportedLocales,
+        builder: (context, child) => BlocBuilder<AppTheme, ThemeData>(
+          builder: (context, themeData) => MaterialApp.router(
+            debugShowCheckedModeBanner: kDebugMode,
+            routerConfig: AppRouter(getIt<AuthBloc>()).router,
+            title: 'Flutter Bloc Skeleton',
+            theme: themeData,
+            localizationsDelegates: [...context.localizationDelegates],
+            supportedLocales: context.supportedLocales,
+          ),
         ),
       ),
     );

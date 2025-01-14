@@ -26,9 +26,9 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
     }
   }
 
-  void onSignUpButtonPressed(BuildContext context) {
+  void onSignUpButtonPressed() {
     if (formKey.currentState!.saveAndValidate()) {
-      context.read<AuthBloc>().add(AuthSignUp(userMap: formKey.formValue));
+      // context.read<AuthBloc>().add(AuthSignUp(userMap: formKey.formValue));
     }
   }
 
@@ -43,24 +43,19 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
+        spacing: 20,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Welcome to Register Page"),
-          const SizedBox(
-            height: 20,
-          ),
           RegisterInputField(
             formKey: formKey,
-          ),
-          const SizedBox(
-            height: 20,
           ),
           BlocConsumer<AuthBloc, AuthState>(
             listener: onAuthStateListener,
             builder: (context, state) {
               return ElevatedButton(
-                onPressed: () => onSignUpButtonPressed(context),
+                onPressed: () => onSignUpButtonPressed,
                 child: const Text("Register"),
               ).withLoading(state is AuthLoading);
             },

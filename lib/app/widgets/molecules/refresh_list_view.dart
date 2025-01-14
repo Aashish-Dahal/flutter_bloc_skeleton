@@ -6,6 +6,7 @@ class RefreshListView extends StatelessWidget {
   final Widget Function(BuildContext, int) itemBuilder;
   final ScrollController? controller;
   final bool showDivider;
+  final Widget separatorWidget;
 
   const RefreshListView({
     super.key,
@@ -13,6 +14,7 @@ class RefreshListView extends StatelessWidget {
     required this.itemCount,
     required this.itemBuilder,
     this.controller,
+    this.separatorWidget = const SizedBox(),
     this.showDivider = true,
   });
 
@@ -24,7 +26,7 @@ class RefreshListView extends StatelessWidget {
         controller: controller,
         itemBuilder: itemBuilder,
         separatorBuilder: (_, i) =>
-            showDivider ? const Divider() : const SizedBox(),
+            showDivider ? const Divider() : separatorWidget,
         itemCount: itemCount,
       ),
     );

@@ -14,7 +14,7 @@ class InitDio {
         contentType: Headers.jsonContentType,
         baseUrl: Config.baseUrl,
         connectTimeout: const Duration(milliseconds: 5000),
-        receiveTimeout: const Duration(milliseconds: 5000),
+        receiveTimeout: const Duration(milliseconds: 3000),
       ),
     )..interceptors.addAll([
         DioAuthInterceptor(),

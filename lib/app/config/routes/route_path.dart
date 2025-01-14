@@ -9,8 +9,6 @@ extension AppPageExtension on AppPage {
         return '/register';
       case AppPage.home:
         return '/';
-      default:
-        return '/onboarding';
     }
   }
 
@@ -22,8 +20,6 @@ extension AppPageExtension on AppPage {
         return "Register";
       case AppPage.home:
         return "Home";
-      default:
-        return "Onboarding";
     }
   }
 }

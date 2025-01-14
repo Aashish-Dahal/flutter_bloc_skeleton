@@ -15,11 +15,15 @@ class AuthSignUp extends AuthEvent {
   List<Object> get props => [userMap];
 }
 
+class AuthStatus extends AuthEvent {
+  const AuthStatus();
+  @override
+  List<Object> get props => [];
+}
+
 class AuthSignIn extends AuthEvent {
   final JsonMap userMap;
   const AuthSignIn({required this.userMap});
   @override
   List<Object> get props => [userMap];
 }
-
-class Logout extends AuthEvent {}

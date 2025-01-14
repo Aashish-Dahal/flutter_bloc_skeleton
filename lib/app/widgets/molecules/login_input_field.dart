@@ -13,15 +13,14 @@ class LoginInputField extends StatelessWidget with AuthValidator {
     return FormBuilder(
       key: formKey,
       child: Column(
+        spacing: 10,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InputField(
-            name: "email",
-            hint: "Enter email address",
-            validator: emailValidator,
-          ),
-          const SizedBox(
-            height: 10,
+            name: "username",
+            hint: "Enter Username",
+
+            // validator: emailValidator,
           ),
           InputField(
             name: "password",

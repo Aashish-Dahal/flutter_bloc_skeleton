@@ -22,12 +22,11 @@ dependencies:
   form_builder_validators: ^11.0.0
   cupertino_icons: ^1.0.8
   fpdart: ^1.1.1
-  firebase_auth: ^5.3.4
   dio_cache_interceptor: ^3.5.1
   path_provider: ^2.1.5
   dio_cache_interceptor_hive_store: ^4.0.0
-  firebase_core: ^3.8.1
   flutter_screenutil: ^5.9.3
+  flutter_secure_storage: ^9.2.2
 
 dev_dependencies:
   flutter_test:
