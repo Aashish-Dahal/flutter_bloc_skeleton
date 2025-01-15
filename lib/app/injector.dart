@@ -1,10 +1,11 @@
 import 'package:easy_localization/easy_localization.dart' show EasyLocalization;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../config.dart';
 import 'config/api/api.dart';
 import 'config/theme/app_theme.dart';
 import 'core/common/bloc/pagination_bloc.dart';
@@ -21,6 +22,11 @@ Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPathProvider.initPath();
   await EasyLocalization.ensureInitialized();
+  await Supabase.initialize(
+    url: Config.supabaseUrl,
+    anonKey: Config.supabaseKey,
+  );
+
   EasyLocalization.logger.enableBuildModes = [];
   InitDio()();
   _initBlocInstance();
@@ -29,14 +35,6 @@ Future<void> initDependencies() async {
 }
 
 _initBlocInstance() {
-  getIt.registerSingleton(
-    FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-      ),
-      iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
-    ),
-  );
   getIt.registerLazySingleton(() => AppTheme());
   getIt.registerLazySingleton(() => AuthBloc(authService));
   getIt.registerLazySingleton(

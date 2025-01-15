@@ -19,7 +19,7 @@ final class AuthSuccess extends AuthState {
 }
 
 final class Authenticated extends AuthState {
-  final UserM user;
+  final AuthResponse user;
   const Authenticated(this.user);
   @override
   List<Object> get props => [user];

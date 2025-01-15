@@ -26,7 +26,7 @@ dependencies:
   path_provider: ^2.1.5
   dio_cache_interceptor_hive_store: ^4.0.0
   flutter_screenutil: ^5.9.3
-  flutter_secure_storage: ^9.2.2
+  supabase_flutter: ^2.8.3
 
 dev_dependencies:
   flutter_test:
