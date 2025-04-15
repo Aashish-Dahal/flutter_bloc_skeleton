@@ -8,9 +8,7 @@ CacheOptions cacheOptions = CacheOptions(
   store: HiveCacheStore(AppPathProvider.path),
   policy: CachePolicy.noCache,
   hitCacheOnErrorExcept: [],
-  maxStale: const Duration(
-    days: Config.cacheDays,
-  ),
+  maxStale: const Duration(days: Config.cacheDays),
   //increase number of days for logger cache
   priority: CachePriority.high,
 );

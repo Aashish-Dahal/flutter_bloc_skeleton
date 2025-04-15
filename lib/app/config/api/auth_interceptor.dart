@@ -14,9 +14,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart'
 import 'package:fpdart/fpdart.dart';
 
 import '../../core/utils/enum/index.dart' show SecureStorageKey;
-import '../../injector.dart' show getIt;
-import '../../services/index.dart';
-import 'api.dart';
+import '../../injector.dart' show sl;
+import '../../models/refresh/index.dart';
+import '../../repository/auth_repo.dart';
+import 'api_endpoints.dart';
+import 'api_response.dart';
+import 'dio_client.dart';
 
 class DioAuthInterceptor extends Interceptor {
   @override
@@ -25,24 +28,26 @@ class DioAuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     try {
-      final token = await getIt<FlutterSecureStorage>()
-          .read(key: SecureStorageKey.bearerToken.name);
-      options.headers
-          .addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
+      final token = await sl<FlutterSecureStorage>().read(
+        key: SecureStorageKey.bearerToken.name,
+      );
+      options.headers.addAll({
+        HttpHeaders.authorizationHeader: "Bearer $token",
+      });
       handler.next(options);
     } catch (_) {}
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
-    if (response.requestOptions.path == "/auth/login" ||
-        response.requestOptions.path == "/auth/refresh") {
+    if (response.requestOptions.path == ApiEndpoints.login ||
+        response.requestOptions.path == ApiEndpoints.refreshToken) {
       await Future.wait([
-        getIt<FlutterSecureStorage>().write(
+        sl<FlutterSecureStorage>().write(
           key: SecureStorageKey.bearerToken.name,
           value: response.data?['accessToken'],
         ),
-        getIt<FlutterSecureStorage>().write(
+        sl<FlutterSecureStorage>().write(
           key: SecureStorageKey.refreshToken.name,
           value: response.data?['refreshToken'],
         ),
@@ -53,21 +58,29 @@ class DioAuthInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
-    final accessToken = await getIt<FlutterSecureStorage>()
-        .read(key: SecureStorageKey.bearerToken.name);
+    final accessToken = await sl<FlutterSecureStorage>().read(
+      key: SecureStorageKey.bearerToken.name,
+    );
 
     if (err.response?.statusCode == 401 && accessToken != null) {
-      final refreshToken = await getIt<FlutterSecureStorage>()
-          .read(key: SecureStorageKey.refreshToken.name);
+      final refreshToken = await sl<FlutterSecureStorage>().read(
+        key: SecureStorageKey.refreshToken.name,
+      );
 
-      final response = await authService.refreshToken({
+      final response = await sl<AuthRepository>().refreshToken({
         "refreshToken": refreshToken,
       });
 
       err.requestOptions.headers[HttpHeaders.authorizationHeader] =
-          response.getRight().getOrElse(() => null)["accessToken"];
+          response
+              .getRight()
+              .getOrElse(
+                () => ApiResponse(data: RefreshM.empty, statusCode: 200),
+              )
+              .data
+              .refreshToken;
 
-      handler.resolve(await dio.fetch(err.requestOptions));
+      handler.resolve(await sl<DioClient>().dio.fetch(err.requestOptions));
     }
     handler.next(err);
   }
