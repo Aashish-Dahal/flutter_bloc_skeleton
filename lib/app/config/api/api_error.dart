@@ -1,3 +1,15 @@
+class ServerException implements Exception {
+  final String message;
+  ServerException(this.message);
+}
+
+class Failure {
+  final String message;
+  Failure({
+    this.message = 'An unexpected error occurred. Please try again later.',
+  });
+}
+
 String getMessageForCode(String code) {
   switch (code) {
     case 'invalid-email':
