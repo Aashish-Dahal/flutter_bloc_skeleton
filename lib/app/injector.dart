@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart' show EasyLocalization;
+import 'package:firebase_push_notification_module/fcm_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -23,6 +24,7 @@ Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPathProvider.initPath();
   await EasyLocalization.ensureInitialized();
+
   EasyLocalization.logger.enableBuildModes = [];
   _initServiceLocator();
   preferences = await SharedPreferences.getInstance();
@@ -59,5 +61,18 @@ _initServiceLocator() {
       sl<PostRepository>().getPost,
       type: PaginationType.cursor,
     )..add(const CursorBasePagination()),
+  );
+
+  // Firebase messaging
+  sl.registerSingleton<FirebaseNotificationService>(
+    FirebaseNotificationService(
+      FirebaseMessaging.instance,
+      FlutterLocalNotificationsPlugin(),
+      defaultIcon: "@mipmap/ic_launcher",
+      showToken: true,
+      getToken: (token) {},
+      onLocalNotificationTab: (message) {},
+      onFCMNotificationTab: (message) {},
+    ),
   );
 }

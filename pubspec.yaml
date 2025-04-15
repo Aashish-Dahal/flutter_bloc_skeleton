@@ -27,6 +27,10 @@ dependencies:
   dio_cache_interceptor_hive_store: ^4.0.0
   flutter_screenutil: ^5.9.3
   flutter_secure_storage: ^9.2.4
+  firebase_push_notification_module:
+    git:
+      url: https://github.com/Aashish-Dahal/fcm_module.git
+      ref: develop
 
 dev_dependencies:
   flutter_test:
