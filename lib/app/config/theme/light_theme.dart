@@ -43,9 +43,7 @@ base class LightTheme extends Typography {
         surface: AppColors.white,
         onSurface: AppColors.black,
       ),
-      textTheme: TextTheme(
-        displayLarge: displayLarge,
-      ),
+      textTheme: TextTheme(displayLarge: displayLarge),
       progressIndicatorTheme: ProgressIndicatorThemeData(
         color: AppColors.black,
       ),
@@ -77,9 +75,7 @@ base class LightTheme extends Typography {
           foregroundColor: const WidgetStatePropertyAll(Colors.white),
           backgroundColor: const WidgetStatePropertyAll(AppColors.primary),
           shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
         ),
       ),
@@ -88,9 +84,7 @@ base class LightTheme extends Typography {
           foregroundColor: WidgetStatePropertyAll(Colors.black),
           side: WidgetStatePropertyAll(BorderSide(color: AppColors.primary)),
           shape: WidgetStatePropertyAll(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(6),
-            ),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
           ),
         ),
       ),
