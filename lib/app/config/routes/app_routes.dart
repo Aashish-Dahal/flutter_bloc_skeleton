@@ -14,9 +14,10 @@ class AppRouter {
   AppRouter(this.authBloc);
 
   late final _goRouter = GoRouter(
-    initialLocation: authBloc.state is Authenticated
-        ? AppPage.home.toPath
-        : AppPage.login.toPath,
+    initialLocation:
+        authBloc.state is Authenticated
+            ? AppPage.home.toPath
+            : AppPage.login.toPath,
     refreshListenable: authBloc.asListenable(),
     navigatorKey: rootNavigatorKey,
     routes: <GoRoute>[

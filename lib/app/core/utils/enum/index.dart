@@ -1,16 +1,9 @@
-enum Flavour {
-  development,
-  staging,
-  production;
-}
+enum Flavour { development, staging, production }
 
-enum PaginationStatus {
-  initial,
-  loaded,
-  failure,
-  loading,
-}
+enum PaginationStatus { initial, loaded, failure, loading }
 
 enum PaginationType { cursor, page }
 
 enum SecureStorageKey { bearerToken, refreshToken }
+
+enum RequestType { get, post, put, delete }

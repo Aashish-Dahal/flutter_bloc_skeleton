@@ -38,9 +38,6 @@ class UserM {
   }
 
   JsonMap toJson() {
-    return {
-      'username': username,
-      'password': email,
-    };
+    return {'username': username, 'password': email};
   }
 }

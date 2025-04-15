@@ -32,10 +32,7 @@ extension BuildContextExtension<T> on BuildContext {
     String message,
   ) {
     return ScaffoldMessenger.of(this).showSnackBar(
-      SnackBar(
-        content: Text(message),
-        behavior: SnackBarBehavior.floating,
-      ),
+      SnackBar(content: Text(message), behavior: SnackBarBehavior.floating),
     );
   }
 }

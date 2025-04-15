@@ -8,11 +8,7 @@ class CircularLoadingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.scale(
       scale: scale,
-      child: const Center(
-        child: CircularProgressIndicator(
-          strokeWidth: 3.0,
-        ),
-      ),
+      child: const Center(child: CircularProgressIndicator(strokeWidth: 3.0)),
     );
   }
 }

@@ -18,22 +18,24 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: getIt<AuthBloc>()),
-        BlocProvider.value(value: getIt<AppTheme>()),
+        BlocProvider.value(value: sl<AuthBloc>()),
+        BlocProvider.value(value: sl<AppTheme>()),
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
         designSize: const Size(360, 690),
-        builder: (context, child) => BlocBuilder<AppTheme, ThemeData>(
-          builder: (context, themeData) => MaterialApp.router(
-            debugShowCheckedModeBanner: kDebugMode,
-            routerConfig: AppRouter(getIt<AuthBloc>()).router,
-            title: 'Flutter Bloc Skeleton',
-            theme: themeData,
-            localizationsDelegates: [...context.localizationDelegates],
-            supportedLocales: context.supportedLocales,
-          ),
-        ),
+        builder:
+            (context, child) => BlocBuilder<AppTheme, ThemeData>(
+              builder:
+                  (context, themeData) => MaterialApp.router(
+                    debugShowCheckedModeBanner: kDebugMode,
+                    routerConfig: AppRouter(sl<AuthBloc>()).router,
+                    title: 'Flutter Bloc Skeleton',
+                    theme: themeData,
+                    localizationsDelegates: [...context.localizationDelegates],
+                    supportedLocales: context.supportedLocales,
+                  ),
+            ),
       ),
     );
   }

@@ -19,7 +19,7 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
   bool hasReachedMax = false;
 
   PaginationBloc(this.call, {this.type = PaginationType.page})
-      : super(const PaginationInitial()) {
+    : super(const PaginationInitial()) {
     scrollController.addListener(_handleScroll);
     on<PageBasePagination>(_pageBasePagination);
     on<CursorBasePagination>(_cursorBasePagination);
@@ -72,16 +72,13 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
     params.page++;
 
     final res = await call(params);
-    res.match(
-      (l) => emit(PaginationError(error: l.message)),
-      (r) {
-        emit(PaginationSuccess(data: [...state.data, ...r.data]));
-        if (state.data.length == r.count) {
-          isLoadingMore = false;
-          hasReachedMax = true;
-        }
-      },
-    );
+    res.match((l) => emit(PaginationError(error: l.message)), (r) {
+      emit(PaginationSuccess(data: [...state.data, ...r.data]));
+      if (state.data.length == r.count) {
+        isLoadingMore = false;
+        hasReachedMax = true;
+      }
+    });
   }
 
   _onCursorBasedLoadMore(
@@ -92,16 +89,13 @@ class PaginationBloc extends Bloc<PaginationEvent, PaginationState> {
     hasReachedMax = false;
     params.skip = state.data.length;
     final res = await call(params);
-    res.fold(
-      (l) => emit(PaginationError(error: l.message)),
-      (r) {
-        emit(PaginationSuccess(data: [...state.data, ...r.data]));
-        if (state.data.length == r.count) {
-          isLoadingMore = false;
-          hasReachedMax = true;
-        }
-      },
-    );
+    res.fold((l) => emit(PaginationError(error: l.message)), (r) {
+      emit(PaginationSuccess(data: [...state.data, ...r.data]));
+      if (state.data.length == r.count) {
+        isLoadingMore = false;
+        hasReachedMax = true;
+      }
+    });
   }
 
   _onRefresh(PaginationRefresh event, Emitter<PaginationState> emit) async {

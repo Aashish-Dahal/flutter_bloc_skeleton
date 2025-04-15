@@ -11,9 +11,7 @@ extension BlocExtensions<T> on BlocBase<T> {
     return notifier;
   }
 
-  ValueListenable<T> asValueListenable({
-    BlocBuilderCondition? notifyWhen,
-  }) {
+  ValueListenable<T> asValueListenable({BlocBuilderCondition? notifyWhen}) {
     final notifier = ValueNotifier<T>(state);
     stream.listen((value) {
       if (notifyWhen == null || notifyWhen(notifier.value, value)) {

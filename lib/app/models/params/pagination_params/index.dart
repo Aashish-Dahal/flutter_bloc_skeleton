@@ -15,13 +15,13 @@ class PaginationParams {
   });
 
   JsonMap toPageJson() => {
-        "page": page,
-        "page_size": pageSize,
-        "filter": filter,
-      };
+    "page": page,
+    "page_size": pageSize,
+    "filter": filter,
+  };
   JsonMap toCursorJson() => {
-        "limit": pageSize,
-        if (skip != null) "skip": skip,
-        "filter": filter,
-      };
+    "limit": pageSize,
+    if (skip != null) "skip": skip,
+    "filter": filter,
+  };
 }

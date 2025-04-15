@@ -7,9 +7,7 @@ import '../../../models/post/index.dart';
 import '../../../widgets/organisms/bloc_pagination_view.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
-    super.key,
-  });
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +15,11 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Home Page"),
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.logout_outlined),
-          ),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.logout_outlined)),
         ],
       ),
       body: BlocProvider<PaginationBloc>(
-        create: (context) => getIt<PaginationBloc>(),
+        create: (context) => sl<PaginationBloc>(),
         child: BlocPaginationView<Posts>(
           itemBuilder: (data) {
             return ListTile(

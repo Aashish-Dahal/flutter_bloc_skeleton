@@ -44,9 +44,10 @@ String generateModelFromJson(String className, JsonMap jsonObject) {
   });
   buffer.writeln('  });');
 
-// Factory constructor for JSON deserialization
-  buffer
-      .writeln('\n  factory $className.fromJson(Map<String, dynamic> json) {');
+  // Factory constructor for JSON deserialization
+  buffer.writeln(
+    '\n  factory $className.fromJson(Map<String, dynamic> json) {',
+  );
   buffer.writeln('    return $className(');
   jsonObject.forEach((key, value) {
     buffer.writeln('      $key: json[\'$key\'] as ${getType(value)},');

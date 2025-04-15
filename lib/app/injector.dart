@@ -5,42 +5,59 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'config/api/api.dart';
+import 'config/api/index.dart' show DioClient, DioService;
 import 'config/theme/app_theme.dart';
 import 'core/common/bloc/pagination_bloc.dart';
-import 'core/utils/bloc_observer.dart';
-import 'core/utils/enum/index.dart';
-import 'core/utils/path_provider/index.dart';
+import 'core/utils/index.dart'
+    show AppPathProvider, PaginationType, SkeletonBlocObserver;
 import 'pages/auth/bloc/auth_bloc.dart';
-import 'services/index.dart';
+import 'repository/index.dart'
+    show AuthRepository, AuthRepositoryImpl, PostRepository, PostRepositoryImpl;
+import 'services/index.dart'
+    show AuthApiService, AuthApiServiceImpl, PostApiService, PostApiServiceImpl;
 
 late SharedPreferences preferences;
-final getIt = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppPathProvider.initPath();
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
-  InitDio()();
-  _initBlocInstance();
+  _initServiceLocator();
   preferences = await SharedPreferences.getInstance();
   Bloc.observer = SkeletonBlocObserver();
 }
 
-_initBlocInstance() {
-  getIt.registerSingleton(
+_initServiceLocator() {
+  //Dio client
+  sl.registerSingleton<DioClient>(DioClient());
+
+  // Dio service
+  sl.registerSingleton<DioService>(DioService(dioClient: sl<DioClient>()));
+
+  sl.registerSingleton(
     FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-      ),
+      aOptions: AndroidOptions(encryptedSharedPreferences: true),
       iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
     ),
   );
-  getIt.registerLazySingleton(() => AppTheme());
-  getIt.registerLazySingleton(() => AuthBloc(authService));
-  getIt.registerLazySingleton(
-    () => PaginationBloc(postService.getPost, type: PaginationType.cursor)
-      ..add(const CursorBasePagination()),
+  sl.registerLazySingleton(() => AppTheme());
+
+  //services
+  sl.registerSingleton<AuthApiService>(AuthApiServiceImpl());
+  sl.registerSingleton<PostApiService>(PostApiServiceImpl());
+  //Repositories
+  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
+  sl.registerSingleton<PostRepository>(PostRepositoryImpl());
+
+  //blocs
+  sl.registerLazySingleton(() => AuthBloc(sl<AuthRepository>()));
+
+  sl.registerLazySingleton(
+    () => PaginationBloc(
+      sl<PostRepository>().getPost,
+      type: PaginationType.cursor,
+    )..add(const CursorBasePagination()),
   );
 }

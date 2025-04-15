@@ -21,9 +21,7 @@ class BlocPaginationView<T> extends StatelessWidget {
       builder: (context, state) {
         switch (state) {
           case PaginationLoading():
-            return const CircularLoadingIndicator(
-              scale: 1,
-            );
+            return const CircularLoadingIndicator(scale: 1);
           case PaginationSuccess():
             return RefreshListView(
               showDivider: showDivider,
@@ -31,9 +29,10 @@ class BlocPaginationView<T> extends StatelessWidget {
               onRefresh: () async {
                 context.read<PaginationBloc>().add(PaginationRefresh());
               },
-              itemCount: context.read<PaginationBloc>().hasReachedMax
-                  ? state.data.length
-                  : state.data.length + 1,
+              itemCount:
+                  context.read<PaginationBloc>().hasReachedMax
+                      ? state.data.length
+                      : state.data.length + 1,
               itemBuilder: (_, i) {
                 return (i >= state.data.length)
                     ? const CircularLoadingIndicator()
@@ -41,9 +40,7 @@ class BlocPaginationView<T> extends StatelessWidget {
               },
             );
           case PaginationError():
-            return Center(
-              child: Text(state.error as String),
-            );
+            return Center(child: Text(state.error as String));
           default:
             return const SizedBox();
         }

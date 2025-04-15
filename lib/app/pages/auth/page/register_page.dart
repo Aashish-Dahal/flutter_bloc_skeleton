@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../widgets/organisms/register_page_body.dart';
+import '../../../widgets/organisms/register_page_view.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -8,10 +8,8 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Register Page"),
-      ),
-      body: RegisterPageBody(),
+      appBar: AppBar(title: const Text("Register Page")),
+      body: RegisterPageView(),
     );
   }
 }

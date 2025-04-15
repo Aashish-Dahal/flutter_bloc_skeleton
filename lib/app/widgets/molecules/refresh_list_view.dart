@@ -25,8 +25,8 @@ class RefreshListView extends StatelessWidget {
       child: ListView.separated(
         controller: controller,
         itemBuilder: itemBuilder,
-        separatorBuilder: (_, i) =>
-            showDivider ? const Divider() : separatorWidget,
+        separatorBuilder:
+            (_, i) => showDivider ? const Divider() : separatorWidget,
         itemCount: itemCount,
       ),
     );
