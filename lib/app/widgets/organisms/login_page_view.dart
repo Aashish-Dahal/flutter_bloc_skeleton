@@ -9,14 +9,14 @@ import '../../core/utils/extension/context_extension/dialog_extension.dart';
 import '../../pages/auth/bloc/auth_bloc.dart';
 import '../molecules/login_input_field.dart';
 
-class LoginPageBody extends StatefulWidget {
-  const LoginPageBody({super.key});
+class LoginPageView extends StatefulWidget {
+  const LoginPageView({super.key});
 
   @override
-  State<LoginPageBody> createState() => _LoginPageBodyState();
+  State<LoginPageView> createState() => _LoginPageViewState();
 }
 
-class _LoginPageBodyState extends State<LoginPageBody> {
+class _LoginPageViewState extends State<LoginPageView> {
   final formKey = GlobalKey<FormBuilderState>();
 
   void onAuthStateListener(BuildContext context, AuthState state) {
@@ -51,9 +51,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Welcome to Login Page"),
-          LoginInputField(
-            formKey: formKey,
-          ),
+          LoginInputField(formKey: formKey),
           BlocConsumer<AuthBloc, AuthState>(
             listener: onAuthStateListener,
             builder: (_, state) {
@@ -63,10 +61,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
               ).withLoading(state is AuthLoading);
             },
           ),
-          const Text(
-            "Don't have an account?",
-            textAlign: TextAlign.center,
-          ),
+          const Text("Don't have an account?", textAlign: TextAlign.center),
           OutlinedButton(
             onPressed: onRegisterButtonPressed,
             child: const Text("Register"),

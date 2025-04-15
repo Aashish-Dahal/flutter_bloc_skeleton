@@ -9,14 +9,14 @@ import '../../core/utils/extension/context_extension/dialog_extension.dart';
 import '../../pages/auth/bloc/auth_bloc.dart';
 import '../molecules/register_input_field.dart';
 
-class RegisterPageBody extends StatefulWidget {
-  const RegisterPageBody({super.key});
+class RegisterPageView extends StatefulWidget {
+  const RegisterPageView({super.key});
 
   @override
-  State<RegisterPageBody> createState() => _RegisterPageBodyState();
+  State<RegisterPageView> createState() => _RegisterPageViewState();
 }
 
-class _RegisterPageBodyState extends State<RegisterPageBody> {
+class _RegisterPageViewState extends State<RegisterPageView> {
   final formKey = GlobalKey<FormBuilderState>();
 
   void onAuthStateListener(BuildContext context, AuthState state) {
@@ -48,9 +48,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text("Welcome to Register Page"),
-          RegisterInputField(
-            formKey: formKey,
-          ),
+          RegisterInputField(formKey: formKey),
           BlocConsumer<AuthBloc, AuthState>(
             listener: onAuthStateListener,
             builder: (context, state) {
