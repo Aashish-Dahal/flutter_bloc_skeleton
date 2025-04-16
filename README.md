@@ -6,57 +6,41 @@ A structured Flutter project template utilizing the BLoC (Business Logic Compone
 
 State Management
 
-- Flutter bloc
-
----
+- [Flutter bloc](https://pub.dev/packages/flutter_bloc)
 
 Navigation
 
-- Go router
-
----
+- [Go router](https://pub.dev/packages/go_router)
 
 Localization / i18n
 
-- easy_localization
-
----
+- [Easy Localization](https://pub.dev/packages/easy_localization)
 
 Form Validation
 
-- flutter_form_builder
-- form_builder_validators
-
----
+- [Flutter Form Builder](https://pub.dev/packages/flutter_form_builder)
+- [Form Builder Validators](https://pub.dev/packages/form_builder_validators)
 
 HTTP Requests
 
-- dio
-
----
+- [Dio](https://pub.dev/packages/dio)
 
 Dependency Injection
 
-- get_it
-
----
+- [Get it](https://pub.dev/packages/get_it)
 
 Local Storage
 
-- shared_preferences
-
----
+- [Shared Preferences](https://pub.dev/packages/shared_preferences)
 
 Secure Token Storage
 
-- flutter_secure_storage
-
----
+- [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage)
 
 Responsive Design
 
-- flutter_screenutil
-- sizer
+- [Flutter Screenutil](https://pub.dev/packages/flutter_screenutil)
+- [Sizer](https://pub.dev/packages/sizer)
 
 ---
 
