@@ -18,7 +18,7 @@ Navigation
 
 Localization / i18n
 
--     easy_localization
+- easy_localization
 
 ---
 
