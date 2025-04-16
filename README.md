@@ -1,23 +1,342 @@
 # Flutter Bloc Skeleton
 
-This is a skeleton project for Flutter that provides a basic structure and configuration to kickstart your Flutter application development.
+A structured Flutter project template utilizing the BLoC (Business Logic Component) pattern. This skeleton provides a scalable foundation for Flutter applications, promoting clean architecture and maintainability.
 
-This project is a starting point for a Flutter application that follows the
-[Bloc State management tutorial](https://bloclibrary.dev/).
+## 📦 Used Packages
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials, samples, guidance on mobile development, and a
-full API reference.
+State Management
 
-## Features
+- Flutter bloc
 
-- Boilerplate code and folder structure for a Flutter project.
-- Pre-configured dependencies and packages commonly used in Flutter development.
-- Example code and comments to help you get started quickly.
+---
 
-## Getting Started
+Navigation
 
-These instructions will help you get a copy of the project up and running on your local machine for development and testing purposes.
+- Go router
+
+---
+
+Localization / i18n
+
+-     easy_localization
+
+---
+
+Form Validation
+
+- flutter_form_builder
+- form_builder_validators
+
+---
+
+HTTP Requests
+
+- dio
+
+---
+
+Dependency Injection
+
+- get_it
+
+---
+
+Local Storage
+
+- shared_preferences
+
+---
+
+Secure Token Storage
+
+- flutter_secure_storage
+
+---
+
+Responsive Design
+
+- flutter_screenutil
+- sizer
+
+---
+
+### 🔄 State Management Approach
+
+- BLoC Pattern (flutter_bloc)
+
+- Clean separation of layers using Clean Architecture
+
+- Organized with Feature-First Folder Structure
+
+### 🚀 Navigation
+
+- Powered by GoRouter
+
+- Deep linking and nested navigation ready
+
+- Route guards and redirection logic supported
+
+### 🌍 Localization / Internationalization
+
+- Implemented with Easy Localization
+
+- Supports dynamic locale switching
+
+- Translations managed in `assets/translations/`
+
+### ✅ Form Validation
+
+- Built with Flutter Form Builder
+
+- Extensible and complex form support
+
+- Validators via Form Builder Validators
+
+Validators
+
+### 🌐 HTTP Handling
+
+- Uses Dio for robust and interceptable HTTP requests
+
+- Base client setup for consistent API usage
+
+- Dummy JSON endpoints integrated for testing
+
+### 🧩 Dependency Injection
+
+- Based on GetIt
+
+- Annotation-based DI with generated boilerplate
+
+- Clean and testable service initialization
+
+### 💾 Local & Secure Storage
+
+- Shared Preferences for non-sensitive local data
+
+- Flutter Secure Storage for secure token (e.g., Bearer, Refresh Token) handling
+
+### handling
+
+🧱 Design Pattern & Principles
+
+- ✅ Atomic Design Pattern for building UI components
+
+- ✅ SOLID Principles enforced for maintainable and scalable architecture
+
+### 📱 Responsive Design
+
+- Built-in support for Responsive UI
+
+- Adapts layouts across mobile, tablet, and desktop
+
+- Common packages: flutter_screenutil, layout_builder, etc.
+
+### 🎯 Added Features
+
+#### 🔄 Pagination
+
+- Cursor-based and limit/offset pagination examples
+
+- Reusable pagination logic
+
+#### 🔐 Authentication
+
+- API Authentication → in `main` branch
+
+- Firebase Authentication → in `firebase` branch
+
+- Supabase Authentication → in `supabase` branch
+
+#### 🎨 Theme Management
+
+- Dark and Light mode toggle
+
+- Theme is fully customizable via ThemeData
+
+#### 🧹 Code Optimization & Tooling
+
+- ✅ Strict Lint Rules via analysis_options.yaml
+
+- ✅ Pre-Commit Hooks for formatting and analysis — implemented inside the `hooks/` folder
+
+- ✅ Model Generator:
+
+- - Custom Dart model generator utility
+
+- - Reduces manual work for model creation (from JSON)
+
+## 📁 Folder Structure
+
+```
+flutter_bloc_skeleton/
+├── .assets/
+├── .generator/
+├── .hooks/
+├── lib/
+│   ├── app/
+│   ├── config/
+│   ├── core/
+│   │   └── common/
+│   │       └── pagination_bloc/
+│   ├── utils/
+│   │   ├── assets/
+│   │   ├── constants/
+│   │   ├── enums/
+│   │   ├── extension/
+│   │   ├── path_provider/
+│   │   ├── strings/
+│   │   ├── typedefs/
+│   │   └── validators/
+│   ├── models/
+│   ├── pages/
+│   │   └── feature_name/
+│   │       ├── bloc/
+│   │       └── page.dart
+│   ├── repository/
+│   ├── services/
+│   ├── widgets/
+│   │   ├── atoms/
+│   │   ├── molecules/
+│   │   └── organisms/
+│   ├── app.dart
+│   ├── main.dart
+│   ├── config.dart
+│   └── injector.dart
+├── pubspec.yaml
+├── makefile
+├── analysis_options.yaml
+└── README.md
+```
+
+---
+
+### `.assets/`
+
+- Stores raw assets like images, icons, translations, fonts, etc.
+
+- Typically referenced through asset management utilities.
+
+### `.generator/`
+
+- Home of the Dart model generator utility.
+
+- Automates creation of model classes from JSON, reducing boilerplate and ensuring consistency.
+
+### `.hooks/`
+
+- Contains Pre-Commit Hook Scripts.
+
+- Used to format code, run analysis, or tests before each Git commit to maintain code quality.
+
+### `lib/app/`
+
+- Entry point of the folder structure.
+
+### `lib/app/config/`
+
+- Centralized configuration layer:
+
+- API Config (e.g., base URLs)
+
+- Theme Config
+
+- GoRouter Setup
+
+- Route Definitions
+
+### `lib/app/core/`
+
+- Common layer containing reusable utilities and foundational logic:
+
+- common `/pagination_bloc/`
+  Contains shared pagination logic:
+
+- - Limit-based pagination
+
+- - Cursor-based pagination
+
+- - Can be reused across different features.
+
+### `lib/app/utils/`
+
+- Holds global utilities and helpers:
+
+- `assets/`: Central asset manager (e.g., image paths, icons)
+
+- `constants/`: Global constants (e.g., spacing, padding, keys)
+
+- `enums/`: App-wide enumerations
+
+- `extension/`: Dart extension methods
+
+- `path_provider/`: Helpers for accessing file paths
+
+- `strings/`: Centralized string literals or keys
+
+- `typedefs/`: Useful type aliases for better readability
+
+- `validators/`: Contains Field validators for forms (email, password, etc.)
+
+### `lib/app/models/`
+
+- Contains Dart model classes representing API responses or local data structures.
+
+### `lib/pages/`
+
+- Feature-specific pages and their respective BLoC files:
+
+- Follows feature-first organization
+
+- Each feature (e.g., auth, profile) includes:
+
+- - Its screen/page
+
+- - Its bloc/cubit for managing state
+
+### `lib/app/repository/`
+
+- Handles business logic and data abstraction.
+
+- Communicates with services and data sources (e.g., APIs, local storage).
+
+### `lib/app/services/`
+
+- Low-level services for data fetching, local caching, secure storage, etc.
+
+- E.g., API service using Dio, storage service, auth service.
+
+### `lib/app/widgets/`
+
+- Reusable UI components following Atomic Design Pattern:
+
+- - `Atoms`: Basic UI elements (buttons, text, icons)
+
+- - `Molecules`: Combinations of atoms (e.g., text input with label)
+
+- - `Organisms`: Larger UI blocks made of molecules (e.g., login form)
+
+### `app.dart/main.dart`
+
+- Root of the application.
+
+- Sets up theme, router, localization, and initializes the app.
+
+### `injector.dart`
+
+- Configures dependency injection using get_it and injectable.
+
+- Registers all services, blocs, and repositories.
+
+### `config.dart`
+
+- Centralized file for app-wide configurations like:
+
+- - Base URL
+
+- - App locale
+
+- - Environment (dev/staging/prod)
 
 ### Prerequisites
 
