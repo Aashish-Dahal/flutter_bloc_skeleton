@@ -76,8 +76,6 @@ Responsive Design
 
 - Validators via Form Builder Validators
 
-Validators
-
 ### 🌐 HTTP Handling
 
 - Uses Dio for robust and interceptable HTTP requests
@@ -149,6 +147,8 @@ Validators
 - - Custom Dart model generator utility
 
 - - Reduces manual work for model creation (from JSON)
+
+---
 
 ## 📁 Folder Structure
 
@@ -322,11 +322,13 @@ flutter_bloc_skeleton/
 
 - - Environment (dev/staging/prod)
 
-### Prerequisites
+---
+
+## Prerequisites
 
 Make sure you have Flutter installed on your machine. If you haven't installed Flutter yet, you can follow the official Flutter installation guide: [Flutter Installation Guide](https://flutter.dev/docs/get-started/install)
 
-### Installation
+## Installation
 
 1. Clone the repository to your local machine using the following command:
 
@@ -355,14 +357,14 @@ cd flutter_bloc_skeleton
 
 This will launch the app on your connected device or emulator.
 
-### Environments
+## Environments
 
 Place the env files like `config.dart, google-services.json, GoogleService.plist` inside respective `env/<dev|prod>`
 folder.
 
 And you can run `make set-env-dev | make set-env-prod` in terminal to set the required environment files.
 
-### Material Theme Setup
+## Material Theme Setup
 
 Use this Material Design 3 Theme Generator website to design themes for both dark and light modes.
 
