@@ -144,9 +144,9 @@ Responsive Design
 
 - ✅ Model Generator:
 
-- - Custom Dart model generator utility
+  - Custom Dart model generator utility
 
-- - Reduces manual work for model creation (from JSON)
+  - Reduces manual work for model creation (from JSON)
 
 ---
 
@@ -236,11 +236,11 @@ flutter_bloc_skeleton/
 - common `/pagination_bloc/`
   Contains shared pagination logic:
 
-- - Limit-based pagination
+  - Limit-based pagination
 
-- - Cursor-based pagination
+  - Cursor-based pagination
 
-- - Can be reused across different features.
+  - Can be reused across different features.
 
 ### `lib/app/utils/`
 
@@ -274,9 +274,9 @@ flutter_bloc_skeleton/
 
 - Each feature (e.g., auth, profile) includes:
 
-- - Its screen/page
+  - Its screen/page
 
-- - Its bloc/cubit for managing state
+  - Its bloc/cubit for managing state
 
 ### `lib/app/repository/`
 
@@ -293,12 +293,9 @@ flutter_bloc_skeleton/
 ### `lib/app/widgets/`
 
 - Reusable UI components following Atomic Design Pattern:
-
-- - `Atoms`: Basic UI elements (buttons, text, icons)
-
-- - `Molecules`: Combinations of atoms (e.g., text input with label)
-
-- - `Organisms`: Larger UI blocks made of molecules (e.g., login form)
+  - `Atoms`: Basic UI elements (buttons, text, icons)
+  - `Molecules`: Combinations of atoms (e.g., text input with label)
+  - `Organisms`: Larger UI blocks made of molecules (e.g., login form)
 
 ### `app.dart/main.dart`
 
@@ -316,11 +313,11 @@ flutter_bloc_skeleton/
 
 - Centralized file for app-wide configurations like:
 
-- - Base URL
+  - Base URL
 
-- - App locale
+  - App locale
 
-- - Environment (dev/staging/prod)
+  - Environment (dev/staging/prod)
 
 ---
 
