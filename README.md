@@ -152,45 +152,45 @@ Responsive Design
 
 ## 📁 Folder Structure
 
-```
-flutter_bloc_skeleton/
-├── .assets/
-├── .generator/
-├── .hooks/
-├── lib/
-│   ├── app/
-│   ├── config/
-│   ├── core/
-│   │   └── common/
-│   │       └── pagination_bloc/
-│   ├── utils/
-│   │   ├── assets/
-│   │   ├── constants/
-│   │   ├── enums/
-│   │   ├── extension/
-│   │   ├── path_provider/
-│   │   ├── strings/
-│   │   ├── typedefs/
-│   │   └── validators/
-│   ├── models/
-│   ├── pages/
-│   │   └── feature_name/
-│   │       ├── bloc/
-│   │       └── page.dart
-│   ├── repository/
-│   ├── services/
-│   ├── widgets/
-│   │   ├── atoms/
-│   │   ├── molecules/
-│   │   └── organisms/
-│   ├── app.dart
-│   ├── main.dart
-│   ├── config.dart
-│   └── injector.dart
-├── pubspec.yaml
-├── makefile
-├── analysis_options.yaml
-└── README.md
+```diff
+📦flutter_bloc_skeleton/
+ ┣ 📁.assets/
+ ┣ 📁.generator/
+ ┣ 📁.hooks/
+ ┣ 📁lib/
+ ┃ ┣ 📁app/
+ ┃ ┣ 📁config/
+ ┃ ┣ 📁core/
+ ┃ ┃ ┗ 📁common/
+ ┃ ┃   ┗ 📁pagination_bloc/
+ ┃ ┣ 📁utils/
+ ┃ ┃ ┣ 📁assets/
+ ┃ ┃ ┣ 📁constants/
+ ┃ ┃ ┣ 📁enums/
+ ┃ ┃ ┣ 📁extension/
+ ┃ ┃ ┣ 📁path_provider/
+ ┃ ┃ ┣ 📁strings/
+ ┃ ┃ ┣ 📁typedefs/
+ ┃ ┃ ┗ 📁validators/
+ ┃ ┣ 📁models/
+ ┃ ┣ 📁pages/
+ ┃ ┃ ┗ 📁feature_name/
+ ┃ ┃   ┣ 📁bloc/
+ ┃ ┃   ┗ 📄page_name.dart
+ ┃ ┣ 📁repository/
+ ┃ ┣ 📁services/
+ ┃ ┣ 📁widgets/
+ ┃ ┃ ┣ 📁atoms/
+ ┃ ┃ ┣ 📁molecules/
+ ┃ ┃ ┗ 📁organisms/
+ ┃ ┣ 📄app.dart
+ ┃ ┣ 📄main.dart
+ ┃ ┣ 📄config.dart
+ ┃ ┗ 📄injector.dart
+ ┣ 📄pubspec.yaml
+ ┣ 📄makefile
+ ┣ 📄analysis_options.yaml
+ ┗ 📄README.md
 ```
 
 ---
