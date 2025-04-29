@@ -154,9 +154,9 @@ Responsive Design
 
 ```diff
 📦flutter_bloc_skeleton/
- ┣ 📁.assets/
- ┣ 📁.generator/
- ┣ 📁.hooks/
+ ┣ 📁assets/
+ ┣ 📁generator/
+ ┣ 📁hooks/
  ┣ 📁lib/
  ┃ ┣ 📁app/
  ┃ ┣ 📁config/
@@ -195,121 +195,121 @@ Responsive Design
 
 ---
 
-### `.assets/`
+### `📁 assets/`
 
 - Stores raw assets like images, icons, translations, fonts, etc.
 
 - Typically referenced through asset management utilities.
 
-### `.generator/`
+### `📁 generator/`
 
 - Home of the Dart model generator utility.
 
 - Automates creation of model classes from JSON, reducing boilerplate and ensuring consistency.
 
-### `.hooks/`
+### `📁 hooks/`
 
 - Contains Pre-Commit Hook Scripts.
 
 - Used to format code, run analysis, or tests before each Git commit to maintain code quality.
 
-### `lib/app/`
+### `📁 lib/app/`
 
 - Entry point of the folder structure.
 
-### `lib/app/config/`
+  ### 📁 config/
 
-- Centralized configuration layer:
+  - Centralized configuration layer:
 
-- API Config (e.g., base URLs)
+  - API Config (e.g., base URLs)
 
-- Theme Config
+  - Theme Config
 
-- GoRouter Setup
+  - GoRouter Setup
 
-- Route Definitions
+  - Route Definitions
 
-### `lib/app/core/`
+  ### 📁 core/
 
-- Common layer containing reusable utilities and foundational logic:
+  - Common layer containing reusable utilities and foundational logic:
 
-- common `/pagination_bloc/`
-  Contains shared pagination logic:
+  - common `/pagination_bloc/`
+    Contains shared pagination logic:
 
   - Limit-based pagination
 
   - Cursor-based pagination
 
-  - Can be reused across different features.
+  - Can be reused across different features
 
-### `lib/app/utils/`
+  ### `📁 utils/`
 
-- Holds global utilities and helpers:
+  - Holds global utilities and helpers:
 
-- `assets/`: Central asset manager (e.g., image paths, icons)
+  - `assets/`: Central asset manager (e.g., image paths, icons)
 
-- `constants/`: Global constants (e.g., spacing, padding, keys)
+  - `constants/`: Global constants (e.g., spacing, padding, keys)
 
-- `enums/`: App-wide enumerations
+  - `enums/`: App-wide enumerations
 
-- `extension/`: Dart extension methods
+  - `extension/`: Dart extension methods
 
-- `path_provider/`: Helpers for accessing file paths
+  - `path_provider/`: Helpers for accessing file paths
 
-- `strings/`: Centralized string literals or keys
+  - `strings/`: Centralized string literals or keys
 
-- `typedefs/`: Useful type aliases for better readability
+  - `typedefs/`: Useful type aliases for better readability
 
-- `validators/`: Contains Field validators for forms (email, password, etc.)
+  - `validators/`: Contains Field validators for forms (email, password, etc.)
 
-### `lib/app/models/`
+  ### `📁 models/`
 
-- Contains Dart model classes representing API responses or local data structures.
+  - Contains Dart model classes representing API responses or local data structures.
 
-### `lib/pages/`
+  ### `📁 pages/`
 
-- Feature-specific pages and their respective BLoC files:
+  - Feature-specific pages and their respective BLoC files:
 
-- Follows feature-first organization
+  - Follows feature-first organization
 
-- Each feature (e.g., auth, profile) includes:
+  - Each feature (e.g., auth, profile) includes:
 
-  - Its screen/page
+    - Its screen/page
 
-  - Its bloc/cubit for managing state
+    - Its bloc/cubit for managing state
 
-### `lib/app/repository/`
+  ### `📁 repository/`
 
-- Handles business logic and data abstraction.
+  - Handles business logic and data abstraction.
 
-- Communicates with services and data sources (e.g., APIs, local storage).
+  - Communicates with services and data sources (e.g., APIs, local storage).
 
-### `lib/app/services/`
+  ### `📁 services/`
 
-- Low-level services for data fetching, local caching, secure storage, etc.
+  - Low-level services for data fetching, local caching, secure storage, etc.
 
-- E.g., API service using Dio, storage service, auth service.
+  - E.g., API service using Dio, storage service, auth service.
 
-### `lib/app/widgets/`
+  ### `📁 widgets/`
 
-- Reusable UI components following Atomic Design Pattern:
+  - Reusable UI components following Atomic Design Pattern:
   - `Atoms`: Basic UI elements (buttons, text, icons)
   - `Molecules`: Combinations of atoms (e.g., text input with label)
   - `Organisms`: Larger UI blocks made of molecules (e.g., login form)
 
-### `app.dart/main.dart`
+### `📄 app.dart/main.dart`
 
 - Root of the application.
 
 - Sets up theme, router, localization, and initializes the app.
 
-### `injector.dart`
+### `📄 injector.dart`
 
 - Configures dependency injection using get_it and injectable.
 
 - Registers all services, blocs, and repositories.
 
-### `config.dart`
+### `📄 config.dart`
 
 - Centralized file for app-wide configurations like:
 
