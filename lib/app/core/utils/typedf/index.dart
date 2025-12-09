@@ -1,8 +1,11 @@
-import 'package:fpdart/fpdart.dart';
+import 'package:fpdart/fpdart.dart' show Either;
 
-import '../../../config/api/api_error.dart';
-import '../../../models/params/pagination_params/index.dart';
+import '../../../shared/models/pagination_params.dart' show PaginationParams;
+import '../../config/api/api_error.dart' show Failure;
+import '../../config/api/api_response.dart' show ApiResponse;
 
 typedef JsonMap = Map<String, dynamic>;
 typedef FutureCall<T> =
-    Future<Either<Failure, T>> Function(PaginationParams paginationParams);
+    Future<Either<Failure, ApiResponse<T>>> Function(
+      PaginationParams paginationParams,
+    );

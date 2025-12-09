@@ -6,10 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocBuilder, BlocProvider, MultiBlocProvider;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'config/routes/app_routes.dart' show AppRouter;
-import 'config/theme/app_theme.dart';
+import 'core/config/routes/app_routes.dart' show AppRouter;
+import 'core/config/theme/app_theme.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'injector.dart';
-import 'pages/auth/bloc/auth_bloc.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -18,8 +18,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider.value(value: sl<AuthBloc>()),
-        BlocProvider.value(value: sl<AppTheme>()),
+        BlocProvider.value(value: inject<AuthBloc>()),
+        BlocProvider.value(value: inject<AppTheme>()),
       ],
       child: ScreenUtilInit(
         minTextAdapt: true,
@@ -29,7 +29,7 @@ class App extends StatelessWidget {
               builder:
                   (context, themeData) => MaterialApp.router(
                     debugShowCheckedModeBanner: kDebugMode,
-                    routerConfig: AppRouter(sl<AuthBloc>()).router,
+                    routerConfig: AppRouter(inject<AuthBloc>()).router,
                     title: 'Flutter Bloc Skeleton',
                     theme: themeData,
                     localizationsDelegates: [...context.localizationDelegates],
