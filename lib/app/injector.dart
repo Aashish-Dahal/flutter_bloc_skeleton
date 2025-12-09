@@ -6,65 +6,66 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'config/api/index.dart' show DioClient, DioService;
-import 'config/theme/app_theme.dart';
-import 'core/common/bloc/pagination_bloc.dart';
-import 'core/utils/index.dart'
-    show AppPathProvider, PaginationType, SkeletonBlocObserver;
-import 'pages/auth/bloc/auth_bloc.dart';
-import 'repository/index.dart'
-    show AuthRepository, AuthRepositoryImpl, PostRepository, PostRepositoryImpl;
-import 'services/index.dart'
-    show AuthApiService, AuthApiServiceImpl, PostApiService, PostApiServiceImpl;
+import 'core/config/api/index.dart' show DioClient, DioService;
+import 'core/config/theme/app_theme.dart';
+import 'core/utils/bloc_observer.dart';
+import 'core/utils/path_provider/index.dart';
+import 'features/auth/data/datasources/auth_api_service.dart';
+import 'features/auth/data/repository/auth_repository_impl.dart';
+import 'features/auth/domain/repository/auth_repository.dart';
+import 'features/auth/domain/usecases/auth_usecase.dart';
+import 'features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/home/data/datasources/product_api_service.dart';
+import 'features/home/domain/repository/product_repository.dart';
+import 'features/home/domain/usecases/product_usecase.dart';
 
 late SharedPreferences preferences;
-final sl = GetIt.instance;
+final inject = GetIt.instance;
 
 Future<void> initDependencies() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await AppPathProvider.initPath();
-  await EasyLocalization.ensureInitialized();
-
-  EasyLocalization.logger.enableBuildModes = [];
-  _initServiceLocator();
-  preferences = await SharedPreferences.getInstance();
-  Bloc.observer = SkeletonBlocObserver();
+  _registerSecureStorage();
+  _registerFCM();
+  await Future.wait([
+    _initPathProvider(),
+    _initLocalization(),
+    _initPreferences(),
+  ]);
+  _registerAppTheme();
+  _registerDioService();
+  _registerBloc();
+  _registerServices();
+  _registerRepository();
+  _registerUseCases();
 }
 
-_initServiceLocator() {
-  //Dio client
-  sl.registerSingleton<DioClient>(DioClient());
+void _registerBloc() {
+  inject.registerLazySingleton<AuthBloc>(() => AuthBloc(inject<AuthUsecase>()));
+}
 
-  // Dio service
-  sl.registerSingleton<DioService>(DioService(dioClient: sl<DioClient>()));
+void _registerAppTheme() {
+  inject.registerLazySingleton(() => AppTheme());
+}
 
-  sl.registerSingleton(
+void _registerDioService() {
+  inject.registerSingleton<DioClient>(DioClient());
+
+  inject.registerSingleton<DioService>(
+    DioService(dioClient: inject<DioClient>()),
+  );
+}
+
+void _registerSecureStorage() {
+  inject.registerSingleton(
     FlutterSecureStorage(
       aOptions: AndroidOptions(encryptedSharedPreferences: true),
       iOptions: IOSOptions(accessibility: KeychainAccessibility.first_unlock),
     ),
   );
-  sl.registerLazySingleton(() => AppTheme());
+}
 
-  //services
-  sl.registerSingleton<AuthApiService>(AuthApiServiceImpl());
-  sl.registerSingleton<PostApiService>(PostApiServiceImpl());
-  //Repositories
-  sl.registerSingleton<AuthRepository>(AuthRepositoryImpl());
-  sl.registerSingleton<PostRepository>(PostRepositoryImpl());
-
-  //blocs
-  sl.registerLazySingleton(() => AuthBloc(sl<AuthRepository>()));
-
-  sl.registerLazySingleton(
-    () => PaginationBloc(
-      sl<PostRepository>().getPost,
-      type: PaginationType.cursor,
-    )..add(const CursorBasePagination()),
-  );
-
-  // Firebase messaging
-  sl.registerSingleton<FirebaseNotificationService>(
+void _registerFCM() {
+  inject.registerSingleton<FirebaseNotificationService>(
     FirebaseNotificationService(
       FirebaseMessaging.instance,
       FlutterLocalNotificationsPlugin(),
@@ -75,4 +76,44 @@ _initServiceLocator() {
       onFCMNotificationTab: (message) {},
     ),
   );
+}
+
+void _registerServices() {
+  inject
+    ..registerLazySingleton<AuthApiService>(
+      () => AuthApiServiceImpl(inject<DioService>()),
+    )
+    ..registerLazySingleton<ProductApiService>(
+      () => ProductApiServiceImpl(inject<DioService>()),
+    );
+}
+
+void _registerRepository() {
+  inject.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(inject<AuthApiService>()),
+  );
+}
+
+void _registerUseCases() {
+  inject
+    ..registerLazySingleton<AuthUsecase>(
+      () => AuthUsecase(inject<AuthRepository>()),
+    )
+    ..registerLazySingleton<ProductUsecase>(
+      () => ProductUsecase(inject<ProductRepository>()),
+    );
+}
+
+Future<void> _initLocalization() async {
+  await EasyLocalization.ensureInitialized();
+  EasyLocalization.logger.enableBuildModes = [];
+  Bloc.observer = SkeletonBlocObserver();
+}
+
+Future<void> _initPathProvider() async {
+  await AppPathProvider.initPath();
+}
+
+Future<void> _initPreferences() async {
+  preferences = await SharedPreferences.getInstance();
 }
