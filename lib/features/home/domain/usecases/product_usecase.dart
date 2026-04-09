@@ -1,0 +1,14 @@
+import '../../../../core/network/api_result.dart';
+import '../../../../shared/models/pagination_params.dart';
+import '../repository/product_repository.dart';
+
+class ProductUsecase {
+  final ProductRepository _repository;
+
+  ProductUsecase({required ProductRepository repository})
+    : _repository = repository;
+
+  Future<ApiResult<ProductResponseEntity>> call(PaginationParams params) async {
+    return await _repository.getProducts(params);
+  }
+}

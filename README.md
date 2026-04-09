@@ -1,392 +1,127 @@
-# Flutter Bloc Skeleton
+## Folder Structure
 
-A structured Flutter project template utilizing the BLoC (Business Logic Component) pattern. This skeleton provides a scalable foundation for Flutter applications, promoting clean architecture and maintainability.
-
-## 📦 Used Packages
-
-State Management
-
-- [Flutter bloc](https://pub.dev/packages/flutter_bloc)
-
-Navigation
-
-- [Go router](https://pub.dev/packages/go_router)
-
-Localization / i18n
-
-- [Easy Localization](https://pub.dev/packages/easy_localization)
-
-Form Validation
-
-- [Flutter Form Builder](https://pub.dev/packages/flutter_form_builder)
-- [Form Builder Validators](https://pub.dev/packages/form_builder_validators)
-
-HTTP Requests
-
-- [Dio](https://pub.dev/packages/dio)
-
-Dependency Injection
-
-- [Get it](https://pub.dev/packages/get_it)
-
-Local Storage
-
-- [Shared Preferences](https://pub.dev/packages/shared_preferences)
-
-Secure Token Storage
-
-- [Flutter Secure Storage](https://pub.dev/packages/flutter_secure_storage)
-
-Responsive Design
-
-- [Flutter Screenutil](https://pub.dev/packages/flutter_screenutil)
-- [Sizer](https://pub.dev/packages/sizer)
-
----
-
-### 🔄 State Management Approach
-
-- BLoC Pattern (flutter_bloc)
-
-- Clean separation of layers using Clean Architecture
-
-- Organized with Feature-First Folder Structure
-
-### 🚀 Navigation
-
-- Powered by GoRouter
-
-- Deep linking and nested navigation ready
-
-- Route guards and redirection logic supported
-
-### 🌍 Localization / Internationalization
-
-- Implemented with Easy Localization
-
-- Supports dynamic locale switching
-
-- Translations managed in `assets/translations/`
-
-### ✅ Form Validation
-
-- Built with Flutter Form Builder
-
-- Extensible and complex form support
-
-- Validators via Form Builder Validators
-
-### 🌐 HTTP Handling
-
-- Uses Dio for robust and interceptable HTTP requests
-
-- Base client setup for consistent API usage
-
-- Dummy JSON endpoints integrated for testing
-
-### 🧩 Dependency Injection
-
-- Based on GetIt
-
-- Annotation-based DI with generated boilerplate
-
-- Clean and testable service initialization
-
-### 💾 Local & Secure Storage
-
-- Shared Preferences for non-sensitive local data
-
-- Flutter Secure Storage for secure token (e.g., Bearer, Refresh Token) handling
-
-### handling
-
-🧱 Design Pattern & Principles
-
-- ✅ Atomic Design Pattern for building UI components
-
-- ✅ SOLID Principles enforced for maintainable and scalable architecture
-
-### 📱 Responsive Design
-
-- Built-in support for Responsive UI
-
-- Adapts layouts across mobile, tablet, and desktop
-
-- Common packages: flutter_screenutil, layout_builder, etc.
-
-### 🎯 Added Features
-
-#### 🔄 Pagination
-
-- Cursor-based and limit/offset pagination examples
-
-- Reusable pagination logic
-
-#### 🔐 Authentication
-
-- API Authentication → in `main` branch
-
-- Firebase Authentication → in `firebase` branch
-
-- Supabase Authentication → in `supabase` branch
-
-#### 🎨 Theme Management
-
-- Dark and Light mode toggle
-
-- Theme is fully customizable via ThemeData
-
-#### 🧹 Code Optimization & Tooling
-
-- ✅ Strict Lint Rules via analysis_options.yaml
-
-- ✅ Pre-Commit Hooks for formatting and analysis — implemented inside the `hooks/` folder
-
-- ✅ Model Generator:
-
-  - Custom Dart model generator utility
-
-  - Reduces manual work for model creation (from JSON)
-
----
-
-## 📁 Folder Structure
-
-```diff
-📦flutter_bloc_skeleton/
- ┣ 📁assets/
- ┣ 📁generator/
- ┣ 📁hooks/
- ┣ 📁lib/
- ┃ ┣ 📁app/
- ┃ ┣ 📁config/
- ┃ ┣ 📁core/
- ┃ ┃ ┗ 📁common/
- ┃ ┃   ┗ 📁pagination_bloc/
- ┃ ┣ 📁utils/
- ┃ ┃ ┣ 📁assets/
- ┃ ┃ ┣ 📁constants/
- ┃ ┃ ┣ 📁enums/
- ┃ ┃ ┣ 📁extension/
- ┃ ┃ ┣ 📁path_provider/
- ┃ ┃ ┣ 📁strings/
- ┃ ┃ ┣ 📁typedefs/
- ┃ ┃ ┗ 📁validators/
- ┃ ┣ 📁models/
- ┃ ┣ 📁pages/
- ┃ ┃ ┗ 📁feature_name/
- ┃ ┃   ┣ 📁bloc/
- ┃ ┃   ┗ 📄page_name.dart
- ┃ ┣ 📁repository/
- ┃ ┣ 📁services/
- ┃ ┣ 📁widgets/
- ┃ ┃ ┣ 📁atoms/
- ┃ ┃ ┣ 📁molecules/
- ┃ ┃ ┗ 📁organisms/
- ┃ ┣ 📄app.dart
- ┃ ┣ 📄main.dart
- ┃ ┣ 📄config.dart
- ┃ ┗ 📄injector.dart
- ┣ 📄pubspec.yaml
- ┣ 📄makefile
- ┣ 📄analysis_options.yaml
- ┗ 📄README.md
-```
-
----
-
-### `📁 assets/`
-
-- Stores raw assets like images, icons, translations, fonts, etc.
-
-- Typically referenced through asset management utilities.
-
-### `📁 generator/`
-
-- Home of the Dart model generator utility.
-
-- Automates creation of model classes from JSON, reducing boilerplate and ensuring consistency.
-
-### `📁 hooks/`
-
-- Contains Pre-Commit Hook Scripts.
-
-- Used to format code, run analysis, or tests before each Git commit to maintain code quality.
-
-### `📁 lib/app/`
-
-- Entry point of the folder structure.
-
-  ### 📁 config/
-
-  - Centralized configuration layer:
-
-  - API Config (e.g., base URLs)
-
-  - Theme Config
-
-  - GoRouter Setup
-
-  - Route Definitions
-
-  ### 📁 core/
-
-  - Common layer containing reusable utilities and foundational logic:
-
-  - common `/pagination_bloc/`
-    Contains shared pagination logic:
-
-  - Limit-based pagination
-
-  - Cursor-based pagination
-
-  - Can be reused across different features
-
-  ### `📁 utils/`
-
-  - Holds global utilities and helpers:
-
-  - `assets/`: Central asset manager (e.g., image paths, icons)
-
-  - `constants/`: Global constants (e.g., spacing, padding, keys)
-
-  - `enums/`: App-wide enumerations
-
-  - `extension/`: Dart extension methods
-
-  - `path_provider/`: Helpers for accessing file paths
-
-  - `strings/`: Centralized string literals or keys
-
-  - `typedefs/`: Useful type aliases for better readability
-
-  - `validators/`: Contains Field validators for forms (email, password, etc.)
-
-  ### `📁 models/`
-
-  - Contains Dart model classes representing API responses or local data structures.
-
-  ### `📁 pages/`
-
-  - Feature-specific pages and their respective BLoC files:
-
-  - Follows feature-first organization
-
-  - Each feature (e.g., auth, profile) includes:
-
-    - Its screen/page
-
-    - Its bloc/cubit for managing state
-
-  ### `📁 repository/`
-
-  - Handles business logic and data abstraction.
-
-  - Communicates with services and data sources (e.g., APIs, local storage).
-
-  ### `📁 services/`
-
-  - Low-level services for data fetching, local caching, secure storage, etc.
-
-  - E.g., API service using Dio, storage service, auth service.
-
-  ### `📁 widgets/`
-
-  - Reusable UI components following Atomic Design Pattern:
-  - `Atoms`: Basic UI elements (buttons, text, icons)
-  - `Molecules`: Combinations of atoms (e.g., text input with label)
-  - `Organisms`: Larger UI blocks made of molecules (e.g., login form)
-
-### `📄 app.dart/main.dart`
-
-- Root of the application.
-
-- Sets up theme, router, localization, and initializes the app.
-
-### `📄 injector.dart`
-
-- Configures dependency injection using get_it and injectable.
-
-- Registers all services, blocs, and repositories.
-
-### `📄 config.dart`
-
-- Centralized file for app-wide configurations like:
-
-  - Base URL
-
-  - App locale
-
-  - Environment (dev/staging/prod)
-
----
-
-## Prerequisites
-
-Make sure you have Flutter installed on your machine. If you haven't installed Flutter yet, you can follow the official Flutter installation guide: [Flutter Installation Guide](https://flutter.dev/docs/get-started/install)
-
-## Installation
-
-1. Clone the repository to your local machine using the following command:
+The project follows a **Feature-First Clean Architecture** approach, ensuring separation of concerns and scalability.
 
 ```
-git clone https://github.com/Aashish-Dahal/flutter_bloc_skeleton
+lib/
+├── core/                # Global infrastructure (Independent of features)
+│   ├── di/              # Main Service Locator (GetIt)
+│   ├── error/           # Standardized Failures
+│   ├── network/         # Centralized Dio Client & Network Logic
+│   └── result/          # Freezed-based Result pattern (Success/Failure)
+├── features/            # Feature modules (Domain-specific logic)
+│   └── auth/            # Example: Auth Feature
+│       ├── data/        # Data Layer (Infrastructure)
+│       │   ├── datasources/  # API calls
+│       │   ├── models/       # DTOs (Freezed + JSON Serializer)
+│       │   └── repositories/ # Repository Implementations
+│       ├── domain/      # Domain Layer (Pure Business Logic)
+│       │   ├── entities/     # Pure Data Classes
+│       │   ├── repositories/ # Repository Interfaces
+│       │   └── usecases/     # Single-responsibility business actions
+│       ├── presentation/# Presentation Layer (UI & State)
+│       │   ├── bloc/         # Feature BLoC (Freezed states/events)
+│       │   └── pages/        # Feature Screens
+│       └── auth_di.dart # Feature-specific DI registration
+├── app/                 # Global App Config & Shared Components
+│   ├── core/            # App-level config
+│   │   └── config/      # Routes (GoRouter) and Theme Logic
+│   └── shared/          # Reusable UI & Logic across features
+│       └── widgets/     # Atomic Design (Atoms, Molecules, Organisms)
+└── main.dart            # Application Entry Point
 ```
 
-2. Change into the project directory using the following command:
+## Architectural Layers
 
+### 1. Domain Layer (Highest Level)
+- **Entities**: Pure Dart objects representing business data. No dependencies on JSON or external libraries.
+- **Repository Interfaces**: Abstract contracts defining data operations required by the business.
+- **Use Cases**: Single business actions (e.g., `LoginUseCase`). They only depend on repository interfaces and return `Result<T>`.
+
+### 2. Data Layer
+- **Models (DTOs)**: Freezed classes used for JSON serialization. Includes mappers (`toEntity()`) to convert DTOs to Domain Entities.
+- **Data Sources**: Handle raw data operations (e.g., calling Dio for REST APIs).
+- **Repositories**: Implementations of the Domain repository interfaces. They orchestrate data flow between sources and map data to entities.
+
+### 3. Presentation Layer
+- **BLoC**: Manages feature state using Freezed union types for Events and States. BLoCs only interact with Use Cases.
+- **Pages**: UI screens that consume BLoC states.
+
+### 4. Core & App Layers
+- **Core**: Contains infrastructure code that is agnostic to any specific business feature (e.g., how we handle network requests or DI).
+- **App**: Handles app-level configuration like navigation and global themes, as well as shared components used by multiple features.
+
+## Architecture Flow
+
+The following diagram illustrates how data and events flow through the layers during a typical action:
+
+```mermaid
+sequenceDiagram
+    participant UI as UI (Pages/Widgets)
+    participant BLoC as BLoC (State Management)
+    participant UC as Use Case
+    participant RI as Repository Interface
+    participant RP as Repository Implementation
+    participant DS as Data Source (Remote/Local)
+    participant API as External API (REST)
+
+    UI->>BLoC: Add Event (e.g., LoginRequested)
+    activate BLoC
+    BLoC-->>UI: Emit State (Loading)
+    
+    BLoC->>UC: Execute (params)
+    activate UC
+    
+    UC->>RI: Call Method (repo.login)
+    activate RI
+    
+    RI->>DS: Fetch Data (dataSource.login)
+    activate DS
+    
+    DS->>API: HTTP Request (Dio.post)
+    API-->>DS: JSON Response
+    DS-->>RI: Return Model
+    deactivate DS
+    
+    RI-->>UC: Return Result<Entity>
+    deactivate RI
+    
+    UC-->>BLoC: Return Result<Entity>
+    deactivate UC
+    
+    BLoC-->>UI: Emit State (Authenticated / Failure)
+    deactivate BLoC
 ```
-cd flutter_bloc_skeleton
-```
 
-3. Run this command to set up the project:
+### Layer Responsibilities
 
-```
- make project-setup
- make flutter-clean
-```
+| Layer | Responsibility |
+| :--- | :--- |
+| **Presentation** | Captures input, triggers events, and renders state. |
+| **BLoC** | Orchestrates state transitions. It knows **what** to do but not **how**. |
+| **Domain (UC)** | Encapsulates a single business rule. |
+| **Data (Repo)** | The single source of truth. Orchestrates data sources. |
+| **Data (DS)** | Direct communication with APIs or Databases. |
 
-4. Run the project using the following command:
+## Dependency Injection (GetIt)
 
-```
-  flutter run
-```
+We use a modular DI approach:
+1. Feature-specific registrations happen in `feature_name_di.dart`.
+2. These are aggregated in `lib/core/di/service_locator.dart`.
+3. The main entry point calls `sl.init()` before the app starts.
 
-This will launch the app on your connected device or emulator.
+## Code Generation
 
-## Environments
+This project uses `freezed` and `json_serializable` for data modeling and BLoC state management.
 
-Place the env files like `config.dart, google-services.json, GoogleService.plist` inside respective `env/<dev|prod>`
-folder.
+### Commands
+- **Generate Code**: `make generate` (or `dart run build_runner build --delete-conflicting-outputs`)
+- **Watch Changes**: `make watch` (or `dart run build_runner watch --delete-conflicting-outputs`)
 
-And you can run `make set-env-dev | make set-env-prod` in terminal to set the required environment files.
-
-## Material Theme Setup
-
-Use this Material Design 3 Theme Generator website to design themes for both dark and light modes.
-
-- [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
-
-## Coding Guidelines
-
-Additionally, utilize this article to enhance the quality of your code. This resource encompasses guidelines for naming conventions, code style and formatting, as well as other best practices.
-
-- [medium-article](https://medium.com/readytowork-org/flutter-best-practices-and-coding-guidelines-f494b1ad2369)
-
-## Usage
-
-You can start building your Flutter application on top of this skeleton project. Modify or replace the existing code to fit your application's requirements. The skeleton project provides an example structure and initial code to get you started quickly.
-
-## Testing
-
-The `test/` directory contains files and examples to help you write tests for your Flutter application. It is recommended to follow good testing practices and write unit, integration, and widget tests to ensure the stability and correctness of your code.
-
-## Contributing
-
-Contributions are welcome! If you have any ideas, suggestions, or bug reports, please open an issue on the GitHub repository. If you'd like to contribute code, you can fork the repository, create a new branch, make your changes, and submit a pull request.
-
-Please make sure to follow the existing coding style and conventions in the project.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+## Key Packages
+- `flutter_bloc`: State management.
+- `freezed`: Immutable models and union types.
+- `get_it`: Dependency injection.
+- `dio`: HTTP client.
+- `go_router`: Navigation.
+- `easy_localization`: Multi-language support.

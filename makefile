@@ -8,6 +8,8 @@ GOOGLE_SERVICE_ANDROID=$(ANDROID_DIR)/app/
 IOS_DIR=ios
 GOOGLE_SERVICE_INFO=GoogleService-Info.plist
 GOOGLE_SERVICE_IOS=$(IOS_DIR)/Runner/
+TAG=Todos
+FILE=swagger.json
 
 # Project Setup
 project-setup:
@@ -47,7 +49,7 @@ set-env-staging:
 
 	@echo "$(GREEN)Successfully copied project staging environment config$(NC)"
 
-.PHONY: set-env-dev, set-env-prod, set-env-staging
+# Environment Setup
 
 flutter-clean:
 	@echo "$(GREEN) Cleaning Flutter project...$(NC)"
@@ -60,3 +62,18 @@ flutter-fix:
 	@dart format .
 	@echo "$(GREEN) Running Flutter fix...$(NC)"
 	@dart fix --apply
+generate:
+	@echo "$(GREEN) Generating code...$(NC)"
+	@dart run build_runner build --delete-conflicting-outputs
+
+watch:
+	@echo "$(GREEN) Watching for changes...$(NC)"
+	@dart run build_runner watch --delete-conflicting-outputs
+
+swagger-gen:
+	@echo "$(GREEN) Generating features from Swagger...$(NC)"
+	@dart generator/swagger_parser.dart $(TAG) $(FILE)
+
+# Usage example: make swagger-gen TAG=Events FILE=swagger.json
+
+.PHONY: project-setup, set-env-dev, set-env-prod, set-env-staging, flutter-clean, flutter-fix, generate, watch, swagger-gen
