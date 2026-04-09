@@ -1,0 +1,8 @@
+import '../../../../core/network/api_result.dart';
+import '../entities/token_entity.dart';
+import '../entities/user_entity.dart';
+
+abstract class AuthRepository {
+  Future<ApiResult<UserEntity>> login(String username, String password);
+  Future<ApiResult<TokenEntity>> refreshToken(String token);
+}

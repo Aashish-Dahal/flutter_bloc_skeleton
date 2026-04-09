@@ -1,12 +1,13 @@
-import 'package:easy_localization/easy_localization.dart' show EasyLocalization;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_push_notification_module/fcm_service.dart';
-import 'package:flutter/material.dart' show Locale, debugPrint, runApp;
+import 'package:flutter/material.dart'
+    show Locale, debugPrint, runApp, WidgetsFlutterBinding;
 
-import 'app/app.dart' show App;
-import 'app/core/utils/assets/index.dart';
-import 'app/core/utils/constants/index.dart';
-import 'app/injector.dart' show initDependencies, inject;
-import 'config.dart' show Config;
+import 'app.dart' show App;
+import 'config.dart';
+import 'core/di/service_locator.dart' as di;
+import 'core/utils/assets/index.dart';
+import 'core/utils/constants/index.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -14,10 +15,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  await initDependencies();
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await FirebaseMessaging.instance.subscribeToTopic("all");
-  await inject<FirebaseNotificationService>().initialize();
+  await di.sl<FirebaseNotificationService>().initialize();
 
   runApp(
     EasyLocalization(
