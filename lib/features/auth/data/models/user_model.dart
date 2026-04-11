@@ -24,7 +24,6 @@ class UserModel with _$UserModel {
       _$UserModelFromJson(json);
 
   UserEntity toEntity() => UserEntity(
-    id: id,
     username: username,
     email: email,
     fullname: '$firstName $lastName',

@@ -13,39 +13,47 @@ import 'route_path.dart';
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
-  late final AuthBloc authBloc;
-  GoRouter get router => _goRouter;
+  final AuthBloc authBloc;
   AppRouter(this.authBloc);
 
   late final _goRouter = GoRouter(
-    initialLocation: authBloc.state is Authenticated
-        ? AppPage.home.toPath
-        : AppPage.login.toPath,
+    initialLocation: AppPage.login.toPath,
     refreshListenable: authBloc.asListenable(),
     navigatorKey: rootNavigatorKey,
-    routes: <GoRoute>[
+
+    // ONE REDIRECT TO RULE THEM ALL
+    redirect: (context, state) {
+      final authState = authBloc.state;
+      final bool isAuthenticated = authState is Authenticated;
+
+      // Check if the user is currently on an "Auth" page (Login or Register)
+      final bool isAuthPage =
+          state.matchedLocation == AppPage.login.toPath ||
+          state.matchedLocation == AppPage.register.toPath;
+
+      // 1. If not authenticated and not on an auth page, force to Login
+      if (!isAuthenticated && !isAuthPage) {
+        return AppPage.login.toPath;
+      }
+
+      // 2. If authenticated and trying to access Login/Register, force to Home
+      if (isAuthenticated && isAuthPage) {
+        return AppPage.home.toPath;
+      }
+
+      // 3. Otherwise, let them go where they want
+      return null;
+    },
+
+    routes: [
       GoRoute(
         path: AppPage.home.toPath,
         name: AppPage.home.toName,
-        redirect: (context, state) {
-          final state = authBloc.state;
-          if (state is Unauthenticated) {
-            return AppPage.login.toPath;
-          }
-          return null;
-        },
-        builder: (context, state) => HomePage(),
+        builder: (context, state) => const HomePage(),
       ),
       GoRoute(
         path: AppPage.login.toPath,
         name: AppPage.login.toName,
-        redirect: (context, state) {
-          final state = authBloc.state;
-          if (state is Authenticated) {
-            return AppPage.home.toPath;
-          }
-          return null;
-        },
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
@@ -55,12 +63,7 @@ class AppRouter {
       ),
     ],
     errorBuilder: (context, state) => const PageNotFoundView(),
-    redirect: (context, _) {
-      final isLoggedIn = authBloc.state is Authenticated;
-      if (isLoggedIn) {
-        return AppPage.home.toPath;
-      }
-      return null;
-    },
   );
+
+  GoRouter get router => _goRouter;
 }

@@ -4,7 +4,6 @@ import '../../../../core/di/service_locator.dart';
 import '../../../../shared/bloc/base_pagination_bloc.dart';
 import '../../../../shared/widgets/organisms/bloc_pagination_view.dart';
 import '../../domain/entities/product_entity.dart';
-import '../../domain/usecases/product_usecase.dart';
 import '../bloc/product_pagination_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,9 +19,8 @@ class HomePage extends StatelessWidget {
         ],
       ),
       body: BlocProvider(
-        create: (context) => ProductPaginationBloc(
-          productUsecase: sl<ProductUsecase>(),
-        )..add(const PaginationFetch()),
+        create: (context) =>
+            sl<ProductPaginationBloc>()..add(const PaginationFetch()),
         child: BlocPaginationView<ProductEntity, ProductPaginationBloc>(
           itemBuilder: (context, data) {
             return ListTile(

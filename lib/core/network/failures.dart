@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class Failure extends Equatable {
@@ -24,6 +27,17 @@ class ValidationFailure extends Failure {
   const ValidationFailure(super.message);
 }
 
+class DataParsingFailure extends Failure {
+  final String modelName;
+  final String fieldName;
+
+  const DataParsingFailure({required this.modelName, required this.fieldName})
+    : super('Parsing Error in $modelName: Field "$fieldName" }');
+
+  @override
+  List<Object?> get props => [message, modelName, fieldName];
+}
+
 String getFirebaseErrorMessage(String code) {
   switch (code) {
     case 'invalid-email':
@@ -39,4 +53,37 @@ String getFirebaseErrorMessage(String code) {
     default:
       return 'An unknown error occurred.';
   }
+}
+
+Failure handleDioError(DioException e) {
+  switch (e.type) {
+    case DioExceptionType.connectionTimeout:
+    case DioExceptionType.sendTimeout:
+    case DioExceptionType.receiveTimeout:
+      return const NetworkFailure('Connection timed out');
+    case DioExceptionType.connectionError:
+      return const NetworkFailure('No internet connection');
+    case DioExceptionType.badResponse:
+      return _handleStatusCode(e.response?.statusCode, e.response?.data);
+    case DioExceptionType.unknown:
+      if (e.error is SocketException) {
+        return const NetworkFailure('No internet');
+      }
+      return const ServerFailure('An unexpected error occurred');
+    default:
+      return const ServerFailure();
+  }
+}
+
+Failure _handleStatusCode(int? statusCode, dynamic data) {
+  String message = 'Server error';
+  if (data is Map) message = data['message'] ?? data['error'] ?? message;
+
+  return switch (statusCode) {
+    400 => ValidationFailure(message),
+    401 => const ServerFailure('Unauthorized'),
+    404 => const ServerFailure('Resource not found'),
+    500 => const ServerFailure('Internal server error'),
+    _ => ServerFailure('Error $statusCode: $message'),
+  };
 }

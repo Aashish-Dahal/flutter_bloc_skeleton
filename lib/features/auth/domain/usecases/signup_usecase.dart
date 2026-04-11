@@ -3,12 +3,16 @@ import '../../../../core/utils/typedf/index.dart';
 import '../entities/user_entity.dart';
 import '../repositories/auth_repository.dart';
 
-class LoginUseCase {
+class SignupUseCase {
   final AuthRepository _repository;
 
-  LoginUseCase(this._repository);
+  SignupUseCase(this._repository);
 
   Future<ApiResult<UserEntity>> call(JsonMap userMap) async {
-    return await _repository.login(userMap['username'], userMap['password']);
+    return await _repository.signUp(
+      userMap['fullName'],
+      userMap['email'],
+      userMap['password'],
+    );
   }
 }

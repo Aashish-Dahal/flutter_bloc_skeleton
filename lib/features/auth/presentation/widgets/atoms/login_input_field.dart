@@ -1,36 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-import '../../../core/validators/auth_validator.dart';
-import '../atoms/input_field.dart';
+import '../../../../../core/validators/form_validator.dart';
+import '../../../../../shared/widgets/atoms/input_field.dart';
 
-class RegisterInputField extends StatelessWidget with AuthValidator {
+class LoginInputField extends StatelessWidget {
   final GlobalKey<FormBuilderState> formKey;
-
-  RegisterInputField({super.key, required this.formKey});
+  const LoginInputField({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
       key: formKey,
+      initialValue: {"username": "emilys", "password": "emilyspass"},
       child: Column(
         spacing: 10,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           InputField(
-            name: "full_name",
-            hint: "Enter your full name",
-            validator: fullNameValidator,
-          ),
-          InputField(
-            name: "email",
-            hint: "Enter email address",
-            validator: emailValidator,
+            name: "username",
+            hint: "Enter a username",
+            validator: FormValidator.fullName,
           ),
           InputField(
             name: "password",
             hint: "Enter password",
-            validator: passwordValidator,
+            isPassword: true,
+            validator: FormValidator.password,
           ),
         ],
       ),

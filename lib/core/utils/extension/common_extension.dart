@@ -23,4 +23,5 @@ extension ElevatedButtonLoadingExtension on ElevatedButton {
 
 extension FormBuilderStateExtension on GlobalKey<FormBuilderState> {
   Map<String, dynamic> get formValue => currentState?.value ?? {};
+  bool get isValid => currentState?.saveAndValidate() ?? false;
 }

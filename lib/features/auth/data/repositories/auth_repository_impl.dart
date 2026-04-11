@@ -29,4 +29,24 @@ class AuthRepositoryImpl implements AuthRepository {
       return ApiResult.failure(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<ApiResult<UserEntity>> signUp(
+    String fullName,
+    String email,
+    String password,
+  ) {
+    // TODO: implement signUp
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<ApiResult<TokenEntity>> getCurrentSession() async {
+    try {
+      final tokenEntity = await _remoteDataSource.getCurrentSession();
+      return ApiResult.success(tokenEntity);
+    } catch (e) {
+      return ApiResult.failure(ServerFailure(e.toString()));
+    }
+  }
 }

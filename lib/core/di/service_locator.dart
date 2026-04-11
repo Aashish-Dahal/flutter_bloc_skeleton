@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/auth_di.dart';
+import '../../features/home/home_di.dart';
 import '../network/dio_client.dart';
 import '../theme/app_theme.dart';
 
@@ -42,4 +43,5 @@ Future<void> init() async {
 
   // Features registration
   initAuth();
+  initHome();
 }

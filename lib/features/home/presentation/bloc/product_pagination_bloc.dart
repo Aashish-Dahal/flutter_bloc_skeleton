@@ -7,9 +7,8 @@ import '../../domain/usecases/product_usecase.dart';
 class ProductPaginationBloc extends BasePaginationBloc<ProductEntity> {
   final ProductUsecase _productUsecase;
 
-  ProductPaginationBloc({
-    required ProductUsecase productUsecase,
-  }) : _productUsecase = productUsecase;
+  ProductPaginationBloc({required ProductUsecase productUsecase})
+    : _productUsecase = productUsecase;
 
   @override
   Future<ApiResult<PaginatedData<ProductEntity>>> fetchItems(
@@ -20,9 +19,11 @@ class ProductPaginationBloc extends BasePaginationBloc<ProductEntity> {
     return result.when(
       success: (response) {
         return ApiResult.success(
-          PaginatedData(
+          PaginatedData<ProductEntity>(
             items: response.products,
-            isEnd: (state.data.length + response.products.length) >= response.total,
+            isEnd:
+                (state.data.length + response.products.length) >=
+                response.total,
           ),
         );
       },
