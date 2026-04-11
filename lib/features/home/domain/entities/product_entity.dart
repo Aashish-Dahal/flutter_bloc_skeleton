@@ -1,5 +1,12 @@
 import '../../data/models/product_model.dart';
 
+class ProductResponseEntity {
+  final List<ProductEntity> products;
+  final int total;
+
+  ProductResponseEntity({required this.products, required this.total});
+}
+
 class ProductEntity {
   final int id;
   final String title;

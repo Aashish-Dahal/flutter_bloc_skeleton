@@ -1,5 +1,6 @@
 import '../../../../core/network/api_result.dart';
 import '../../../../shared/models/pagination_params.dart';
+import '../entities/product_entity.dart';
 import '../repository/product_repository.dart';
 
 class ProductUsecase {

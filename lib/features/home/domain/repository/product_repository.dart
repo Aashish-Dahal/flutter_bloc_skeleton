@@ -7,10 +7,3 @@ abstract class ProductRepository {
     PaginationParams paginationParams,
   );
 }
-
-class ProductResponseEntity {
-  final List<ProductEntity> products;
-  final int total;
-
-  ProductResponseEntity({required this.products, required this.total});
-}

@@ -4,5 +4,11 @@ import '../entities/user_entity.dart';
 
 abstract class AuthRepository {
   Future<ApiResult<UserEntity>> login(String username, String password);
+  Future<ApiResult<UserEntity>> signUp(
+    String fullName,
+    String email,
+    String password,
+  );
   Future<ApiResult<TokenEntity>> refreshToken(String token);
+  Future<ApiResult<TokenEntity>> getCurrentSession();
 }

@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../features/auth/presentation/bloc/auth_bloc.dart';
-import '../../../core/routes/route_path.dart';
-import '../../../core/utils/extension/common_extension.dart';
-import '../molecules/register_input_field.dart';
+import '../../../../../../features/auth/presentation/bloc/auth_bloc.dart';
+import '../../../../../core/routes/route_path.dart';
+import '../../../../../core/utils/extension/common_extension.dart';
+import '../atoms/register_input_field.dart';
 
 class RegisterPageView extends StatefulWidget {
   const RegisterPageView({super.key});
@@ -25,25 +25,19 @@ class _RegisterPageViewState extends State<RegisterPageView> {
   }
 
   void onSignUpButtonPressed() {
-    if (formKey.currentState!.saveAndValidate()) {
-      // context.read<AuthBloc>().add(AuthSignUp(userMap: formKey.formValue));
+    if (formKey.isValid) {
+      context.read<AuthBloc>().add(SignUpRequested(userMap: formKey.formValue));
     }
-  }
-
-  @override
-  void dispose() {
-    formKey.currentState?.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
+      padding: const .symmetric(horizontal: 20),
       child: Column(
         spacing: 20,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: .stretch,
+        mainAxisAlignment: .center,
         children: [
           const Text("Welcome to Register Page"),
           RegisterInputField(formKey: formKey),
@@ -51,7 +45,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
             listener: onAuthStateListener,
             builder: (context, state) {
               return ElevatedButton(
-                onPressed: () => onSignUpButtonPressed,
+                onPressed: onSignUpButtonPressed,
                 child: const Text("Register"),
               ).withLoading(state is AuthLoading);
             },

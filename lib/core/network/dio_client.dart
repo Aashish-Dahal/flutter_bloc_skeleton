@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import 'auth_interceptor.dart';
+
 class DioClient {
   final Dio _dio;
 
@@ -9,7 +11,7 @@ class DioClient {
       ..options.connectTimeout = const Duration(seconds: 15)
       ..options.receiveTimeout = const Duration(seconds: 15)
       ..options.responseType = ResponseType.json
-      ..interceptors.add(
+      ..interceptors.addAll([
         LogInterceptor(
           request: true,
           requestHeader: true,
@@ -18,7 +20,8 @@ class DioClient {
           responseBody: true,
           error: true,
         ),
-      );
+        DioAuthInterceptor(),
+      ]);
   }
 
   Future<Response> get(

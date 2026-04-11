@@ -16,7 +16,7 @@ abstract class BasePaginationBloc<T>
 
   BasePaginationBloc({PaginationParams? initialParams})
     : params = initialParams ?? PaginationParams(pageSize: 20),
-      super(const PaginationState()) {
+      super(PaginationState<T>()) {
     on<PaginationFetch>(_onPaginationFetch);
     on<PaginationRefresh>(_onPaginationRefresh);
   }
@@ -40,7 +40,8 @@ abstract class BasePaginationBloc<T>
 
       result.when(
         success: (paginatedData) {
-          final newData = List.of(state.data)..addAll(paginatedData.items);
+          final newData = List<T>.of(state.data)..addAll(paginatedData.items);
+
           emit(
             state.copyWith(
               status: PaginationStatus.success,
@@ -81,7 +82,7 @@ abstract class BasePaginationBloc<T>
     emit(
       state.copyWith(
         status: PaginationStatus.initial,
-        data: [],
+        data: <T>[],
         hasReachedMax: false,
       ),
     );

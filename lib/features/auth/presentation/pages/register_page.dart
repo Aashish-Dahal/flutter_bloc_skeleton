@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../shared/widgets/organisms/register_page_view.dart';
+import '../widgets/molecules/register_page_view.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

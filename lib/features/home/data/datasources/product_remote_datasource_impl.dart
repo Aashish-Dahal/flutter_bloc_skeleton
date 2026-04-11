@@ -2,15 +2,12 @@ import '../../../../core/network/api_endpoints.dart';
 import '../../../../core/network/dio_client.dart';
 import '../../../../shared/models/pagination_params.dart';
 import '../models/product_model.dart';
+import 'product_remote_datasource.dart';
 
-abstract class ProductApiService {
-  Future<ProductResponseM> getPost(PaginationParams paginationParams);
-}
-
-class ProductApiServiceImpl extends ProductApiService {
+class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
   final DioClient _dioClient;
 
-  ProductApiServiceImpl(DioClient dioClient) : _dioClient = dioClient;
+  ProductRemoteDataSourceImpl(DioClient dioClient) : _dioClient = dioClient;
 
   @override
   Future<ProductResponseM> getPost(PaginationParams paginationParams) async {
@@ -21,7 +18,6 @@ class ProductApiServiceImpl extends ProductApiService {
         'skip': (paginationParams.page - 1) * paginationParams.pageSize,
       },
     );
-
     return ProductResponseM.fromJson(response.data);
   }
 }
