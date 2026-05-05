@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart'
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../core/di/service_locator.dart';
-import '../features/auth/presentation/bloc/auth_bloc.dart';
+import 'features/auth/auth.dart';
 import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/s.dart';

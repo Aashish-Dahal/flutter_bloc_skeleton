@@ -4,7 +4,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/auth/auth_di.dart';
+import '../../features/auth/auth.dart';
+import '../../features/cart/cart_di.dart';
 import '../../features/home/home_di.dart';
 import '../../shared/cubit/locale_cubit.dart';
 import '../network/dio_client.dart';
@@ -45,5 +46,6 @@ Future<void> init() async {
 
   // Features registration
   initAuth();
+  initCart();
   initHome();
 }

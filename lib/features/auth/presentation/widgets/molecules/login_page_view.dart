@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../../features/auth/presentation/bloc/auth_bloc.dart';
 import '../../../../../core/routes/route_path.dart';
+import '../../bloc/auth_bloc.dart';
 import '../../../../../core/utils/extension/common_extension.dart';
 import '../../../../../core/utils/extension/context_extension/dialog_extension.dart';
 import '../atoms/login_input_field.dart';

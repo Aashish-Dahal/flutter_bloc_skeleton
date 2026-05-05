@@ -102,6 +102,18 @@ abstract class S {
   /// In en, this message translates to:
   /// **'Hello'**
   String get greeting;
+
+  /// No description provided for @cartPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cart'**
+  String get cartPageTitle;
+
+  /// No description provided for @cartEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Your cart is empty'**
+  String get cartEmptyMessage;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

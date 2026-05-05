@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../features/auth/presentation/bloc/auth_bloc.dart';
-
-import '../../../../features/auth/presentation/pages/login_page.dart';
-import '../../../../features/auth/presentation/pages/register_page.dart';
-import '../../../features/home/presentation/pages/home_page.dart';
+import '../../features/auth/auth.dart';
+import '../../features/cart/cart.dart';
+import '../../features/home/presentation/pages/home_page.dart';
 import '../../../shared/widgets/organisms/page_not_found.dart';
 import '../utils/extension/bloc_extension.dart';
 import 'route_path.dart';
@@ -51,16 +49,8 @@ class AppRouter {
         name: AppPage.home.toName,
         builder: (context, state) => const HomePage(),
       ),
-      GoRoute(
-        path: AppPage.login.toPath,
-        name: AppPage.login.toName,
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: AppPage.register.toPath,
-        name: AppPage.register.toName,
-        builder: (context, state) => const RegisterPage(),
-      ),
+      ...CartRoutes.routes,
+      ...AuthRoutes.routes,
     ],
     errorBuilder: (context, state) => const PageNotFoundView(),
   );

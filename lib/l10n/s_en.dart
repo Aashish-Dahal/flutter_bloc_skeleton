@@ -10,4 +10,10 @@ class SEn extends S {
 
   @override
   String get greeting => 'Hello';
+
+  @override
+  String get cartPageTitle => 'Cart';
+
+  @override
+  String get cartEmptyMessage => 'Your cart is empty';
 }

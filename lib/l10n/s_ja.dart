@@ -10,4 +10,10 @@ class SJa extends S {
 
   @override
   String get greeting => 'こんにちは';
+
+  @override
+  String get cartPageTitle => 'カート';
+
+  @override
+  String get cartEmptyMessage => 'カートに商品がありません';
 }
