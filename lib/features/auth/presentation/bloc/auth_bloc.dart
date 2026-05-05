@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AppStarted>(_onAppStarted);
-    add(AppStarted());
+    // add(AppStarted());
   }
 
   Future<void> _onLoginRequested(
