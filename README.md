@@ -117,6 +117,7 @@ This project uses `freezed` and `json_serializable` for data modeling and BLoC s
 ### Commands
 - **Generate Code**: `make generate` (or `dart run build_runner build --delete-conflicting-outputs`)
 - **Watch Changes**: `make watch` (or `dart run build_runner watch --delete-conflicting-outputs`)
+- **Setup Dynamic Links**: `make generate_dynamic_links` (Interactively configures Android manifest, iOS entitlements, and generates `.well-known` hosting JSON files)
 
 ## Key Packages
 - `flutter_bloc`: State management.
