@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../l10n/s.dart';
 import '../widgets/molecules/login_page_view.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,7 +9,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login Page")),
+      appBar: AppBar(title: Text(S.of(context).greeting)),
       body: LoginPageView(),
     );
   }

@@ -28,8 +28,8 @@ class RefreshListView extends StatelessWidget {
         padding: padding,
         controller: controller,
         itemBuilder: itemBuilder,
-        separatorBuilder:
-            (_, i) => showDivider ? const Divider() : separatorWidget,
+        separatorBuilder: (_, i) =>
+            showDivider ? const Divider() : separatorWidget,
         itemCount: itemCount,
       ),
     );

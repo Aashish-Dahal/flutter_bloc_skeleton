@@ -58,12 +58,12 @@ void main() async {
     print('✅ Completed: $sheetTitle (${enSection.length} keys)');
   }
 
-  final dir = Directory('../assets/translations');
+  final dir = Directory('../lib/l10n');
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
   }
-  final enPath = '${dir.path}/en.json';
-  final jaPath = '${dir.path}/ja.json';
+  final enPath = '${dir.path}/app_en.arb';
+  final jaPath = '${dir.path}/app_jp.arb';
 
   await File(
     enPath,

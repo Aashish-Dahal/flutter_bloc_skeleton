@@ -1,0 +1,6 @@
+{
+  "@@locale": "en",
+  "greeting": "Hello",
+  "cartPageTitle": "Cart",
+  "cartEmptyMessage": "Your cart is empty"
+}

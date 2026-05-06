@@ -1,0 +1,6 @@
+{
+  "@@locale": "ja",
+  "greeting": "こんにちは",
+  "cartPageTitle": "カート",
+  "cartEmptyMessage": "カートに商品がありません"
+}
