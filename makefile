@@ -10,6 +10,9 @@ GOOGLE_SERVICE_INFO=GoogleService-Info.plist
 GOOGLE_SERVICE_IOS=$(IOS_DIR)/Runner/
 TAG=Todos
 FILE=swagger.json
+DEFAULT_DOMAIN=example.com
+
+-include .env_vars
 
 # Project Setup
 project-setup:
@@ -74,6 +77,62 @@ swagger-gen:
 	@echo "$(GREEN) Generating features from Swagger...$(NC)"
 	@dart generator/swagger_parser.dart $(TAG) $(FILE)
 
+
+generate_dynamic_links: dynamic_link_setup
+	@$(MAKE) app_links_android universal_links_ios host_files
+
+dynamic_link_setup:
+	@echo "--- Project Configuration ---"
+	@printf "Enter Android Package Name (e.g., com.myapp): "; read pkg; echo "PACKAGE_NAME=$$pkg" > .env_vars
+	@printf "Enter iOS Bundle ID (e.g., com.myapp.ios): "; read bundle; echo "BUNDLE_ID=$$bundle" >> .env_vars
+	@printf "Enter Domain Name (e.g., myapp.com): "; read dom; echo "DOMAIN=$$dom" >> .env_vars
+	@printf "Enter Apple Team ID (from developer portal): "; read team; echo "TEAM_ID=$$team" >> .env_vars
+	@printf "Enter App Name: "; read name; echo "APP_NAME=$$name" >> .env_vars
+	@echo "Configuration saved to .env_vars"
+
+## 2. Android: Update Manifest
+app_links_android:
+	@echo "Configuring Android for $(DOMAIN)..."
+	@echo '        <intent-filter android:autoVerify="true">' > .tmp_intent
+	@echo '            <action android:name="android.intent.action.VIEW" />' >> .tmp_intent
+	@echo '            <category android:name="android.intent.category.DEFAULT" />' >> .tmp_intent
+	@echo '            <category android:name="android.intent.category.BROWSABLE" />' >> .tmp_intent
+	@echo '            <data android:scheme="https" android:host="$(DOMAIN)" />' >> .tmp_intent
+	@echo '        </intent-filter>' >> .tmp_intent
+	@sed -i '' '/<activity/r .tmp_intent' android/app/src/main/AndroidManifest.xml
+	@rm .tmp_intent
+
+## 3. iOS: Update Entitlements
+universal_links_ios:
+	@echo "Configuring iOS for $(DOMAIN)..."
+	@mkdir -p ios/Runner
+	@echo '<?xml version="1.0" encoding="UTF-8"?>' > ios/Runner/Runner.entitlements
+	@echo '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">' >> ios/Runner/Runner.entitlements
+	@echo '<plist version="1.0">' >> ios/Runner/Runner.entitlements
+	@echo '<dict>' >> ios/Runner/Runner.entitlements
+	@echo '	<key>aps-environment</key>' >> ios/Runner/Runner.entitlements
+	@echo '	<string>development</string>' >> ios/Runner/Runner.entitlements
+	@echo '	<key>com.apple.developer.associated-domains</key>' >> ios/Runner/Runner.entitlements
+	@echo '	<array>' >> ios/Runner/Runner.entitlements
+	@echo '		<string>applinks:$(DOMAIN)</string>' >> ios/Runner/Runner.entitlements
+	@echo '	</array>' >> ios/Runner/Runner.entitlements
+	@echo '</dict>' >> ios/Runner/Runner.entitlements
+	@echo '</plist>' >> ios/Runner/Runner.entitlements
+
+## 4. Host Files: Generate JSONs
+host_files:
+	@mkdir -p server-configs/.well-known
+	
+	# iOS AASA
+	@echo '{"applinks":{"apps":[],"details":[{"appID":"$(TEAM_ID).$(BUNDLE_ID)","paths":["*"]}]}}' > server-configs/.well-known/apple-app-site-association
+	
+	# Android Assetlinks
+	@printf "Enter your Android SHA256 Fingerprint: "; \
+	read fingerprint; \
+	echo '[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"$(PACKAGE_NAME)","sha256_cert_fingerprints":["'$$fingerprint'"]}}]' > server-configs/.well-known/assetlinks.json
+	
+	@echo "Verification files generated in /server-configs"
+
 # Usage example: make swagger-gen TAG=Events FILE=swagger.json
 
-.PHONY: project-setup, set-env-dev, set-env-prod, set-env-staging, flutter-clean, flutter-fix, generate, watch, swagger-gen
+.PHONY: project-setup, set-env-dev, set-env-prod, set-env-staging, flutter-clean, flutter-fix, generate, watch, swagger-gen, generate_dynamic_links
