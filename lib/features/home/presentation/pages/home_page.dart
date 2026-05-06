@@ -29,6 +29,9 @@ class HomePage extends StatelessWidget {
         create: (context) =>
             sl<ProductPaginationBloc>()..add(const PaginationFetch()),
         child: BlocPaginationView<ProductEntity, ProductPaginationBloc>(
+          onPageLoaded: (page, data) {
+            debugPrint("Page $page loaded with ${data.length} items");
+          },
           itemBuilder: (context, data) {
             return ListTile(
               leading: Text(data.id.toString()),
