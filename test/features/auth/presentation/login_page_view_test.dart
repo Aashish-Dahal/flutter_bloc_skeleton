@@ -4,7 +4,7 @@ import 'package:flutter_bloc_skeleton/features/auth/presentation/widgets/molecul
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:flutter_bloc_skeleton/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flutter_bloc_skeleton/features/auth/presentation/state_management/auth_bloc.dart';
 
 import '../../../helpers/test_helpers.dart';
 

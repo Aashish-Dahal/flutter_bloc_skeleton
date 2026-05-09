@@ -2,14 +2,19 @@ import 'package:dio/dio.dart';
 import 'package:firebase_push_notification_module/fcm_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/auth.dart';
 import '../../features/cart/cart_di.dart';
 import '../../features/home/home_di.dart';
 import '../../shared/cubit/locale_cubit.dart';
+import '../routes/app_routes.dart';
+import '../storage/secure_token_storage.dart';
+import '../storage/token_storage.dart';
 import '../network/dio_client.dart';
 import '../theme/app_theme.dart';
+import '../utils/extension/bloc_extension.dart';
 
 final sl = GetIt.instance;
 
@@ -25,6 +30,10 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<TokenStorage>(
+    () => SecureTokenStorage(sl<FlutterSecureStorage>()),
+  );
+
   sl.registerLazySingleton<FirebaseNotificationService>(
     () => FirebaseNotificationService(
       FirebaseMessaging.instance,
@@ -38,7 +47,16 @@ Future<void> init() async {
   );
 
   sl.registerLazySingleton(() => Dio());
-  sl.registerLazySingleton(() => DioClient(sl()));
+
+  sl.registerLazySingleton(
+    () => DioClient(
+      dio: sl<Dio>(),
+      tokenStorage: sl<TokenStorage>(),
+      onSessionExpired: () async {
+        await sl<TokenStorage>().clearTokens();
+      },
+    ),
+  );
 
   // Core / Shared
   sl.registerLazySingleton(() => AppTheme());
@@ -48,4 +66,13 @@ Future<void> init() async {
   initAuth();
   initCart();
   initHome();
+
+  /// Router LAST
+  sl.registerLazySingleton<GoRouter>(
+    () => AppRouter(
+      navigatorKey: rootNavigatorKey,
+      initialLocation: AuthRoute.login.path,
+      refreshListenable: sl<AuthBloc>().asListenable(),
+    ),
+  );
 }

@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/routes/route_path.dart';
-import '../../bloc/auth_bloc.dart';
-import '../../../../../core/utils/extension/common_extension.dart';
+import '../../../../../core/utils/index.dart';
+import '../../routes/auth_route_paths.dart';
+import '../../state_management/auth_bloc.dart';
 import '../../../../../core/utils/extension/context_extension/dialog_extension.dart';
 import '../atoms/login_input_field.dart';
 
@@ -21,6 +21,8 @@ class _LoginPageViewState extends State<LoginPageView> {
 
   void onAuthStateListener(BuildContext context, AuthState state) {
     state.maybeWhen(
+      authenticated: (user) =>
+          context.showSnackBar('Welcome back, ${user.username}'),
       failure: (message) => context.showSnackBar(message),
       orElse: () {},
     );
@@ -35,7 +37,7 @@ class _LoginPageViewState extends State<LoginPageView> {
   }
 
   void onRegisterButtonPressed() {
-    context.push(AppPage.register.toPath);
+    context.push(AuthRoute.register.path);
   }
 
   @override
@@ -47,21 +49,22 @@ class _LoginPageViewState extends State<LoginPageView> {
         crossAxisAlignment: .stretch,
         mainAxisAlignment: .center,
         children: [
-          const Text("Welcome to Login Page"),
+          const Text(loginTitle),
+          const Text(loginSubtitle, textAlign: .center),
           LoginInputField(formKey: formKey),
           BlocConsumer<AuthBloc, AuthState>(
             listener: onAuthStateListener,
             builder: (_, state) {
               return ElevatedButton(
                 onPressed: onSignInButtonPressed,
-                child: const Text("Login"),
+                child: const Text(loginButtonText),
               ).withLoading(state is AuthLoading);
             },
           ),
-          const Text("Don't have an account?", textAlign: .center),
+          const Text(noAccountText, textAlign: .center),
           OutlinedButton(
             onPressed: onRegisterButtonPressed,
-            child: const Text("Register"),
+            child: const Text(registerButtonText),
           ),
         ],
       ),

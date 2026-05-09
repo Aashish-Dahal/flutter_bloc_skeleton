@@ -1,13 +1,24 @@
 import 'package:dio/dio.dart';
 
+import '../../config.dart';
+import '../storage/token_storage.dart';
 import 'auth_interceptor.dart';
+import 'jwt_interceptor.dart';
 
 class DioClient {
   final Dio _dio;
+  final TokenStorage _tokenStorage;
+  final OnSessionExpired _onSessionExpired;
 
-  DioClient(this._dio) {
+  DioClient({
+    required Dio dio,
+    required TokenStorage tokenStorage,
+    required OnSessionExpired onSessionExpired,
+  }) : _dio = dio,
+       _tokenStorage = tokenStorage,
+       _onSessionExpired = onSessionExpired {
     _dio
-      ..options.baseUrl = 'https://dummyjson.com'
+      ..options.baseUrl = Config.baseUrl
       ..options.connectTimeout = const Duration(seconds: 15)
       ..options.receiveTimeout = const Duration(seconds: 15)
       ..options.responseType = ResponseType.json
@@ -21,6 +32,11 @@ class DioClient {
           error: true,
         ),
         DioAuthInterceptor(),
+        JwtInterceptor(
+          dio: _dio,
+          tokenStorage: _tokenStorage,
+          onSessionExpired: _onSessionExpired,
+        ),
       ]);
   }
 

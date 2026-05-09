@@ -21,6 +21,24 @@ extension ElevatedButtonLoadingExtension on ElevatedButton {
   }
 }
 
+extension OutlinedButtonLoadingExtension on OutlinedButton {
+  OutlinedButton withLoading(bool loading) {
+    return OutlinedButton(
+      onPressed: loading ? null : onPressed,
+      child: loading ? const CircularProgressIndicator() : child,
+    );
+  }
+}
+
+extension TextButtonLoadingExtension on TextButton {
+  TextButton withLoading(bool loading) {
+    return TextButton(
+      onPressed: loading ? null : onPressed,
+      child: loading ? const CircularProgressIndicator() : child ?? SizedBox(),
+    );
+  }
+}
+
 extension FormBuilderStateExtension on GlobalKey<FormBuilderState> {
   Map<String, dynamic> get formValue => currentState?.value ?? {};
   bool get isValid => currentState?.saveAndValidate() ?? false;

@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_result.dart';
-import '../../../../core/network/failures.dart';
+import '../../../../core/error/failures.dart';
 import '../../../../shared/models/pagination_params.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repository/product_repository.dart';

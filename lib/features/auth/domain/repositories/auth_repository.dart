@@ -11,4 +11,5 @@ abstract class AuthRepository {
   );
   Future<ApiResult<TokenEntity>> refreshToken(String token);
   Future<ApiResult<TokenEntity>> getCurrentSession();
+  Future<ApiResult<String>> logout();
 }

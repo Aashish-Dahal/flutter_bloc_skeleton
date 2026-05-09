@@ -6,6 +6,7 @@ import '../../../../core/di/service_locator.dart';
 import '../../../../features/auth/domain/usecases/refresh_token_usecase.dart';
 import '../utils/enum/index.dart';
 import 'api_endpoints.dart';
+import 'api_result.dart';
 import 'dio_client.dart';
 
 class DioAuthInterceptor extends Interceptor {

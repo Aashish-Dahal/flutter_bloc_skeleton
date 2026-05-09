@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_bloc_skeleton/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flutter_bloc_skeleton/features/auth/presentation/state_management/auth_bloc.dart';
 
 // ─── Mock classes ─────────────────────────────────────────────────────────────
 

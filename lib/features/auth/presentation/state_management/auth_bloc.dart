@@ -1,8 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../../../core/network/api_result.dart';
 import '../../../../core/utils/typedf/index.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/usecases/login_usecase.dart';
+import '../../domain/usecases/logout_usecase.dart';
 import '../../domain/usecases/session_usecase.dart';
 import '../../domain/usecases/signup_usecase.dart';
 
@@ -14,20 +16,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase _loginUseCase;
   final SignupUseCase _signupUseCase;
   final SessionUseCase _sessionUseCase;
+  final LogoutUseCase _logoutUseCase;
 
   AuthBloc({
     required LoginUseCase loginUseCase,
     required SignupUseCase signupUseCase,
     required SessionUseCase sessionUseCase,
+    required LogoutUseCase logoutUseCase,
   }) : _loginUseCase = loginUseCase,
        _signupUseCase = signupUseCase,
        _sessionUseCase = sessionUseCase,
+       _logoutUseCase = logoutUseCase,
        super(const AuthInitial()) {
     on<SignUpRequested>(_onSignUpRequested);
     on<LoginRequested>(_onLoginRequested);
     on<LogoutRequested>(_onLogoutRequested);
     on<AppStarted>(_onAppStarted);
-    // add(AppStarted());
+    add(AppStarted());
   }
 
   Future<void> _onLoginRequested(
@@ -56,8 +61,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  void _onLogoutRequested(LogoutRequested event, Emitter<AuthState> emit) {
-    emit(const Unauthenticated());
+  void _onLogoutRequested(
+    LogoutRequested event,
+    Emitter<AuthState> emit,
+  ) async {
+    final result = await _logoutUseCase();
+    result.when(
+      success: (message) => emit(Unauthenticated(message: message)),
+      failure: (failure) => emit(AuthFailure(message: failure.message)),
+    );
   }
 
   void _onAppStarted(AppStarted event, Emitter<AuthState> emit) async {

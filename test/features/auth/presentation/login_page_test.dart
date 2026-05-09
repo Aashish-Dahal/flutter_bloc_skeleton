@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_skeleton/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:flutter_bloc_skeleton/features/auth/presentation/state_management/auth_bloc.dart';
 import 'package:flutter_bloc_skeleton/features/auth/presentation/widgets/molecules/login_page_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 

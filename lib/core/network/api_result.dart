@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'failures.dart';
+import '../error/failures.dart';
 
 part 'api_result.freezed.dart';
 

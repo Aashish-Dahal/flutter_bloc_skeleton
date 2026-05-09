@@ -38,6 +38,10 @@ dependencies:
   intl: any
   mocktail: ^1.0.5
   bloc_test: ^10.0.0
+  firebase_core: ^4.7.0
+  firebase_auth: ^6.4.0
+  cloud_firestore: ^6.3.0
+  firebase_messaging: ^16.2.0
 
 dev_dependencies:
   flutter_test:

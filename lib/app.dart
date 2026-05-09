@@ -11,10 +11,10 @@ import 'package:flutter/material.dart'
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocBuilder, BlocProvider, MultiBlocProvider;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 import '../core/di/service_locator.dart';
 import 'features/auth/auth.dart';
-import 'core/routes/app_routes.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/s.dart';
 import 'shared/cubit/locale_cubit.dart';
@@ -39,7 +39,7 @@ class App extends StatelessWidget {
             return BlocBuilder<AppTheme, ThemeData>(
               builder: (context, themeData) => MaterialApp.router(
                 debugShowCheckedModeBanner: kDebugMode,
-                routerConfig: AppRouter(sl<AuthBloc>()).router,
+                routerConfig: sl<GoRouter>(),
                 title: 'Flutter Bloc Skeleton',
                 theme: themeData,
                 locale: locale,

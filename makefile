@@ -76,6 +76,8 @@ watch:
 swagger-gen:
 	@echo "$(GREEN) Generating features from Swagger...$(NC)"
 	@dart generator/swagger_parser.dart $(TAG) $(FILE)
+swagger-gen-all: swagger-gen generate
+
 
 generate-assets:
 	@echo "$(GREEN) Generating assets constants...$(NC)"
@@ -136,6 +138,32 @@ host_files:
 	echo '[{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"$(PACKAGE_NAME)","sha256_cert_fingerprints":["'$$fingerprint'"]}}]' > server-configs/.well-known/assetlinks.json
 	
 	@echo "Verification files generated in /server-configs"
+
+setup-firebase:
+	@read -p "Enter Firebase PROJECT_ID: " PROJECT_ID; \
+	read -p "Enter Firebase DISPLAY_NAME: " DISPLAY_NAME; \
+	read -p "Enter Android Package Name: " ANDROID_PACKAGE; \
+	read -p "Enter iOS Bundle ID: " IOS_BUNDLE_ID; \
+	\
+	echo "Creating Firebase project..."; \
+	firebase projects:create $$PROJECT_ID \
+		--display-name "$$DISPLAY_NAME"; \
+	\
+	echo ""; \
+	echo "Running FlutterFire configure..."; \
+	flutterfire configure \
+		--project=$$PROJECT_ID \
+		--android-package-name=$$ANDROID_PACKAGE \
+		--ios-bundle-id=$$IOS_BUNDLE_ID; \
+	\
+	echo ""; \
+	echo "Adding Firebase packages..."; \
+	flutter pub add firebase_core firebase_auth cloud_firestore firebase_messaging; \
+	\
+	echo ""; \
+	echo "✅ Firebase setup completed!"
+
+
 
 # Usage example: make swagger-gen TAG=Events FILE=swagger.json
 

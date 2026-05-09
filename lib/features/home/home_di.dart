@@ -4,7 +4,7 @@ import 'data/datasources/product_remote_datasource_impl.dart';
 import 'data/repository/product_repository_impl.dart';
 import 'domain/repository/product_repository.dart';
 import 'domain/usecases/product_usecase.dart';
-import 'presentation/bloc/product_pagination_bloc.dart';
+import 'presentation/state_management/product_pagination_bloc.dart';
 
 void initHome() {
   // Data sources

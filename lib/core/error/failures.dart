@@ -23,19 +23,21 @@ class NetworkFailure extends Failure {
   const NetworkFailure([super.message = 'Network connection failed']);
 }
 
-class ValidationFailure extends Failure {
-  const ValidationFailure(super.message);
+final class UnauthorizedFailure extends Failure {
+  const UnauthorizedFailure() : super('Unauthorized. Please log in again.');
 }
 
-class DataParsingFailure extends Failure {
-  final String modelName;
-  final String fieldName;
+final class SessionExpiredFailure extends Failure {
+  const SessionExpiredFailure()
+    : super('Your session has expired. Please log in again.');
+}
 
-  const DataParsingFailure({required this.modelName, required this.fieldName})
-    : super('Parsing Error in $modelName: Field "$fieldName" }');
+final class UnknownFailure extends Failure {
+  const UnknownFailure() : super('An unexpected error occurred.');
+}
 
-  @override
-  List<Object?> get props => [message, modelName, fieldName];
+class ValidationFailure extends Failure {
+  const ValidationFailure(super.message);
 }
 
 String getFirebaseErrorMessage(String code) {

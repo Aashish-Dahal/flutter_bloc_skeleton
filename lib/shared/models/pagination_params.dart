@@ -9,7 +9,7 @@ class PaginationParams {
 
   PaginationParams({
     this.pageSize = 10,
-    this.filter = empty,
+    this.filter = emptyString,
     this.page = 1,
     this.skip,
   });

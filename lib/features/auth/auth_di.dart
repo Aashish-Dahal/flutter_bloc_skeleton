@@ -2,15 +2,17 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../core/di/service_locator.dart';
 import '../../core/network/dio_client.dart';
+import '../../core/storage/token_storage.dart';
 import 'data/datasources/auth_remote_datasource.dart';
 import 'data/datasources/auth_remote_datasource_impl.dart';
 import 'data/repositories/auth_repository_impl.dart';
 import 'domain/repositories/auth_repository.dart';
 import 'domain/usecases/login_usecase.dart';
+import 'domain/usecases/logout_usecase.dart';
 import 'domain/usecases/refresh_token_usecase.dart';
 import 'domain/usecases/session_usecase.dart';
 import 'domain/usecases/signup_usecase.dart';
-import 'presentation/bloc/auth_bloc.dart';
+import 'presentation/state_management/auth_bloc.dart';
 
 void initAuth() {
   // Data sources
@@ -19,14 +21,17 @@ void initAuth() {
   );
 
   // Repositories
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(sl<AuthRemoteDataSource>(), sl<TokenStorage>()),
+  );
 
   // Use cases
-  sl.registerLazySingleton(() => LoginUseCase(sl()));
-  sl.registerLazySingleton(() => SignupUseCase(sl()));
-  sl.registerLazySingleton(() => SessionUseCase(sl()));
+  sl.registerLazySingleton(() => LoginUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => SignupUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => SessionUseCase(sl<AuthRepository>()));
+  sl.registerLazySingleton(() => LogoutUseCase(sl<AuthRepository>()));
 
-  sl.registerLazySingleton(() => RefreshTokenUseCase(sl()));
+  sl.registerLazySingleton(() => RefreshTokenUseCase(sl<AuthRepository>()));
 
   // Blocs
   sl.registerFactory(
@@ -34,6 +39,7 @@ void initAuth() {
       loginUseCase: sl<LoginUseCase>(),
       signupUseCase: sl<SignupUseCase>(),
       sessionUseCase: sl<SessionUseCase>(),
+      logoutUseCase: sl<LogoutUseCase>(),
     ),
   );
 }
