@@ -1,12 +1,13 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../error/exceptions.dart';
+import '../utils/enum/index.dart';
 import 'token_storage.dart';
 
 final class SecureTokenStorage implements TokenStorage {
   final FlutterSecureStorage _storage;
 
-  static const _accessTokenKey = 'access_token';
-  static const _refreshTokenKey = 'refresh_token';
+  static final _accessTokenKey = SecureStorageKey.bearerToken.name;
+  static final _refreshTokenKey = SecureStorageKey.refreshToken.name;
 
   const SecureTokenStorage(this._storage);
 

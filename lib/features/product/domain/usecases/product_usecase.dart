@@ -10,6 +10,10 @@ class ProductUsecase {
     : _repository = repository;
 
   Future<ApiResult<ProductResponseEntity>> call(PaginationParams params) async {
-    return await _repository.getProducts(params);
+    return await _repository.getAllProducts(params);
+  }
+
+  Future<ApiResult<ProductEntity>> callGetProductById(String id) async {
+    return await _repository.getProductById(id);
   }
 }

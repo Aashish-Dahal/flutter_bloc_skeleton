@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/auth.dart';
 import '../../features/cart/cart_di.dart';
-import '../../features/home/home_di.dart';
+import '../../features/product/product_di.dart';
+
 import '../../shared/cubit/locale_cubit.dart';
 import '../routes/app_routes.dart';
 import '../storage/secure_token_storage.dart';
@@ -65,13 +66,13 @@ Future<void> init() async {
   // Features registration
   initAuth();
   initCart();
-  initHome();
+  initProduct();
 
   /// Router LAST
+
   sl.registerLazySingleton<GoRouter>(
     () => AppRouter(
       navigatorKey: rootNavigatorKey,
-      initialLocation: AuthRoute.login.path,
       refreshListenable: sl<AuthBloc>().asListenable(),
     ),
   );

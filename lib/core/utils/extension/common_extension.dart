@@ -39,6 +39,12 @@ extension TextButtonLoadingExtension on TextButton {
   }
 }
 
+extension ApiIdExtension on String {
+  String addId(dynamic id) {
+    return '$this/$id';
+  }
+}
+
 extension FormBuilderStateExtension on GlobalKey<FormBuilderState> {
   Map<String, dynamic> get formValue => currentState?.value ?? {};
   bool get isValid => currentState?.saveAndValidate() ?? false;

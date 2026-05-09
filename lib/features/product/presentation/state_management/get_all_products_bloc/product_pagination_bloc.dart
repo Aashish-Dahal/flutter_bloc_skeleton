@@ -1,8 +1,8 @@
-import '../../../../core/network/api_result.dart';
-import '../../../../shared/bloc/base_pagination_bloc.dart';
-import '../../../../shared/models/pagination_params.dart';
-import '../../domain/entities/product_entity.dart';
-import '../../domain/usecases/product_usecase.dart';
+import '../../../../../core/network/api_result.dart';
+import '../../../../../shared/bloc/base_pagination_bloc.dart';
+import '../../../../../shared/models/pagination_params.dart';
+import '../../../domain/entities/product_entity.dart';
+import '../../../domain/usecases/product_usecase.dart';
 
 class ProductPaginationBloc extends BasePaginationBloc<ProductEntity> {
   final ProductUsecase _productUsecase;

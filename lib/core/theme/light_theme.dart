@@ -31,6 +31,7 @@ base class LightTheme extends Typography {
       useMaterial3: true,
       brightness: Brightness.light,
       primarySwatch: AppColors.primary,
+      scaffoldBackgroundColor: Colors.white.withValues(alpha: 0.97),
       cardColor: AppColors.white,
       colorScheme: ColorScheme(
         brightness: Brightness.light,

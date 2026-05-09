@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../state/base_state.dart';
 import '../atoms/circular_loading_indicator.dart';
 
-class BlocStateBuilder<B extends BlocBase<S>, S extends BaseState<dynamic>>
+class BlocStateBuilder<B extends BlocBase<S>, S extends BaseState>
     extends StatelessWidget {
   final B Function(B)? addEvent;
   final bool Function(S, S)? buildWhen;

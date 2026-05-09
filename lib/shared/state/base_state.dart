@@ -1,15 +1,15 @@
-abstract interface class BaseState<T> {}
+abstract interface class BaseState {}
 
-abstract interface class BaseInitial<T> implements BaseState<T> {}
+abstract interface class BaseInitial implements BaseState {}
 
-abstract interface class BaseLoading<T> implements BaseState<T> {}
+abstract interface class BaseLoading implements BaseState {}
 
-abstract interface class BaseLoaded<T> implements BaseState<T> {
+abstract interface class BaseLoaded<T> implements BaseState {
   T get res;
 }
 
-abstract interface class BaseFailure<T> implements BaseState<T> {
+abstract interface class BaseFailure implements BaseState {
   String get message;
 }
 
-abstract interface class BaseEmpty<T> implements BaseState<T> {}
+abstract interface class BaseEmpty implements BaseState {}

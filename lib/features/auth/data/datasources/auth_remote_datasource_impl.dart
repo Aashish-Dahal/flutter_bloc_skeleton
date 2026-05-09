@@ -43,9 +43,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final refreshToken = await _storage.read(
       key: SecureStorageKey.refreshToken.name,
     );
-    return TokenEntity(
-      accessToken: accessToken ?? '',
-      refreshToken: refreshToken ?? '',
-    );
+    return TokenEntity(accessToken: accessToken, refreshToken: refreshToken);
   }
 }

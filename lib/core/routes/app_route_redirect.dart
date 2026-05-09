@@ -1,18 +1,17 @@
-import 'dart:async';
+import 'dart:async' show FutureOr;
 import 'dart:developer';
 
 import 'package:flutter/material.dart' show BuildContext;
-import 'package:flutter_bloc/flutter_bloc.dart' show ReadContext;
 import 'package:go_router/go_router.dart' show GoRouterState;
 
 import '../../features/auth/presentation/routes/auth_route_paths.dart'
     show AuthRoute;
 import '../../features/auth/presentation/state_management/auth_bloc.dart'
     show AuthBloc, AuthInitial, AuthLoading, Authenticated;
-import '../../features/home/presentation/routes/home_route_paths.dart'
-    show HomeRoute;
+import '../../features/product/presentation/routes/product_route_paths.dart'
+    show ProductRoute;
 import '../di/service_locator.dart' show sl;
-import '../storage/token_storage.dart';
+import '../storage/token_storage.dart' show TokenStorage;
 
 class AppRouterRedirect {
   static final authPages = {AuthRoute.login.path, AuthRoute.register.path};
@@ -21,38 +20,38 @@ class AppRouterRedirect {
     BuildContext context,
     GoRouterState state,
   ) async {
-    final authState = context.read<AuthBloc>().state;
+    final authState = sl<AuthBloc>().state;
     final location = state.matchedLocation;
 
     final isAuthPage = authPages.contains(location);
-    final isLoginPage = location == AuthRoute.login.path;
+
+    final loggingIn = location == AuthRoute.login.path;
+
+    final bool isAuthenticated = authState is Authenticated;
 
     final token = await sl<TokenStorage>().getAccessToken();
     log(
-      'User authenticated, token: $token $isLoginPage $isAuthPage $isLoginPage ${state.uri}',
+      'Router redirect called. Location: $location, AuthState: $authState isAuthenticated: $isAuthenticated, Token: $token',
     );
 
-    /// App booting
+    /// App booting or loading
     if (authState is AuthInitial || authState is AuthLoading) {
-      if (token == null && !isAuthPage && !isLoginPage) {
+      if (token == null &&
+          !authPages.contains(location) &&
+          location != AuthRoute.login.path) {
         return AuthRoute.login.path;
       }
-
       return null;
     }
 
-    /// Not authenticated
-    if (authState is! Authenticated) {
-      if (!isAuthPage && !isLoginPage) {
-        return AuthRoute.login.path;
-      }
-
-      return null;
+    /// Not authenticated and trying to access a protected page
+    if (!isAuthenticated && !isAuthPage) {
+      return AuthRoute.login.path;
     }
 
-    /// Already logged in
-    if (isLoginPage && token != null) {
-      return HomeRoute.home.path;
+    /// Authenticated and trying to access an auth page (like login)
+    if (isAuthenticated && loggingIn) {
+      return ProductRoute.product.path;
     }
 
     return null;

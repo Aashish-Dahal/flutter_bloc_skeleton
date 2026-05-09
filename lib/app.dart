@@ -7,7 +7,8 @@ import 'package:flutter/material.dart'
         StatelessWidget,
         ThemeData,
         Widget,
-        Locale;
+        Locale,
+        SizedBox;
 import 'package:flutter_bloc/flutter_bloc.dart'
     show BlocBuilder, BlocProvider, MultiBlocProvider;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,7 +47,10 @@ class App extends StatelessWidget {
                 localizationsDelegates: S.localizationsDelegates,
                 supportedLocales: S.supportedLocales,
                 builder: (context, child) {
-                  return LocaleSwitcher(child: child!);
+                  if (child == null) {
+                    return const SizedBox.shrink();
+                  }
+                  return LocaleSwitcher(child: child);
                 },
               ),
             );

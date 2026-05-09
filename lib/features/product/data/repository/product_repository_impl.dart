@@ -14,15 +14,27 @@ class ProductRepositoryImpl implements ProductRepository {
     : _productApiService = productApiService;
 
   @override
-  Future<ApiResult<ProductResponseEntity>> getProducts(
+  Future<ApiResult<ProductResponseEntity>> getAllProducts(
     PaginationParams paginationParams,
   ) async {
     try {
-      final responseM = await _productApiService.getPost(paginationParams);
+      final responseM = await _productApiService.getAllProducts(
+        paginationParams,
+      );
       final products = responseM.data.map((m) => m.toEntity()).toList();
       return ApiResult.success(
         ProductResponseEntity(products: products, total: responseM.count),
       );
+    } on DioException catch (e) {
+      return ApiResult.failure(handleDioError(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<ProductEntity>> getProductById(String id) async {
+    try {
+      final responseM = await _productApiService.getProductById(id);
+      return ApiResult.success(responseM.toEntity());
     } on DioException catch (e) {
       return ApiResult.failure(handleDioError(e));
     }

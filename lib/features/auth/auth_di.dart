@@ -34,7 +34,7 @@ void initAuth() {
   sl.registerLazySingleton(() => RefreshTokenUseCase(sl<AuthRepository>()));
 
   // Blocs
-  sl.registerFactory(
+  sl.registerLazySingleton(
     () => AuthBloc(
       loginUseCase: sl<LoginUseCase>(),
       signupUseCase: sl<SignupUseCase>(),

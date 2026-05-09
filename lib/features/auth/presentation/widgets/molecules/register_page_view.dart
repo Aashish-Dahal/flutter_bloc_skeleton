@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../home/presentation/routes/home_route_paths.dart';
+import '../../../../product/presentation/routes/product_route_paths.dart';
 import '../../state_management/auth_bloc.dart';
 import '../../../../../core/utils/extension/common_extension.dart';
 import '../atoms/register_input_field.dart';
@@ -20,7 +20,7 @@ class _RegisterPageViewState extends State<RegisterPageView> {
 
   void onAuthStateListener(BuildContext context, AuthState state) {
     if (state is Authenticated) {
-      context.go(HomeRoute.home.path);
+      context.go(ProductRoute.product.path);
     }
   }
 

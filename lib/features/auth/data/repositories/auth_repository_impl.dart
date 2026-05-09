@@ -53,7 +53,11 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<ApiResult<TokenEntity>> getCurrentSession() async {
     try {
       final tokenEntity = await _remoteDataSource.getCurrentSession();
-      return ApiResult.success(tokenEntity);
+      if (tokenEntity.accessToken != null || tokenEntity.refreshToken != null) {
+        return ApiResult.success(tokenEntity);
+      } else {
+        return ApiResult.failure(ServerFailure("No active session found"));
+      }
     } catch (e) {
       return ApiResult.failure(ServerFailure(e.toString()));
     }
