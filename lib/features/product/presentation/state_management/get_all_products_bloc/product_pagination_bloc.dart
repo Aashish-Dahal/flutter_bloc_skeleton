@@ -2,12 +2,12 @@ import '../../../../../core/network/api_result.dart';
 import '../../../../../shared/bloc/base_pagination_bloc.dart';
 import '../../../../../shared/models/pagination_params.dart';
 import '../../../domain/entities/product_entity.dart';
-import '../../../domain/usecases/product_usecase.dart';
+import '../../../domain/usecases/get_all_product_usecase.dart';
 
 class ProductPaginationBloc extends BasePaginationBloc<ProductEntity> {
-  final ProductUsecase _productUsecase;
+  final GetAllProductsUseCase _productUsecase;
 
-  ProductPaginationBloc({required ProductUsecase productUsecase})
+  ProductPaginationBloc({required GetAllProductsUseCase productUsecase})
     : _productUsecase = productUsecase;
 
   @override

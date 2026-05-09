@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/network/api_result.dart';
 import '../../../../../shared/state/base_state.dart';
 import '../../../domain/entities/product_entity.dart';
-import '../../../domain/usecases/product_usecase.dart';
+import '../../../domain/usecases/get_product_by_id_usecase.dart';
 
 part 'get_product_by_id_event.dart';
 part 'get_product_by_id_state.dart';
@@ -12,9 +12,9 @@ part 'get_product_by_id_bloc.freezed.dart';
 
 class GetProductByIdBloc
     extends Bloc<GetProductByIdEvent, GetProductByIdState> {
-  final ProductUsecase _productUsecase;
+  final GetProductByIdUseCase _productUsecase;
 
-  GetProductByIdBloc({required ProductUsecase productUsecase})
+  GetProductByIdBloc({required GetProductByIdUseCase productUsecase})
     : _productUsecase = productUsecase,
       super(GetProductByIdState.initial()) {
     on<GetProductByIdRequested>(_onGetProductByIdRequested);
@@ -25,7 +25,7 @@ class GetProductByIdBloc
   ) async {
     emit(const GetProductByIdState.loading());
 
-    final result = await _productUsecase.callGetProductById(event.id);
+    final result = await _productUsecase(event.id);
 
     result.when(
       success: (res) => emit(GetProductByIdState.loaded(res: res)),
