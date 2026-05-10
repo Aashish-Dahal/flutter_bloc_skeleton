@@ -38,7 +38,6 @@ class AppRouter extends GoRouter {
              ],
            ),
          ),
-
          errorBuilder: (context, state) => const PageNotFoundView(),
        );
 }

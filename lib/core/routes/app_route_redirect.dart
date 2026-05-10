@@ -15,10 +15,7 @@ import '../storage/token_storage.dart' show TokenStorage;
 class AppRouterRedirect {
   static final authPages = {AuthRoute.login.path, AuthRoute.register.path};
 
-  static FutureOr<String?> redirect(
-    BuildContext context,
-    GoRouterState state,
-  ) async {
+  static FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
     final authState = sl<AuthBloc>().state;
     final location = state.matchedLocation;
 
@@ -28,7 +25,7 @@ class AppRouterRedirect {
 
     final bool isAuthenticated = authState is Authenticated;
 
-    final token = await sl<TokenStorage>().getAccessToken();
+    final token = sl<TokenStorage>().accessToken;
 
     /// App booting or loading
     if (authState is AuthInitial || authState is AuthLoading) {

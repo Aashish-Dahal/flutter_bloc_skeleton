@@ -9,4 +9,10 @@ abstract interface class TokenStorage {
   Future<String?> getRefreshToken();
 
   Future<void> clearTokens();
+
+  Future<void> init();
+
+  String? get accessToken;
+
+  String? get refreshToken;
 }

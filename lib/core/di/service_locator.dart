@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:firebase_push_notification_module/fcm_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/auth.dart';
@@ -31,9 +30,11 @@ Future<void> init() async {
     ),
   );
 
-  sl.registerLazySingleton<TokenStorage>(
-    () => SecureTokenStorage(sl<FlutterSecureStorage>()),
-  );
+  /// Token Storage
+  final tokenStorage = SecureTokenStorage(sl<FlutterSecureStorage>());
+  await tokenStorage.init();
+
+  sl.registerLazySingleton<TokenStorage>(() => tokenStorage);
 
   sl.registerLazySingleton<FirebaseNotificationService>(
     () => FirebaseNotificationService(
@@ -70,7 +71,7 @@ Future<void> init() async {
 
   /// Router LAST
 
-  sl.registerLazySingleton<GoRouter>(
+  sl.registerLazySingleton<AppRouter>(
     () => AppRouter(
       navigatorKey: rootNavigatorKey,
       refreshListenable: sl<AuthBloc>().asListenable(),

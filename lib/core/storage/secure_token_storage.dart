@@ -6,10 +6,13 @@ import 'token_storage.dart';
 final class SecureTokenStorage implements TokenStorage {
   final FlutterSecureStorage _storage;
 
+  String? _accessToken;
+  String? _refreshToken;
+
   static final _accessTokenKey = SecureStorageKey.bearerToken.name;
   static final _refreshTokenKey = SecureStorageKey.refreshToken.name;
 
-  const SecureTokenStorage(this._storage);
+  SecureTokenStorage(this._storage);
 
   @override
   Future<void> saveTokens({
@@ -17,6 +20,9 @@ final class SecureTokenStorage implements TokenStorage {
     required String refreshToken,
   }) async {
     try {
+      _accessToken = accessToken;
+      _refreshToken = refreshToken;
+
       await Future.wait([
         _storage.write(key: _accessTokenKey, value: accessToken),
         _storage.write(key: _refreshTokenKey, value: refreshToken),
@@ -47,6 +53,9 @@ final class SecureTokenStorage implements TokenStorage {
   @override
   Future<void> clearTokens() async {
     try {
+      _accessToken = null;
+      _refreshToken = null;
+
       await Future.wait([
         _storage.delete(key: _accessTokenKey),
         _storage.delete(key: _refreshTokenKey),
@@ -55,4 +64,25 @@ final class SecureTokenStorage implements TokenStorage {
       throw StorageException('Failed to clear tokens: $e');
     }
   }
+
+  @override
+  Future<void> init() async {
+    try {
+      final results = await Future.wait([
+        _storage.read(key: _accessTokenKey),
+        _storage.read(key: _refreshTokenKey),
+      ]);
+
+      _accessToken = results[0];
+      _refreshToken = results[1];
+    } catch (e) {
+      throw StorageException('Failed to initialize token storage: $e');
+    }
+  }
+
+  @override
+  String? get refreshToken => _refreshToken;
+
+  @override
+  String? get accessToken => _accessToken;
 }
