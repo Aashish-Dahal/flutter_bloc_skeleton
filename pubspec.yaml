@@ -43,6 +43,7 @@ dependencies:
   cloud_firestore: ^6.3.0
   firebase_messaging: ^16.2.0
   flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -52,6 +53,15 @@ dev_dependencies:
   build_runner: ^2.4.11
   freezed: ^3.2.5
   json_serializable: ^6.8.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/app_icon.png"
+
+  # Adaptive icon (VERY IMPORTANT for Android game-style)
+  adaptive_icon_background: "assets/icons/app_icon.png"
+  adaptive_icon_foreground: "assets/icons/app_icon.png"
 
 flutter:
   uses-material-design: true
