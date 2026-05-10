@@ -48,12 +48,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  flutter_lints: ^6.0.0
-  build_runner: ^2.4.11
-  freezed: ^3.2.5
-  json_serializable: ^6.8.0
-
 flutter_launcher_icons:
   android: true
   ios: true
@@ -62,6 +56,11 @@ flutter_launcher_icons:
   # Adaptive icon (VERY IMPORTANT for Android game-style)
   adaptive_icon_background: "assets/icons/app_icon.png"
   adaptive_icon_foreground: "assets/icons/app_icon.png"
+
+  flutter_lints: ^6.0.0
+  build_runner: ^2.4.11
+  freezed: ^3.2.5
+  json_serializable: ^6.8.0
 
 flutter:
   uses-material-design: true
