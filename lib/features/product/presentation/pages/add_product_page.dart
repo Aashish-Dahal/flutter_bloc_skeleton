@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/molecules/add_product_view.dart';
+import '../widgets/organisms/add_product_view.dart';
 
 class AddProductPage extends StatelessWidget {
   const AddProductPage({super.key});

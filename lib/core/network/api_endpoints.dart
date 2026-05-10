@@ -6,4 +6,5 @@ class ApiEndpoints {
   /// Product Endpoints
   static const String getProducts = '/products';
   static const String addProduct = '/products/add';
+  static const String productCategories = '/products/category-list';
 }

@@ -28,7 +28,8 @@ class GetProductByIdBloc
   ) async {
     final currentState = state;
     final bool isAlreadyLoaded =
-        currentState is ProductLoaded && currentState.res.id.toString() == event.id;
+        currentState is ProductLoaded &&
+        currentState.res.id.toString() == event.id;
 
     if (!isAlreadyLoaded) {
       emit(const GetProductByIdState.loading());
@@ -47,7 +48,9 @@ class GetProductByIdBloc
     ProductUpdatedLocally event,
     Emitter<GetProductByIdState> emit,
   ) async {
-    log('GetProductByIdBloc: Updating product locally. New Title: ${event.product.title}');
+    log(
+      'GetProductByIdBloc: Updating product locally. New Title: ${event.product.title}',
+    );
     emit(GetProductByIdState.loaded(res: event.product));
   }
 }

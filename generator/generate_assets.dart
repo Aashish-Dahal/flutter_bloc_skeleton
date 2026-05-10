@@ -16,12 +16,8 @@ void main() {
   buffer.writeln(
     '  static const String translations = "\$_assets/translations";',
   );
-  buffer.writeln(
-    '  static const String icons = "\$_assets/icons";',
-  );
-  buffer.writeln(
-    '  static const String images = "\$_assets/images";',
-  );
+  buffer.writeln('  static const String icons = "\$_assets/icons";');
+  buffer.writeln('  static const String images = "\$_assets/images";');
   buffer.writeln();
 
   final files = assetsDir.listSync(recursive: true).whereType<File>().where((

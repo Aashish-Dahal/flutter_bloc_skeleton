@@ -3,7 +3,7 @@ import '../../core/utils/typedf/index.dart';
 
 class PaginationParams {
   final int pageSize;
-  final String filter;
+  String? filter;
   int? skip;
   int page;
 
@@ -22,6 +22,6 @@ class PaginationParams {
   JsonMap toCursorJson() => {
     "limit": pageSize,
     if (skip != null) "skip": skip,
-    "filter": filter,
+    if (filter != null) "filter": filter,
   };
 }

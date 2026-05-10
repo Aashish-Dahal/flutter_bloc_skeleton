@@ -4,6 +4,7 @@ import '../../../../core/utils/extension/common_extension.dart'
     show ApiIdExtension;
 import '../../../../core/utils/typedf/index.dart';
 import '../../../../shared/models/pagination_params.dart';
+import '../models/product_category_model.dart';
 import '../models/product_model.dart';
 import 'product_remote_datasource.dart';
 
@@ -22,7 +23,12 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
         (paginationParams.page - 1) * paginationParams.pageSize;
 
     final response = await _dioClient.get(
-      ApiEndpoints.getProducts,
+      paginationParams.filter == null ||
+              paginationParams.filter?.contains("All") == true
+          ? paginationParams.filter?.contains("Search") == true
+                ? ApiEndpoints.getProducts.addId(paginationParams.filter)
+                : ApiEndpoints.getProducts
+          : ApiEndpoints.getProducts.addId(paginationParams.filter),
       queryParameters: {'limit': paginationParams.pageSize, 'skip': skip},
     );
 
@@ -51,5 +57,11 @@ class ProductRemoteDataSourceImpl extends ProductRemoteDataSource {
       data: product,
     );
     return ProductM.fromJson(response.data);
+  }
+
+  @override
+  Future<List<ProductCategoryM>> getAllCategories() async {
+    final response = await _dioClient.get(ApiEndpoints.productCategories);
+    return ProductCategoryM.parseList(response.data);
   }
 }

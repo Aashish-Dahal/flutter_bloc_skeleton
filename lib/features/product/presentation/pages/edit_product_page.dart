@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/product_entity.dart';
-import '../widgets/molecules/edit_product_view.dart';
+import '../widgets/organisms/edit_product_view.dart';
 
 class EditProductPage extends StatelessWidget {
   final ProductEntity product;

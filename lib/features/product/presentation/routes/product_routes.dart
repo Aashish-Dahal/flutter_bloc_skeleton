@@ -14,6 +14,7 @@ import '../state_management/edit_product_bloc/edit_product_bloc.dart';
 import '../state_management/get_all_products_bloc/product_pagination_bloc.dart'
     show ProductPaginationBloc;
 import '../state_management/get_product_by_id_bloc/get_product_by_id_bloc.dart';
+import '../state_management/get_product_category_bloc/get_product_category_bloc.dart';
 import 'product_route_paths.dart';
 
 /// Declares all GoRouter routes owned by the home feature.
@@ -34,7 +35,13 @@ abstract final class ProductRoutes {
           builder: (BuildContext context, GoRouterState state) {
             final bloc = context.read<ProductPaginationBloc>();
             bloc.add(const PaginationFetch());
-            return const ProductPage();
+            return BlocProvider(
+              create: (context) => sl<GetProductCategoryBloc>()
+                ..add(
+                  const GetProductCategoryEvent.getProductCategoryRequested(),
+                ),
+              child: const ProductPage(),
+            );
           },
           routes: [
             GoRoute(
@@ -58,8 +65,8 @@ abstract final class ProductRoutes {
             GoRoute(
               path: ProductRoute.productDetail.path,
               builder: (BuildContext context, GoRouterState state) {
-                final product = state.extra as ProductEntity;
-                return ProductDetailPage(id: product.id.toString());
+                final id = state.extra as int;
+                return ProductDetailPage(id: id.toString());
               },
             ),
           ],
