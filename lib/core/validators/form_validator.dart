@@ -14,4 +14,8 @@ class FormValidator {
       FormBuilderValidators.compose([
         FormBuilderValidators.required(errorText: "password is required"),
       ]);
+  static final FormFieldValidator<String> required =
+      FormBuilderValidators.compose([
+        FormBuilderValidators.required(errorText: "Please enter"),
+      ]);
 }

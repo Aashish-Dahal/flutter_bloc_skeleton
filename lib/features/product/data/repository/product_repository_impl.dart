@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import '../../../../core/network/api_result.dart';
 import '../../../../core/error/failures.dart';
+import '../../../../core/utils/index.dart';
 import '../../../../shared/models/pagination_params.dart';
 import '../../domain/entities/product_entity.dart';
 import '../../domain/repository/product_repository.dart';
@@ -34,6 +35,29 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<ApiResult<ProductEntity>> getProductById(String id) async {
     try {
       final responseM = await _productApiService.getProductById(id);
+      return ApiResult.success(responseM.toEntity());
+    } on DioException catch (e) {
+      return ApiResult.failure(handleDioError(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<ProductEntity>> addProduct(JsonMap product) async {
+    try {
+      final responseM = await _productApiService.addProduct(product);
+      return ApiResult.success(responseM.toEntity());
+    } on DioException catch (e) {
+      return ApiResult.failure(handleDioError(e));
+    }
+  }
+
+  @override
+  Future<ApiResult<ProductEntity>> updateProduct(
+    JsonMap product, {
+    required String id,
+  }) async {
+    try {
+      final responseM = await _productApiService.updateProduct(product, id: id);
       return ApiResult.success(responseM.toEntity());
     } on DioException catch (e) {
       return ApiResult.failure(handleDioError(e));

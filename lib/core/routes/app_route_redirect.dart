@@ -1,5 +1,4 @@
 import 'dart:async' show FutureOr;
-import 'dart:developer';
 
 import 'package:flutter/material.dart' show BuildContext;
 import 'package:go_router/go_router.dart' show GoRouterState;
@@ -30,9 +29,6 @@ class AppRouterRedirect {
     final bool isAuthenticated = authState is Authenticated;
 
     final token = await sl<TokenStorage>().getAccessToken();
-    log(
-      'Router redirect called. Location: $location, AuthState: $authState isAuthenticated: $isAuthenticated, Token: $token',
-    );
 
     /// App booting or loading
     if (authState is AuthInitial || authState is AuthLoading) {

@@ -20,6 +20,7 @@ abstract class BasePaginationBloc<T>
       super(PaginationState<T>()) {
     on<PaginationFetch>(_onPaginationFetch);
     on<PaginationRefresh>(_onPaginationRefresh);
+    on<PaginationUpdateLocally>(_onPaginationUpdateLocally);
   }
 
   /// Fetch items from the repository. Must be implemented by subclasses.
@@ -41,11 +42,13 @@ abstract class BasePaginationBloc<T>
         final List<T> allItems = [...state.data, ...paginatedData.items];
         final bool isEnd = paginatedData.isEnd || paginatedData.items.isEmpty;
 
-        emit(state.copyWith(
-          status: PaginationStatus.success,
-          data: allItems,
-          hasReachedMax: isEnd,
-        ));
+        emit(
+          state.copyWith(
+            status: PaginationStatus.success,
+            data: allItems,
+            hasReachedMax: isEnd,
+          ),
+        );
 
         // Trigger external callback
         onPageLoaded?.call(params.page, paginatedData.items);
@@ -55,10 +58,12 @@ abstract class BasePaginationBloc<T>
         params.skip = allItems.length;
       },
       failure: (failure) {
-        emit(state.copyWith(
-          status: PaginationStatus.failure,
-          error: failure.message,
-        ));
+        emit(
+          state.copyWith(
+            status: PaginationStatus.failure,
+            error: failure.message,
+          ),
+        );
       },
     );
   }
@@ -70,13 +75,32 @@ abstract class BasePaginationBloc<T>
     params.page = 1;
     params.skip = 0;
 
-    emit(state.copyWith(
-      status: PaginationStatus.initial,
-      data: [],
-      hasReachedMax: false,
-    ));
+    emit(
+      state.copyWith(
+        status: PaginationStatus.initial,
+        data: [],
+        hasReachedMax: false,
+      ),
+    );
 
     add(const PaginationFetch());
+  }
+
+  Future<void> _onPaginationUpdateLocally(
+    PaginationUpdateLocally event,
+    Emitter<PaginationState<T>> emit,
+  ) async {
+    if (state.status != PaginationStatus.success) return;
+    final List<T> updatedData = state.data.map((item) {
+      // Assuming T has an 'id' property. You may need to adjust this logic
+      // based on your actual data structure.
+      if ((item as dynamic)?.id == event.data?.id) {
+        // Update the item locally. You can customize this logic as needed.
+        return event.data as T;
+      }
+      return item;
+    }).toList();
+    emit(state.copyWith(data: updatedData));
   }
 }
 

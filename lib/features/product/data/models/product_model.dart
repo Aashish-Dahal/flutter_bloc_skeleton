@@ -9,7 +9,7 @@ class ProductResponseM {
 
   factory ProductResponseM.fromJson(JsonMap json) {
     return ProductResponseM(
-      data: ProductM.parseList(json['posts']),
+      data: ProductM.parseList(json['products']),
       count: json['total'],
     );
   }
@@ -18,16 +18,24 @@ class ProductResponseM {
 class ProductM {
   final int id;
   final String title;
-  final String body;
+  final String description;
 
-  ProductM({required this.id, required this.title, required this.body});
+  ProductM({required this.id, required this.title, required this.description});
 
   factory ProductM.fromJson(JsonMap json) {
-    return ProductM(id: json['id'], title: json['title'], body: json['body']);
+    return ProductM(
+      id: json['id'],
+      title: json['title'],
+      description: json['description'],
+    );
+  }
+
+  JsonMap toJson() {
+    return {'title': title, 'description': description};
   }
 
   ProductEntity toEntity() {
-    return ProductEntity(id: id, title: title, description: body);
+    return ProductEntity(id: id, title: title, description: description);
   }
 
   static List<ProductM> parseList(Iterable data) =>

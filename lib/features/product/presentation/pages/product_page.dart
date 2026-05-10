@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/di/service_locator.dart';
 import '../../../../core/utils/extension/context_extension/dialog_extension.dart';
 import '../../../../core/utils/extension/context_extension/theme_extension.dart';
-import '../../../../shared/bloc/base_pagination_bloc.dart';
 import '../../../../shared/widgets/organisms/bloc_pagination_view.dart';
 import '../../../auth/presentation/state_management/auth_bloc.dart';
 import '../../../cart/cart.dart';
@@ -45,37 +43,44 @@ class ProductPage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocProvider(
-        create: (context) =>
-            sl<ProductPaginationBloc>()..add(const PaginationFetch()),
-        child: BlocPaginationView<ProductEntity, ProductPaginationBloc>(
-          padding: .symmetric(horizontal: 16, vertical: 8),
-          showDivider: false,
-          onPageLoaded: (page, data) {
-            debugPrint("Page $page loaded with ${data.length} items");
-          },
-          itemBuilder: (context, data) {
-            return Card(
-              child: ListTile(
-                onTap: () {
-                  context.go(
-                    ProductRoute.productDetail.path,
-                    extra: data.id.toString(),
-                  );
-                },
-                title: Text(
-                  data.title,
-                  style: context.bodyLarge?.copyWith(fontWeight: .w700),
-                ),
-                subtitle: Text(
-                  data.description,
-                  style: context.bodySmall,
-                  maxLines: 3,
-                ),
+      body: BlocPaginationView<ProductEntity, ProductPaginationBloc>(
+        padding: .symmetric(horizontal: 16, vertical: 8),
+        showDivider: false,
+        onPageLoaded: (page, data) {
+          debugPrint("Page $page loaded with ${data.length} items");
+        },
+        itemBuilder: (context, data) {
+          return Card(
+            child: ListTile(
+              onTap: () {
+                context.go(
+                  ProductRoute.productDetail.path.replaceAll(
+                    ':id',
+                    data.id.toString(),
+                  ),
+                  extra: data,
+                );
+              },
+              title: Text(
+                data.title,
+                style: context.bodyLarge?.copyWith(fontWeight: .w700),
               ),
-            );
-          },
-        ),
+              subtitle: Text(
+                data.description,
+                style: context.bodySmall,
+                maxLines: 3,
+              ),
+            ),
+          );
+        },
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: () {
+          context.push(ProductRoute.addProduct.path);
+        },
+        child: const Icon(Icons.add_outlined),
       ),
     );
   }

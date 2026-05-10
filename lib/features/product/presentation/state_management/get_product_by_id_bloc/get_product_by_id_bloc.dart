@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -18,12 +20,19 @@ class GetProductByIdBloc
     : _productUsecase = productUsecase,
       super(GetProductByIdState.initial()) {
     on<GetProductByIdRequested>(_onGetProductByIdRequested);
+    on<ProductUpdatedLocally>(_updateProductLocally);
   }
   Future<void> _onGetProductByIdRequested(
     GetProductByIdRequested event,
     Emitter<GetProductByIdState> emit,
   ) async {
-    emit(const GetProductByIdState.loading());
+    final currentState = state;
+    final bool isAlreadyLoaded =
+        currentState is ProductLoaded && currentState.res.id.toString() == event.id;
+
+    if (!isAlreadyLoaded) {
+      emit(const GetProductByIdState.loading());
+    }
 
     final result = await _productUsecase(event.id);
 
@@ -32,5 +41,13 @@ class GetProductByIdBloc
       failure: (failure) =>
           emit(GetProductByIdState.failure(message: failure.message)),
     );
+  }
+
+  Future<void> _updateProductLocally(
+    ProductUpdatedLocally event,
+    Emitter<GetProductByIdState> emit,
+  ) async {
+    log('GetProductByIdBloc: Updating product locally. New Title: ${event.product.title}');
+    emit(GetProductByIdState.loaded(res: event.product));
   }
 }

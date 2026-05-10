@@ -36,21 +36,23 @@ class AppBlocButton<B extends StateStreamableSource<S>, S>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<B, S>(
-      bloc: bloc,
-      listener: listener,
-      builder: (context, state) {
-        final loading = isLoading(state);
-        return AppButton(
-          label: label,
-          variant: variant,
-          color: color,
-          isFullWidth: isFullWidth,
-          onPressed: () => onTap(bloc),
-          loading: loading,
-          icon: icon,
-        );
-      },
+    return BlocProvider(
+      create: (context) => bloc,
+      child: BlocConsumer<B, S>(
+        listener: listener,
+        builder: (context, state) {
+          final loading = isLoading(state);
+          return AppButton(
+            label: label,
+            variant: variant,
+            color: color,
+            isFullWidth: isFullWidth,
+            onPressed: () => onTap(bloc),
+            loading: loading,
+            icon: icon,
+          );
+        },
+      ),
     );
   }
 }

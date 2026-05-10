@@ -3,5 +3,7 @@ class ApiEndpoints {
   static const String profile = '/auth/me';
   static const String refreshToken = '/auth/refresh';
 
-  static const String getPosts = '/posts';
+  /// Product Endpoints
+  static const String getProducts = '/products';
+  static const String addProduct = '/products/add';
 }
