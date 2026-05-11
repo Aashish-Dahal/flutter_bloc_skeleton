@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:gsheets/gsheets.dart';
 
 void main() async {
-  final file = File('../google_sheet.json');
+  final file = File('./google_sheet.json');
 
   if (!file.existsSync()) {
     throw Exception("❌ Service account JSON not found!");
