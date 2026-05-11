@@ -1,0 +1,53 @@
+name: Generate Translations (Tag Trigger)
+
+on:
+  push:
+    tags:
+      - gen_translation
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Create Google Sheet credential
+        run: echo '${{ secrets.GOOGLE_SHEET_JSON }}' > google_sheet.json
+
+      - name: Generate translations
+        run: dart run generator/generate_translation.dart
+
+      - name: Check changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        if: steps.changes.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "chore: update translations"
+          title: "Update translation"
+          body: |
+            Auto-generated translation update triggered by tag: gen_translation
+          branch: auto/update-translation
+          delete-branch: true
+          labels: gen_translation
