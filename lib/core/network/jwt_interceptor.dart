@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
@@ -101,6 +102,7 @@ final class JwtInterceptor extends Interceptor {
   // ── POST /auth/refresh ─────────────────────────────────────────────────────
   Future<void> _refreshAccessToken() async {
     final refreshToken = await _tokenStorage.getRefreshToken();
+    log('Retrying request 1 to ${refreshToken} with new access token');
 
     if (refreshToken == null) {
       throw const RefreshTokenExpiredException();
@@ -128,6 +130,7 @@ final class JwtInterceptor extends Interceptor {
   // ── Retry original request with new token ─────────────────────────────────
   Future<Response<dynamic>> _retry(RequestOptions options) async {
     final newToken = await _tokenStorage.getAccessToken();
+    log('Retrying request 2 to ${options.path} with new access token');
 
     return _dio.request<dynamic>(
       options.path,
