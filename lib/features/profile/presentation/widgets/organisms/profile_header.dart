@@ -1,44 +1,31 @@
 import 'package:flutter/material.dart';
 
+import '../../../../auth/domain/entities/user_entity.dart';
 import '../atoms/profile_avatar.dart';
 import '../molecules/profile_header_info.dart';
 
 class ProfileHeader extends StatelessWidget {
-  final Map<String, dynamic> user;
+  final UserEntity user;
 
-  const ProfileHeader({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const ProfileHeader({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            theme.primaryColor,
-            theme.primaryColor.withValues(alpha: 0.6),
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-      ),
+      width: double.infinity,
+      color: Colors.blueAccent.withValues(alpha: 0.8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: 40),
-          ProfileAvatar(
-            id: user['id'],
-            imageUrl: user['image'],
-          ),
+          ProfileAvatar(imageUrl: user.profile),
           const SizedBox(height: 16),
           ProfileHeaderInfo(
-            firstName: user['firstName'],
-            lastName: user['lastName'],
-            username: user['username'],
+            firstName: user.firstName,
+            lastName: user.lastName,
+            username: user.username,
           ),
+          const SizedBox(height: 16),
         ],
       ),
     );

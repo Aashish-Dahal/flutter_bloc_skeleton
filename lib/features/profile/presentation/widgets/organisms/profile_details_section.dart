@@ -1,106 +1,83 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/utils/extension/context_extension/dialog_extension.dart';
+import '../../../../../core/utils/extension/context_extension/theme_extension.dart';
+import '../../../../../core/utils/index.dart';
+import '../../../../../shared/widgets/molecules/app_bloc_button.dart';
+import '../../../../auth/auth.dart';
+import '../../../../auth/domain/entities/user_entity.dart';
 import '../molecules/profile_info_card.dart';
 
 class ProfileDetailsSection extends StatelessWidget {
-  final Map<String, dynamic> user;
+  final UserEntity user;
 
-  const ProfileDetailsSection({
-    Key? key,
-    required this.user,
-  }) : super(key: key);
+  const ProfileDetailsSection({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Transform.translate(
-      offset: const Offset(0, -20),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Profile Information',
-                style: theme.textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: .stretch,
+          children: [
+            Text(
+              'Profile Information',
+              style: context.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 24),
+            ProfileInfoCard(
+              icon: Icons.email_outlined,
+              title: 'Email Address',
+              value: user.email,
+            ),
+            const SizedBox(height: 16),
+            ProfileInfoCard(
+              icon: Icons.person_outline,
+              title: 'Gender',
+              value: user.gender.toString().replaceFirst(
+                user.gender[0],
+                user.gender[0].toUpperCase(),
               ),
-              const SizedBox(height: 24),
-              ProfileInfoCard(
-                icon: Icons.email_outlined,
-                title: 'Email Address',
-                value: user['email'],
-              ),
-              const SizedBox(height: 16),
-              ProfileInfoCard(
-                icon: Icons.person_outline,
-                title: 'Gender',
-                value: user['gender'].toString().replaceFirst(
-                      user['gender'][0],
-                      user['gender'][0].toUpperCase(),
-                    ),
-              ),
-              const SizedBox(height: 16),
-              ProfileInfoCard(
-                icon: Icons.badge_outlined,
-                title: 'User ID',
-                value: '#${user['id']}',
-              ),
-              const SizedBox(height: 32),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: const Text(
-                    'Edit Profile',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    side: BorderSide(color: theme.colorScheme.error),
-                  ),
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: theme.colorScheme.error,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // BlocListener<AuthBloc, AuthState>(
+
+            //   child: IconButton(
+            //     onPressed: () async {
+            //       context.read<AuthBloc>().add(LogoutRequested());
+            //     },
+            //     icon: const Icon(Icons.logout_outlined),
+            //   ),
+            // ),
+            AppBlocButton<AuthBloc, AuthState>(
+              bloc: context.read<AuthBloc>(),
+              label: "Logout",
+              onTap: (bloc) => bloc.add(LogoutRequested()),
+              listener: (context, state) {
+                state.maybeWhen(
+                  unauthenticated: (message) {
+                    context.showSnackBar(message ?? "Logged out");
+                  },
+                  failure: (message) => context.showSnackBar(message),
+                  orElse: () {},
+                );
+              },
+              isLoading: (state) => state is AuthLoading,
+              variant: ButtonVariant.outlined,
+            ),
+
+            const SizedBox(height: 32),
+          ],
         ),
       ),
     );

@@ -10,7 +10,7 @@ class GetProductCategoryState
   @Implements<BaseLoading>()
   const factory GetProductCategoryState.loading() = ProductCategoryLoading;
 
-  @Implements<BaseLoaded<ProductCategoryEntity>>()
+  @Implements<BaseLoaded<List<ProductCategoryEntity>>>()
   const factory GetProductCategoryState.loaded({
     required List<ProductCategoryEntity> res,
   }) = ProductCategoryLoaded;

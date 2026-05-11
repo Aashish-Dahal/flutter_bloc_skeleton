@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/utils/extension/context_extension/dialog_extension.dart';
-import '../../../auth/presentation/state_management/auth_bloc.dart';
-
+import '../../../profile/presentation/routes/profile_route_paths.dart';
 import '../routes/product_route_paths.dart';
 
 import '../widgets/organisms/product_view.dart';
@@ -18,22 +15,11 @@ class ProductPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Product Page"),
         actions: [
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              state.maybeWhen(
-                unauthenticated: (message) {
-                  context.showSnackBar(message ?? "Logged out");
-                },
-                failure: (message) => context.showSnackBar(message),
-                orElse: () {},
-              );
+          IconButton(
+            onPressed: () async {
+              context.push(ProfileRoute.profile.path);
             },
-            child: IconButton(
-              onPressed: () async {
-                context.read<AuthBloc>().add(LogoutRequested());
-              },
-              icon: const Icon(Icons.logout_outlined),
-            ),
+            icon: const Icon(Icons.person_2_outlined),
           ),
         ],
       ),
