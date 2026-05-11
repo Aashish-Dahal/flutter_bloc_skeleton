@@ -53,10 +53,11 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
+          base: main
+          branch: auto/update-translation
           commit-message: "chore: update translations"
           title: "Update translation"
           body: |
             Auto-generated translation update triggered by tag: gen_translation
-          branch: auto/update-translation
           delete-branch: true
           labels: gen_translation
