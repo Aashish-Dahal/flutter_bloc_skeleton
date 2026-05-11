@@ -7,6 +7,7 @@ import '../../../shared/widgets/organisms/page_not_found.dart'
     show PageNotFoundView;
 import '../../features/product/presentation/routes/product_routes.dart'
     show ProductRoutes;
+import '../../features/profile/presentation/routes/profile_routes.dart';
 import 'app_route_config.dart' show ConstantRoutingConfig;
 import 'app_route_redirect.dart' show AppRouterRedirect;
 
@@ -33,6 +34,7 @@ class AppRouter extends GoRouter {
              redirect: AppRouterRedirect.redirect,
              routes: [
                ...AuthRoutes.routes,
+               ...ProfileRoutes.routes,
                ...ProductRoutes.routes,
                ...CartRoutes.routes,
              ],

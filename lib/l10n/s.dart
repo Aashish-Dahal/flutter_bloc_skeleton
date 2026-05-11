@@ -97,23 +97,137 @@ abstract class S {
     Locale('ja'),
   ];
 
-  /// No description provided for @greeting.
+  /// No description provided for @authHome.
   ///
   /// In en, this message translates to:
-  /// **'Hello'**
-  String get greeting;
+  /// **'Home'**
+  String get authHome;
 
-  /// No description provided for @cartPageTitle.
+  /// No description provided for @authName.
   ///
   /// In en, this message translates to:
-  /// **'Cart'**
-  String get cartPageTitle;
+  /// **'Full Name'**
+  String get authName;
 
-  /// No description provided for @cartEmptyMessage.
+  /// No description provided for @authEmailAddress.
   ///
   /// In en, this message translates to:
-  /// **'Your cart is empty'**
-  String get cartEmptyMessage;
+  /// **'Email Address'**
+  String get authEmailAddress;
+
+  /// No description provided for @authPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get authPhone;
+
+  /// No description provided for @authFurigana.
+  ///
+  /// In en, this message translates to:
+  /// **'Furigana'**
+  String get authFurigana;
+
+  /// No description provided for @authPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get authPassword;
+
+  /// No description provided for @authTest.
+  ///
+  /// In en, this message translates to:
+  /// **'test'**
+  String get authTest;
+
+  /// No description provided for @homeProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get homeProduct;
+
+  /// No description provided for @homeProductName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name'**
+  String get homeProductName;
+
+  /// No description provided for @homeEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get homeEmailAddress;
+
+  /// No description provided for @homePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get homePhone;
+
+  /// No description provided for @homeFurigana.
+  ///
+  /// In en, this message translates to:
+  /// **'Furigana'**
+  String get homeFurigana;
+
+  /// No description provided for @productProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get productProduct;
+
+  /// No description provided for @productProductName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name'**
+  String get productProductName;
+
+  /// No description provided for @productEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get productEmailAddress;
+
+  /// No description provided for @productPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get productPhone;
+
+  /// No description provided for @productFurigana.
+  ///
+  /// In en, this message translates to:
+  /// **'Furigana'**
+  String get productFurigana;
+
+  /// No description provided for @cartProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get cartProduct;
+
+  /// No description provided for @cartProductName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name'**
+  String get cartProductName;
+
+  /// No description provided for @cartEmailAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Email Address'**
+  String get cartEmailAddress;
+
+  /// No description provided for @cartPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get cartPhone;
+
+  /// No description provided for @cartFurigana.
+  ///
+  /// In en, this message translates to:
+  /// **'Furigana'**
+  String get cartFurigana;
 }
 
 class _SDelegate extends LocalizationsDelegate<S> {

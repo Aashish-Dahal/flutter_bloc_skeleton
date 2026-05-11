@@ -26,7 +26,8 @@ abstract class UserModel with _$UserModel {
   UserEntity toEntity() => UserEntity(
     username: username,
     email: email,
-    fullname: '$firstName $lastName',
+    firstName: firstName,
+    lastName: lastName,
     gender: gender,
     profile: image,
     accessToken: accessToken,

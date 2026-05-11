@@ -76,13 +76,12 @@ watch:
 swagger-gen:
 	@echo "$(GREEN) Generating features from Swagger...$(NC)"
 	@dart generator/swagger_parser.dart $(TAG) $(FILE)
-swagger-gen-all: swagger-gen generate
 
+swagger-gen-all: swagger-gen generate
 
 generate-assets:
 	@echo "$(GREEN) Generating assets constants...$(NC)"
 	@dart generator/generate_assets.dart
-
 
 generate_dynamic_links: dynamic_link_setup
 	@$(MAKE) app_links_android universal_links_ios host_files

@@ -9,11 +9,68 @@ class SEn extends S {
   SEn([String locale = 'en']) : super(locale);
 
   @override
-  String get greeting => 'Hello';
+  String get authHome => 'Home';
 
   @override
-  String get cartPageTitle => 'Cart';
+  String get authName => 'Full Name';
 
   @override
-  String get cartEmptyMessage => 'Your cart is empty';
+  String get authEmailAddress => 'Email Address';
+
+  @override
+  String get authPhone => 'Phone';
+
+  @override
+  String get authFurigana => 'Furigana';
+
+  @override
+  String get authPassword => 'Password';
+
+  @override
+  String get authTest => 'test';
+
+  @override
+  String get homeProduct => 'Product';
+
+  @override
+  String get homeProductName => 'Product name';
+
+  @override
+  String get homeEmailAddress => 'Email Address';
+
+  @override
+  String get homePhone => 'Phone';
+
+  @override
+  String get homeFurigana => 'Furigana';
+
+  @override
+  String get productProduct => 'Product';
+
+  @override
+  String get productProductName => 'Product name';
+
+  @override
+  String get productEmailAddress => 'Email Address';
+
+  @override
+  String get productPhone => 'Phone';
+
+  @override
+  String get productFurigana => 'Furigana';
+
+  @override
+  String get cartProduct => 'Product';
+
+  @override
+  String get cartProductName => 'Product name';
+
+  @override
+  String get cartEmailAddress => 'Email Address';
+
+  @override
+  String get cartPhone => 'Phone';
+
+  @override
+  String get cartFurigana => 'Furigana';
 }

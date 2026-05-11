@@ -6,11 +6,11 @@ class ProfileHeaderInfo extends StatelessWidget {
   final String username;
 
   const ProfileHeaderInfo({
-    Key? key,
+    super.key,
     required this.firstName,
     required this.lastName,
     required this.username,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,7 @@ class ProfileHeaderInfo extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           '@$username',
-          style: theme.textTheme.titleMedium?.copyWith(
-            color: Colors.white70,
-          ),
+          style: theme.textTheme.titleMedium?.copyWith(color: Colors.white70),
         ),
       ],
     );

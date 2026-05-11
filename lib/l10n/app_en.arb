@@ -1,6 +1,25 @@
 {
   "@@locale": "en",
-  "greeting": "Hello",
-  "cartPageTitle": "Cart",
-  "cartEmptyMessage": "Your cart is empty"
+  "authHome": "Home",
+  "authName": "Full Name",
+  "authEmailAddress": "Email Address",
+  "authPhone": "Phone",
+  "authFurigana": "Furigana",
+  "authPassword": "Password",
+  "authTest": "test",
+  "homeProduct": "Product",
+  "homeProductName": "Product name",
+  "homeEmailAddress": "Email Address",
+  "homePhone": "Phone",
+  "homeFurigana": "Furigana",
+  "productProduct": "Product",
+  "productProductName": "Product name",
+  "productEmailAddress": "Email Address",
+  "productPhone": "Phone",
+  "productFurigana": "Furigana",
+  "cartProduct": "Product",
+  "cartProductName": "Product name",
+  "cartEmailAddress": "Email Address",
+  "cartPhone": "Phone",
+  "cartFurigana": "Furigana"
 }

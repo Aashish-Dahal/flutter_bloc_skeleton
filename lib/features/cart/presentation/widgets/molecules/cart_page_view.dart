@@ -9,7 +9,7 @@ class CartPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        S.of(context).cartEmptyMessage,
+        S.of(context).cartProduct,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyLarge,
       ),
