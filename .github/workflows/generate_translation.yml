@@ -36,7 +36,7 @@ jobs:
 
       # Run your generator script
       - name: Generate translations
-        run: flutter run generator/generate_translation.dart
+        run: dart run generator/translation_sheet_gen.dart
 
       # Detect changes
       - name: Check changes
