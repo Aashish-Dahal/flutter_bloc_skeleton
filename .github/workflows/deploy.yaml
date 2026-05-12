@@ -2,9 +2,6 @@ name: Android Build & Deploy
 
 on:
   push:
-    branches:
-      - main
-      - develop
     tags:
       - "v*-dev"
       - "v*"
@@ -19,7 +16,7 @@ jobs:
   build-and-deploy-android:
     name: Build & Deploy Android APK
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+    environment: ${{ contains(github.ref_name, '-dev') && 'dev' || 'prod' }}
 
     steps:
       - name: Checkout repository
@@ -27,9 +24,9 @@ jobs:
 
       - name: Detect Environment
         run: |
-          REF=${GITHUB_REF_NAME}
+          TAG=${GITHUB_REF_NAME}
 
-          if [[ "$REF" == "develop" || "$REF" == *"-dev" ]]; then
+          if [[ "$TAG" == *"-dev" ]]; then
             echo "APP_ID=${{ secrets.FIREBASE_APP_ID_ANDROID }}" >> $GITHUB_ENV
             echo "ENV_NAME=dev" >> $GITHUB_ENV
             echo "APK_NAME=app-release-dev.apk" >> $GITHUB_ENV
@@ -105,6 +102,7 @@ jobs:
           groups: testers
           file: build/app/outputs/flutter-apk/${{ env.APK_NAME }}
           releaseNotes: |
+            App Name: ${{env.APK_NAME }}
             Environment: ${{ env.ENV_NAME }}
             Branch/Tag: ${{ github.ref_name }}
             Commit: ${{ github.sha }}
