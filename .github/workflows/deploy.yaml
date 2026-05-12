@@ -19,7 +19,7 @@ jobs:
   build-and-deploy-android:
     name: Build & Deploy Android APK
     runs-on: ubuntu-latest
-    environment: dev
+    environment: ${{ github.ref_name == 'main' && 'prod' || 'dev' }}
 
     steps:
       - name: Checkout repository
@@ -55,14 +55,14 @@ jobs:
       - name: Decode firebase_options.dart
         run: |
           echo "${{ secrets.FIREBASE_OPTIONS_BASE64 }}" | base64 --decode > lib/firebase_options.dart
-          echo "Generated firebase_options.dart:"
-          cat lib/firebase_options.dart
+          echo "✅Generated firebase_options.dart:"
+         
       
       - name: Decode Google Services
         run: |
           echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > android/app/google-services.json
-          echo "Generated google-services.json:"
-          cat android/app/google-services.json
+          echo "✅Generated google-services.json:"
+       
 
       - name: Decode config.dart
         run: |
