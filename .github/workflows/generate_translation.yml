@@ -3,7 +3,7 @@ name: Generate Translations (Tag Trigger)
 on:
   push:
     tags:
-      - gen_translation
+      - "gen_translation-*"
 
 jobs:
   generate:

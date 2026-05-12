@@ -69,7 +69,7 @@ void main() async {
     print('✅ Completed: $sheetTitle');
   }
 
-  final dir = Directory('../lib/l10n');
+  final dir = Directory('./lib/l10n');
 
   if (!dir.existsSync()) {
     dir.createSync(recursive: true);
@@ -78,13 +78,15 @@ void main() async {
   final enPath = '${dir.path}/app_en.arb';
   final jaPath = '${dir.path}/app_ja.arb';
 
-  await File(
-    enPath,
-  ).writeAsString(const JsonEncoder.withIndent('  ').convert(enJson));
+  await File(enPath).writeAsString(
+    const JsonEncoder.withIndent('  ').convert(enJson),
+    flush: true,
+  );
 
-  await File(
-    jaPath,
-  ).writeAsString(const JsonEncoder.withIndent('  ').convert(jaJson));
+  await File(jaPath).writeAsString(
+    const JsonEncoder.withIndent('  ').convert(jaJson),
+    flush: true,
+  );
 
   print('🎉 Translations exported successfully!');
   print('📤 EN: $enPath');
