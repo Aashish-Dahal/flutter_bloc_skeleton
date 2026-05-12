@@ -29,8 +29,8 @@ jobs:
           REF=${GITHUB_REF_NAME}
 
           if [[ "$REF" == "develop" || "$REF" == *"-dev" ]]; then
-            echo "APP_ID=${{ secrets.FIREBASE_APP_ID_DEV }}" >> $GITHUB_ENV
-            echo "ENV_NAME=development" >> $GITHUB_ENV
+            echo "APP_ID=${{ secrets.FIREBASE_APP_ID_ANDROID }}" >> $GITHUB_ENV
+            echo "ENV_NAME=dev" >> $GITHUB_ENV
             echo "APK_NAME=app-release-dev.apk" >> $GITHUB_ENV
           else
             echo "APP_ID=${{ secrets.FIREBASE_APP_ID_PROD }}" >> $GITHUB_ENV
