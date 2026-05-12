@@ -38,6 +38,9 @@ jobs:
       - name: Generate translations
         run: dart run generator/translation_sheet_gen.dart
 
+      - name: Update Localization Files
+        run: flutter pub get
+
       # Detect changes
       - name: Check changes
         id: changes
