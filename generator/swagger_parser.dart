@@ -1220,7 +1220,6 @@ void _generateDetailsPage(
 ) {
   final featureName = _toSnakeCase(featureTag);
   final blocName = '${_capitalize(ep.methodName)}Bloc';
-  final entityName = ep.returnTypeEntity;
   final fileName = '${featureName}_details_page.dart';
 
   final buffer = StringBuffer();
@@ -1308,7 +1307,6 @@ void _generateActionPage(
 ) {
   final featureName = _toSnakeCase(featureTag);
   final blocName = '${_capitalize(ep.methodName)}Bloc';
-  final entityName = ep.returnTypeEntity;
   final fileName = '${featureName}_${actionLabel.toLowerCase()}_page.dart';
 
   final buffer = StringBuffer();
