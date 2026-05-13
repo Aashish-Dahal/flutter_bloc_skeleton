@@ -4,4 +4,11 @@
 *.g.dart
 *.freezed.dart
 SKILL.md
+google_sheet.jsonkey.properties
+*.jks
+google-services.json
+GoogleService-Info.plist
+.vscode
+firebase.json
 google_sheet.json
+skills-lock.json
