@@ -2,9 +2,9 @@ name: Flutter Test
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
 
 jobs:
   test:
@@ -16,8 +16,9 @@ jobs:
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.5'
-          channel: 'stable'
+          flutter-version: 3.41.4
+          channel: stable
+          cache: true
 
       - name: Install Dependencies
         run: flutter pub get
