@@ -253,10 +253,10 @@ void main(List<String> args) async {
   }
 
   // 7. Generate DI and Routing
-  _generateDI(targetTag, endpoints, listEndpoints, '$baseDir');
+  _generateDI(targetTag, endpoints, listEndpoints, baseDir);
   _generateRoutePaths(targetTag, pageTypes, '$baseDir/presentation/routes');
   _generateRoutes(targetTag, pageTypes, '$baseDir/presentation/routes');
-  _generateFeatureEntry(targetTag, '$baseDir');
+  _generateFeatureEntry(targetTag, baseDir);
 
   print('✅ Feature $targetTag generated successfully in $baseDir');
 }
@@ -1497,7 +1497,7 @@ void _generateRoutePaths(
   buffer.writeln("  String get routeName => switch (this) {");
   for (final type in pageTypes) {
     buffer.writeln(
-      "    ${capFeature}Route.$type => '${capFeature}${_capitalize(type)}',",
+      "    ${capFeature}Route.$type => '$capFeature${_capitalize(type)}',",
     );
   }
   buffer.writeln("  };");
