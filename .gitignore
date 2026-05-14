@@ -12,3 +12,4 @@ GoogleService-Info.plist
 firebase.json
 google_sheet.json
 skills-lock.json
+firebase_service_account_key.json

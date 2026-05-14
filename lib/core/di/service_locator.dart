@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_push_notification_module/fcm_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../config.dart';
 import '../../features/auth/auth.dart';
 import '../../features/cart/cart_di.dart';
 import '../../features/product/product_di.dart';
@@ -27,6 +29,12 @@ Future<void> init() async {
   sl.registerLazySingleton(() => sharedPreferences);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+
+  OneSignal.initialize(Config.oneSignalAppId);
+  // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
+  OneSignal.Notifications.requestPermission(true);
 
   sl.registerLazySingleton(
     () => const FlutterSecureStorage(
