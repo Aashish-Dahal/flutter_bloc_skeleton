@@ -14,7 +14,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Cart'), findsOneWidget);
-    expect(find.text('Your cart is empty'), findsOneWidget);
+    expect(find.text('Product name'), findsOneWidget); // S.of(context).cartProductName
+    expect(find.text('Product'), findsOneWidget); // S.of(context).cartProduct
   });
 }

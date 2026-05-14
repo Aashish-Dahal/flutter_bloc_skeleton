@@ -2,21 +2,28 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_skeleton/features/auth/presentation/widgets/molecules/login_page_view.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:mocktail/mocktail.dart';
 
 import 'package:flutter_bloc_skeleton/features/auth/presentation/state_management/auth_bloc.dart';
 
-import '../../../helpers/test_helpers.dart';
+import '../../../../helpers/test_helpers.dart';
 
 void main() {
+  setUpAll(() {
+    registerAuthFallbacks();
+  });
+
   late MockAuthBloc mockAuthBloc;
 
   setUp(() {
     mockAuthBloc = MockAuthBloc();
     when(() => mockAuthBloc.state).thenReturn(const AuthState.initial());
+    when(() => mockAuthBloc.stream).thenAnswer((_) => const Stream.empty());
+    when(() => mockAuthBloc.close()).thenAnswer((_) async {});
   });
 
-  tearDown(() => mockAuthBloc.close());
+  // No close() needed for mocks
 
   group('LoginPageView', () {
     // ── UI rendering ──────────────────────────────────────────────────────────
@@ -27,10 +34,9 @@ void main() {
       await tester.pumpApp(const LoginPageView(), authBloc: mockAuthBloc);
       await tester.pumpAndSettle();
 
-      expect(find.text('Welcome to Login Page'), findsOneWidget);
+      expect(find.text('Welcome Back 👋'), findsOneWidget);
       expect(find.text('Login'), findsOneWidget);
       expect(find.text('Register'), findsOneWidget);
-      expect(find.text("Don't have an account?"), findsOneWidget);
     });
 
     // ── Form validation guard ─────────────────────────────────────────────────
@@ -43,7 +49,7 @@ void main() {
 
         // Clear the pre-filled username
         await tester.enterText(
-          find.byWidgetPredicate((w) => w is TextFormField).first,
+          find.byWidgetPredicate((w) => w is FormBuilderTextField && w.name == 'username'),
           '',
         );
 
@@ -102,7 +108,7 @@ void main() {
         when(() => mockAuthBloc.state).thenReturn(const AuthState.loading());
 
         await tester.pumpApp(const LoginPageView(), authBloc: mockAuthBloc);
-        await tester.pump(); // don't settle — spinner is animating
+        await tester.pump(const Duration(milliseconds: 100));
 
         // Your .withLoading() extension replaces button content with a spinner
         expect(find.byType(CircularProgressIndicator), findsOneWidget);

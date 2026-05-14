@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_skeleton/features/auth/presentation/widgets/atoms/login_input_field.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_bloc_skeleton/l10n/s.dart';
 
 void main() {
   late GlobalKey<FormBuilderState> formKey;
@@ -14,6 +15,8 @@ void main() {
   Future<void> pumpInputField(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
+        localizationsDelegates: S.localizationsDelegates,
+        supportedLocales: S.supportedLocales,
         home: Scaffold(body: LoginInputField(formKey: formKey)),
       ),
     );
@@ -110,6 +113,7 @@ void main() {
       );
 
       final isValid = formKey.currentState!.validate();
+      formKey.currentState!.save();
       expect(isValid, isTrue);
 
       final values = formKey.currentState!.value;
