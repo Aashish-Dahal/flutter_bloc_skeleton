@@ -32,13 +32,13 @@ class App extends StatelessWidget {
         BlocProvider.value(value: sl<AppTheme>()),
         BlocProvider.value(value: sl<LocaleCubit>()),
       ],
-      child: ScreenUtilInit(
-        minTextAdapt: true,
-        designSize: const Size(360, 690),
-        builder: (context, child) => BlocBuilder<LocaleCubit, Locale>(
-          builder: (context, locale) {
-            return BlocBuilder<AppTheme, ThemeData>(
-              builder: (context, themeData) => MaterialApp.router(
+      child: BlocBuilder<LocaleCubit, Locale>(
+        builder: (context, locale) {
+          return BlocBuilder<AppTheme, ThemeData>(
+            builder: (context, themeData) => ScreenUtilInit(
+              minTextAdapt: true,
+              designSize: const Size(360, 690),
+              builder: (context, child) => MaterialApp.router(
                 debugShowCheckedModeBanner: kDebugMode,
                 routerConfig: sl<AppRouter>(),
                 title: 'Flutter Bloc Skeleton',
@@ -53,9 +53,9 @@ class App extends StatelessWidget {
                   return LocaleSwitcher(child: child);
                 },
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

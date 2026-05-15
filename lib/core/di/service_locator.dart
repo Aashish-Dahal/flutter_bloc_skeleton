@@ -10,12 +10,15 @@ import '../../features/cart/cart_di.dart';
 import '../../features/product/product_di.dart';
 
 import '../../features/profile/presentation/profile_di.dart';
+import '../../features/optimization/bloc/optimization_bloc.dart';
 import '../../firebase_options.dart';
 import '../../shared/cubit/locale_cubit.dart';
 import '../routes/app_routes.dart';
 import '../storage/secure_token_storage.dart';
 import '../storage/token_storage.dart';
 import '../network/dio_client.dart';
+import '../network/connectivity_service.dart';
+import '../storage/optimization_service.dart';
 import '../theme/app_theme.dart';
 import '../utils/extension/bloc_extension.dart';
 
@@ -69,12 +72,21 @@ Future<void> init() async {
   // Core / Shared
   sl.registerLazySingleton(() => AppTheme());
   sl.registerLazySingleton(() => LocaleCubit());
+  sl.registerLazySingleton(() => ConnectivityService());
+  sl.registerLazySingleton(() => OptimizationService(sl<SharedPreferences>()));
 
   // Features registration
   initAuth();
   initCart();
   initProduct();
   initProfile();
+
+  sl.registerFactory(
+    () => OptimizationBloc(
+      optimizationService: sl<OptimizationService>(),
+      connectivityService: sl<ConnectivityService>(),
+    ),
+  );
 
   /// Router LAST
 
