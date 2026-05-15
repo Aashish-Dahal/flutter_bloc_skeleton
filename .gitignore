@@ -1,0 +1,15 @@
+*.dart_tool
+.flutter-plugins-dependencies
+*build
+*.g.dart
+*.freezed.dart
+SKILL.md
+google_sheet.jsonkey.properties
+*.jks
+google-services.json
+GoogleService-Info.plist
+.vscode
+firebase.json
+google_sheet.json
+skills-lock.json
+firebase_service_account_key.json
