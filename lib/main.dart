@@ -4,6 +4,7 @@ import 'package:flutter/material.dart'
 
 import 'app.dart' show App;
 import 'core/di/service_locator.dart' as di;
+import 'core/security/screen_record_block.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -14,6 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await di.initFirebase();
+  // await SecurityService.enable();
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   // await FirebaseMessaging.instance.subscribeToTopic("all");
   // await di.sl<FirebaseNotificationService>().initialize();
