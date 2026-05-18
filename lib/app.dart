@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../core/di/service_locator.dart';
 import 'core/routes/app_routes.dart';
 import 'features/auth/auth.dart';
+import 'features/optimization/bloc/optimization_bloc.dart';
 import 'core/theme/app_theme.dart';
 import 'l10n/s.dart';
 import 'shared/cubit/locale_cubit.dart';
@@ -31,6 +32,7 @@ class App extends StatelessWidget {
         BlocProvider.value(value: sl<AuthBloc>()),
         BlocProvider.value(value: sl<AppTheme>()),
         BlocProvider.value(value: sl<LocaleCubit>()),
+        BlocProvider(create: (context) => sl<OptimizationBloc>()),
       ],
       child: BlocBuilder<LocaleCubit, Locale>(
         builder: (context, locale) {

@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 extension BlocExtensions<T> on BlocBase<T> {
   Listenable asListenable() {
     final notifier = ChangeNotifier();
-    final subscription = stream.listen((_) {
+    stream.listen((_) {
       // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       notifier.notifyListeners();
     });
