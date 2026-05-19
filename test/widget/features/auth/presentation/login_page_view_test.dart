@@ -47,12 +47,7 @@ void main() {
         await tester.pumpApp(const LoginPageView(), authBloc: mockAuthBloc);
         await tester.pumpAndSettle();
 
-        // Clear the pre-filled username
-        await tester.enterText(
-          find.byWidgetPredicate((w) => w is FormBuilderTextField && w.name == 'username'),
-          '',
-        );
-
+        // The form is initially empty
         await tester.tap(find.text('Login'));
         await tester.pumpAndSettle();
 
@@ -62,19 +57,27 @@ void main() {
     );
 
     testWidgets(
-      'tapping Login with valid pre-filled values fires loginRequested',
+      'tapping Login with valid values fires loginRequested',
       (tester) async {
         await tester.pumpApp(const LoginPageView(), authBloc: mockAuthBloc);
         await tester.pumpAndSettle();
 
-        // Form is pre-filled with emilys / emilyspass — both valid
+        await tester.enterText(
+          find.byWidgetPredicate((w) => w is FormBuilderTextField && w.name == 'username'),
+          'test@example.com',
+        );
+        await tester.enterText(
+          find.byWidgetPredicate((w) => w is FormBuilderTextField && w.name == 'password'),
+          'password123',
+        );
+
         await tester.tap(find.text('Login'));
         await tester.pumpAndSettle();
 
         verify(
           () => mockAuthBloc.add(
-            AuthEvent.loginRequested(
-              userMap: {'username': 'emilys', 'password': 'emilyspass'},
+            const AuthEvent.loginRequested(
+              userMap: {'username': 'test@example.com', 'password': 'password123'},
             ),
           ),
         ).called(1);
